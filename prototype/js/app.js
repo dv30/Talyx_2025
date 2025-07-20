@@ -99,6 +99,20 @@ class TalyxApp {
         console.log(`✨ Highlighting: ${this.highlightingEnabled ? 'ON' : 'OFF'}`);
     }
     
+    logInteraction(type, data) {
+        // Log user interactions for learning analytics
+        this.userInteractions[Date.now()] = {
+            type: type,
+            data: data,
+            timestamp: new Date().toISOString()
+        };
+        
+        // Save to localStorage
+        localStorage.setItem('talyx-interactions', JSON.stringify(this.userInteractions));
+        
+        console.log(`📊 Interaction logged: ${type}`, data);
+    }
+    
     toggleLanguage(mode) {
         const englishTexts = document.querySelectorAll('.english-text');
         const buttons = document.querySelectorAll('.toggle-btn');
@@ -389,13 +403,25 @@ function toggleLanguage(mode) {
 }
 
 function toggleVocabDetails(card) {
+    const isExpanded = card.classList.contains('expanded');
+    
+    // Toggle expanded state
     card.classList.toggle('expanded');
     
-    // Visual feedback
+    // Visual feedback - slight scale animation
     card.style.transform = 'scale(0.98)';
     setTimeout(() => {
         card.style.transform = '';
     }, 150);
+    
+    // Log interaction for learning analytics
+    if (window.talyxApp) {
+        const vocabWord = card.querySelector('.vocab-french').textContent;
+        window.talyxApp.logInteraction('vocab_expand', {
+            word: vocabWord,
+            expanded: !isExpanded
+        });
+    }
 }
 
 // Initialize application when DOM is loaded

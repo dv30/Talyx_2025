@@ -119,12 +119,59 @@ body:not(.dev-mode) .edit-tooltip {
     background: #E5E7EB;
     padding: 1rem 2rem;
     border-radius: 12px;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
 }
 
 .header-controls {
     display: flex;
     align-items: center;
     gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Responsive header */
+@media (max-width: 1024px) {
+    .header-content {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+    
+    .header-left {
+        justify-content: space-between;
+        width: 100%;
+    }
+    
+    .header-controls {
+        justify-content: center;
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-controls {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .language-toggle {
+        order: 1;
+    }
+    
+    .feature-toggles {
+        order: 2;
+    }
+    
+    .dev-controls-header {
+        order: 3;
+    }
 }
 
 .language-toggle {
@@ -133,6 +180,23 @@ body:not(.dev-mode) .edit-tooltip {
     border-radius: 8px;
     padding: 0.25rem;
     gap: 0.25rem;
+    flex-shrink: 0;
+}
+
+.nav {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 640px) {
+    .nav {
+        justify-content: center;
+    }
+    
+    .header-content {
+        padding: 0.75rem 1rem;
+    }
 }
 
 .dev-controls-header {
@@ -512,7 +576,16 @@ body:not(.dev-mode) .edit-tooltip {
 
 .vocab-grid {
     display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1rem;
+    margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+    .vocab-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
 }
 
 .vocab-card {
@@ -527,9 +600,49 @@ body:not(.dev-mode) .edit-tooltip {
     position: relative;
 }
 
+.vocab-card {
+    background: #E5E7EB;
+    border-radius: 6px;
+    padding: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 4px 4px 8px #D1D5DB, -4px -4px 8px #F9FAFB;
+    position: relative;
+}
+
 .vocab-card:hover {
     transform: translateY(-2px);
     box-shadow: 6px 6px 12px #D1D5DB, -6px -6px 12px #F9FAFB;
+}
+
+.vocab-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.vocab-main {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 1;
+}
+
+.expand-indicator {
+    margin-left: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.expand-icon {
+    font-size: 0.75rem;
+    color: #6B7280;
+    transition: transform 0.2s ease;
+}
+
+.vocab-card.expanded .expand-icon {
+    transform: rotate(180deg);
 }
 
 .vocab-card.expandable {
@@ -539,25 +652,42 @@ body:not(.dev-mode) .edit-tooltip {
 .vocab-details {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease;
-    margin-top: 0.5rem;
+    transition: max-height 0.3s ease, padding-top 0.3s ease;
+    margin-top: 0;
 }
 
 .vocab-card.expanded .vocab-details {
-    max-height: 100px;
+    max-height: 120px;
+    padding-top: 1rem;
+    border-top: 1px solid #D1D5DB;
+}
+
+.vocab-chapter {
+    font-size: 0.75rem;
+    color: #7C3AED;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
 }
 
 .vocab-usage {
     font-style: italic;
-    color: #6B7280;
-    font-size: 0.85rem;
-    margin-bottom: 0.25rem;
+    color: #1F2937;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    background: rgba(59, 130, 246, 0.1);
+    padding: 0.5rem;
+    border-radius: 4px;
+    border-left: 3px solid #3B82F6;
 }
 
 .vocab-note {
     color: #059669;
     font-size: 0.8rem;
     font-weight: 500;
+    background: rgba(16, 185, 129, 0.1);
+    padding: 0.4rem;
+    border-radius: 4px;
 }
 
 .vocab-french {

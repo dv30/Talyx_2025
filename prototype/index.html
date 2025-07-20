@@ -13,13 +13,15 @@
     <header class="header">
         <div class="container">
             <div class="header-content">
-                <div class="logo">TALYX</div>
-                <nav class="nav">
-                    <button class="nav-btn active">Story</button>
-                    <button class="nav-btn">Vocabulary</button>
-                    <button class="nav-btn">Grammar</button>
-                    <button class="nav-btn">Exercises</button>
-                </nav>
+                <div class="header-left">
+                    <div class="logo">TALYX</div>
+                    <nav class="nav">
+                        <button class="nav-btn active">Story</button>
+                        <button class="nav-btn">Vocabulary</button>
+                        <button class="nav-btn">Grammar</button>
+                        <button class="nav-btn">Exercises</button>
+                    </nav>
+                </div>
                 <div class="header-controls">
                     <div class="language-toggle">
                         <button class="toggle-btn active" onclick="toggleLanguage('both')">Both</button>
@@ -274,27 +276,63 @@
                     <span class="edit-tooltip">Edit Vocabulary Panel</span>
                     <div class="vocab-grid">
                         <div class="vocab-card expandable" data-edit="vocab-1" onclick="toggleVocabDetails(this)">
-                            <span class="vocab-french">téléphone portable</span>
-                            <span class="vocab-english">mobile phone</span>
+                            <div class="vocab-header">
+                                <div class="vocab-main">
+                                    <span class="vocab-french">téléphone portable</span>
+                                    <span class="vocab-english">mobile phone</span>
+                                </div>
+                                <div class="expand-indicator">
+                                    <span class="expand-icon">▼</span>
+                                </div>
+                            </div>
                             <div class="vocab-details">
-                                <div class="vocab-usage">Used in: "Son téléphone portable a disparu!"</div>
-                                <div class="vocab-note">Common alternative: "portable" (informal)</div>
+                                <div class="vocab-chapter">📖 Chapter 1: The Missing Phone</div>
+                                <div class="vocab-usage">"Son téléphone portable a disparu!"</div>
+                                <div class="vocab-note">💡 Common alternative: "portable" (informal)</div>
                             </div>
                             <span class="edit-tooltip">Edit Vocab 1</span>
                         </div>
-                        <div class="vocab-card" data-edit="vocab-2">
-                            <span class="vocab-french">disparu</span>
-                            <span class="vocab-english">disappeared</span>
+                        <div class="vocab-card expandable" data-edit="vocab-2" onclick="toggleVocabDetails(this)">
+                            <div class="vocab-header">
+                                <div class="vocab-main">
+                                    <span class="vocab-french">disparu</span>
+                                    <span class="vocab-english">disappeared</span>
+                                </div>
+                                <div class="expand-indicator">
+                                    <span class="expand-icon">▼</span>
+                                </div>
+                            </div>
+                            <div class="vocab-details">
+                                <div class="vocab-chapter">📖 Chapter 1: The Missing Phone</div>
+                                <div class="vocab-usage">"Mon téléphone portable a disparu!"</div>
+                                <div class="vocab-note">💡 Past participle of "disparaître" (to disappear)</div>
+                            </div>
                             <span class="edit-tooltip">Edit Vocab 2</span>
                         </div>
-                        <div class="vocab-card" data-edit="vocab-3">
-                            <span class="vocab-french">dernière fois</span>
-                            <span class="vocab-english">last time</span>
+                        <div class="vocab-card expandable" data-edit="vocab-3" onclick="toggleVocabDetails(this)">
+                            <div class="vocab-header">
+                                <div class="vocab-main">
+                                    <span class="vocab-french">dernière fois</span>
+                                    <span class="vocab-english">last time</span>
+                                </div>
+                                <div class="expand-indicator">
+                                    <span class="expand-icon">▼</span>
+                                </div>
+                            </div>
+                            <div class="vocab-details">
+                                <div class="vocab-chapter">📖 Chapter 1: The Missing Phone</div>
+                                <div class="vocab-usage">"Quand avez-vous vu votre téléphone pour la dernière fois?"</div>
+                                <div class="vocab-note">💡 Common time expression - feminine form "dernière"</div>
+                            </div>
                             <span class="edit-tooltip">Edit Vocab 3</span>
                         </div>
                         <div class="vocab-card" data-edit="vocab-4">
-                            <span class="vocab-french">détective</span>
-                            <span class="vocab-english">detective</span>
+                            <div class="vocab-header">
+                                <div class="vocab-main">
+                                    <span class="vocab-french">détective</span>
+                                    <span class="vocab-english">detective</span>
+                                </div>
+                            </div>
                             <span class="edit-tooltip">Edit Vocab 4</span>
                         </div>
                         <div class="vocab-card" data-edit="vocab-5">
