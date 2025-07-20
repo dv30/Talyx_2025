@@ -6,8 +6,36 @@ I am working on **Talyx 2025**, a language learning web application with story-b
 
 **Project Location:** `C:\Users\maria\OneDrive\Documents\Projekt-Francuzsky_jazyk\LinguaStory_2025\Talyx`
 
-**Current Development Phase:** Project Foundation Complete
-**Last Session End:** 2025-07-20 13:32 (UTC+2)
+**Current Development Phase:** Audio Integration Ready - User Selections Made
+**Last Session End:** 2025-07-20 23:02 (UTC+2)
+
+## ✅ LATEST ACHIEVEMENT: Audio Pronunciation Prototypes Complete
+
+### **Audio Integration Ready (2025-07-20 23:02 UTC+2):**
+- **5 Audio Prototypes Created:** Complete comparison system with different interaction approaches
+- **User Selection Made:** Simple Click Audio approach selected as preferred implementation
+- **Integration Plan Defined:** Two-phase implementation ready for execution
+
+### **User-Selected Audio Implementation:**
+```
+VOCABULARY CARDS:
+📱 téléphone = telefón [🔊] (single button for word pronunciation)
+
+📖 Usage Example:
+"Le téléphone sonne dans le café"
+[🔊 Play] [🐌 Slow] (dual buttons for sentence - normal & slow speed)
+```
+
+### **Confirmed Implementation Plan:**
+1. **Phase 1:** Integrate audio into vocabulary cards (word + sentence controls)
+2. **Phase 2:** Extend audio to story paragraphs (French + English with speed controls)
+3. **Technology:** Web Speech API (fr-FR for French, en-US for English)
+4. **Layout:** Single word button + dual sentence controls ([🔊 Play] [🐌 Slow])
+
+### **Files Ready for Integration:**
+- **Prototype Reference:** `prototypes/audio_prototype_1_simple.html`
+- **Comparison System:** `prototypes/audio_prototypes_comparison.html`
+- **Target Integration:** Main Talyx vocabulary cards in Detective Marie stories
 
 ## Essential Project Information
 
@@ -71,12 +99,27 @@ content\french\
 
 ## Immediate Next Steps (Priority Order)
 
-### Option 1: Technical Implementation
-- Create JSON parsing pipeline (Markdown → JSON converter)
-- Design web application architecture (HTML/CSS/JS structure)
-- Implement user interface components (dashboard, reading interface, progress tracking)
+### 🎯 PRIMARY PRIORITY: Audio Integration Phase 1
+- **Implement Simple Click Audio** into existing Talyx vocabulary cards
+- **Apply user-selected layout:** Single word button + dual sentence controls  
+- **Integrate with Detective Marie stories:** "Missing Phone" and "Stolen Wallet"
+- **Test compatibility** with existing sidebar navigation and responsive design
+- **Verify Web Speech API** functionality across different browsers/devices
 
-### Option 2: Content Creation
+### Audio Integration Specifications:
+- **Word Audio:** Single 🔊 button next to French vocabulary words (normal speed)
+- **Sentence Audio:** [🔊 Play] [🐌 Slow] buttons for usage examples
+- **Technology:** Web Speech API with French language (fr-FR)
+- **Styling:** Match existing TALYX design language and button styling
+- **Mobile:** Ensure touch-friendly controls compatible with current responsive design
+
+### Option 2: Audio Integration Phase 2  
+- **Extend audio to story paragraphs:** Both French and English versions
+- **Add speed controls** to main story content ([🔊 Play] [🐌 Slow])
+- **Multi-language support:** French (fr-FR) + English (en-US) pronunciation
+- **Complete audio immersion:** Word → Sentence → Paragraph level audio
+
+### Option 3: Content Development
 - Develop AI prompts for story generation using templates
 - Create first A1 chapter using story template
 - Generate grammar and vocabulary content for initial lessons
@@ -142,8 +185,12 @@ Verify project state with Git Zero Risk Workflow check:
 ### 3. Review Current Status:
 Check `README.md` and `progress\checkpoint.md` for latest project state
 
-### 4. Choose Development Direction:
-Ask user to confirm next development focus area from immediate next steps
+### 4. Begin Audio Integration:
+Confirm audio integration as primary development focus:
+- **Phase 1:** Vocabulary card audio (user-selected Simple Click approach)
+- **Implementation:** Single word buttons + dual sentence controls
+- **Target:** Detective Marie stories integration
+- **Reference:** Use `prototypes/audio_prototype_1_simple.html` as implementation guide
 
 ### 5. Follow Project Guidelines:
 Reference `docs\project_instructions.md` for all development standards
