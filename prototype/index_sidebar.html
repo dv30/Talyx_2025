@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TALYX - The Missing Phone (Sidebar Version)</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles_sidebar.css">
+</head>
+<body>
+    <!-- Compact Header with Sidebar Toggle -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-left">
+                    <button class="sidebar-toggle" onclick="toggleSidebar()">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <div class="logo">TALYX</div>
+                </div>
+                <div class="header-controls">
+                    <div class="language-toggle">
+                        <button class="toggle-btn active" onclick="toggleLanguage('both')">Both</button>
+                        <button class="toggle-btn" onclick="toggleLanguage('french')">FR</button>
+                        <button class="toggle-btn" onclick="toggleLanguage('english')">EN</button>
+                    </div>
+                    <div class="feature-controls">
+                        <button class="feature-btn active" onclick="toggleHighlights()" title="Toggle Highlights">
+                            ✨
+                        </button>
+                        <button class="feature-btn" onclick="toggleDevMode()" title="Development Mode">
+                            🔧
+                        </button>
+                        <button class="feature-btn" onclick="saveProgress()" title="Save Progress">
+                            💾
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">TALYX</div>
+            <div class="sidebar-subtitle">Language Learning</div>
+        </div>
+        
+        <div class="nav-section">
+            <div class="nav-title">Learning</div>
+            <button class="nav-item active" data-section="story">
+                <span class="nav-icon">📖</span>
+                <span class="nav-text">Story</span>
+            </button>
+            <button class="nav-item" data-section="vocabulary">
+                <span class="nav-icon">📚</span>
+                <span class="nav-text">Vocabulary</span>
+            </button>
+            <button class="nav-item" data-section="grammar">
+                <span class="nav-icon">📝</span>
+                <span class="nav-text">Grammar</span>
+            </button>
+            <button class="nav-item" data-section="exercises">
+                <span class="nav-icon">🎯</span>
+                <span class="nav-text">Exercises</span>
+            </button>
+        </div>
+        
+        <div class="nav-section">
+            <div class="nav-title">Progress</div>
+            <button class="nav-item" data-section="statistics">
+                <span class="nav-icon">📊</span>
+                <span class="nav-text">Statistics</span>
+            </button>
+            <button class="nav-item" data-section="achievements">
+                <span class="nav-icon">🏆</span>
+                <span class="nav-text">Achievements</span>
+            </button>
+        </div>
+        
+        <div class="nav-section">
+            <div class="nav-title">Settings</div>
+            <button class="nav-item" data-section="preferences">
+                <span class="nav-icon">⚙️</span>
+                <span class="nav-text">Preferences</span>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Sidebar Overlay for Mobile -->
+    <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+    <!-- Main Content Area (shifts when sidebar opens) -->
+    <div class="main-content" id="main-content">
+        <div class="container">
+            <div class="content-layout">
+                <!-- Story Progress Section -->
+                <aside class="story-sidebar">
+                    <div class="level-badge">A1-A2 Level</div>
+                    
+                    <div class="progress-section">
+                        <div class="progress-title">Chapter Progress</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill"></div>
+                        </div>
+                        <div class="progress-text" id="progress-text">100% Complete</div>
+                    </div>
+                    
+                    <div class="objectives">
+                        <h3>Learning Objectives</h3>
+                        <div class="objective-item completed">
+                            <span class="objective-icon">✓</span>
+                            Present tense verbs
+                        </div>
+                        <div class="objective-item current">
+                            <span class="objective-icon">◉</span>
+                            Question formation
+                        </div>
+                        <div class="objective-item completed">
+                            <span class="objective-icon">✓</span>
+                            Past tense introduction
+                        </div>
+                        <div class="objective-item completed">
+                            <span class="objective-icon">✓</span>
+                            Technology vocabulary
+                        </div>
+                    </div>
+                </aside>
+                <!-- Main Story Content -->
+                <main class="story-content">
+                    <div class="story-header">
+                        <h1 class="story-title">The Missing Phone</h1>
+                        <div class="story-meta">Detective Marie Series • Chapter 1 • 15 minutes</div>
+                    </div>
+
+                    <section class="story-section" id="section-1">
+                        <h2 class="section-title">1. The Café Incident</h2>
+                        
+                        <div class="bilingual-text">
+                            <p class="french-text">
+                                <span class="vocab-highlight" data-word="detective">Detective Marie<span class="tooltip">female detective</span></span> 
+                                <span class="grammar-highlight">est</span> 
+                                dans un <span class="vocab-highlight">petit café<span class="tooltip">small café</span></span> à Paris. 
+                                Elle <span class="grammar-highlight">boit<span class="tooltip">drinks (3rd person singular)</span></span> 
+                                son <span class="vocab-highlight">café au lait<span class="tooltip">coffee with milk</span></span>.
+                            </p>
+                            <p class="english-text">
+                                Detective Marie is in a small café in Paris. She drinks her coffee with milk.
+                            </p>
+                        </div>
+                        
+                        <div class="bilingual-text">
+                            <p class="french-text">
+                                Soudain, une <span class="vocab-highlight">jeune femme<span class="tooltip">young woman</span></span> 
+                                <span class="grammar-highlight">arrive<span class="tooltip">arrives (3rd person singular)</span></span> 
+                                en courant. Elle <span class="vocab-highlight">pleure<span class="tooltip">cries/is crying</span></span>.
+                            </p>
+                            <p class="english-text">
+                                Suddenly, a young woman arrives running. She is crying.
+                            </p>
+                        </div>
+                        
+                        <div class="bilingual-text">
+                            <p class="french-text">
+                                "Excusez-moi, madame," dit la femme. "Vous <span class="grammar-highlight">êtes<span class="tooltip">are (2nd person formal)</span></span> 
+                                <span class="vocab-highlight">détective<span class="tooltip">detective</span></span>, non? 
+                                J'ai <span class="vocab-highlight">besoin<span class="tooltip">need</span></span> de votre aide!"
+                            </p>
+                            <p class="english-text">
+                                "Excuse me, madam," says the woman. "You are a detective, aren't you? I need your help!"
+                            </p>
+                        </div>
+                    </section>
+                    <!-- Additional story sections would go here -->
+                    
+                </main>
+            </div>
+        </div>
+        
+        <!-- Vocabulary Panel -->
+        <div class="vocabulary-panel">
+            <h3>Key Vocabulary</h3>
+            <div class="vocabulary-grid">
+                <div class="vocab-card" data-word="detective">
+                    <div class="vocab-header">
+                        <strong>détective</strong>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                    <div class="vocab-details">
+                        <div class="vocab-english">detective (feminine/masculine)</div>
+                        <div class="vocab-chapter">📖 Chapter 1: The Missing Phone</div>
+                        <div class="vocab-usage">
+                            <div class="usage-example">"Detective Marie est dans un petit café"</div>
+                        </div>
+                        <div class="vocab-note">
+                            <span class="note-icon">💡</span>
+                            Can be used for both male and female detectives
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="vocab-card" data-word="café">
+                    <div class="vocab-header">
+                        <strong>café</strong>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                    <div class="vocab-details">
+                        <div class="vocab-english">coffee / café</div>
+                        <div class="vocab-chapter">📖 Chapter 1: The Missing Phone</div>
+                        <div class="vocab-usage">
+                            <div class="usage-example">"dans un petit café à Paris"</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/app_sidebar.js"></script>
+</body>
+</html>

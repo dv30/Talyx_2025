@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Header Prototype 5: Floating Controls</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 6px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 32px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            font-size: 16px;
+            font-weight: bold;
+            color: #667eea;
+            letter-spacing: 2px;
+        }
+        
+        .floating-nav {
+            position: fixed;
+            top: 50px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            padding: 8px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .nav-btn {
+            width: 44px;
+            height: 44px;
+            border: none;
+            border-radius: 12px;
+            background: transparent;
+            color: #667eea;
+            font-size: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-btn:hover {
+            background: rgba(102, 126, 234, 0.1);
+            transform: translateX(2px);
+        }
+        
+        .nav-btn.active {
+            background: #667eea;
+            color: white;
+            transform: translateX(4px);
+        }
+        
+        .nav-icon {
+            font-size: 16px;
+            margin-bottom: 2px;
+        }
+        
+        .floating-controls {
+            position: fixed;
+            top: 50px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            padding: 8px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .control-section {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .control-label {
+            font-size: 8px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .lang-group {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        
+        .lang-btn {
+            width: 40px;
+            height: 24px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            font-size: 9px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .lang-btn.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        .lang-btn:hover:not(.active) {
+            background: rgba(102, 126, 234, 0.2);
+        }
+        
+        .feature-group {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        
+        .feature-btn {
+            width: 32px;
+            height: 32px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .feature-btn.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        .feature-btn:hover:not(.active) {
+            background: rgba(102, 126, 234, 0.2);
+            transform: scale(1.05);
+        }
+        
+        .floating-fab {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            border-radius: 28px;
+            border: none;
+            background: #667eea;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+        
+        .floating-fab:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.5);
+        }
+        
+        .content {
+            padding: 20px;
+            color: white;
+            text-align: center;
+            margin: 0 80px;
+        }
+        
+        .demo-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px auto;
+            max-width: 600px;
+            color: #333;
+        }
+        
+        @media (max-width: 768px) {
+            .floating-nav {
+                left: 10px;
+                top: 40px;
+            }
+            
+            .floating-controls {
+                right: 10px;
+                top: 40px;
+            }
+            
+            .nav-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 9px;
+            }
+            
+            .content {
+                margin: 0 20px;
+            }
+            
+            .floating-fab {
+                bottom: 15px;
+                right: 15px;
+                width: 48px;
+                height: 48px;
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">TALYX</div>
+    </header>
+    
+    <div class="floating-nav">
+        <button class="nav-btn active">
+            <div class="nav-icon">📖</div>
+            <div>Story</div>
+        </button>
+        <button class="nav-btn">
+            <div class="nav-icon">📚</div>
+            <div>Vocab</div>
+        </button>
+        <button class="nav-btn">
+            <div class="nav-icon">📝</div>
+            <div>Grammar</div>
+        </button>
+        <button class="nav-btn">
+            <div class="nav-icon">🎯</div>
+            <div>Quiz</div>
+        </button>
+    </div>
+    
+    <div class="floating-controls">
+        <div class="control-section">
+            <div class="control-label">Language</div>
+            <div class="lang-group">
+                <button class="lang-btn">Both</button>
+                <button class="lang-btn active">French</button>
+                <button class="lang-btn">English</button>
+            </div>
+        </div>
+        
+        <div class="control-section">
+            <div class="control-label">Tools</div>
+            <div class="feature-group">
+                <button class="feature-btn active">✨</button>
+                <button class="feature-btn">🔧</button>
+                <button class="feature-btn">💾</button>
+            </div>
+        </div>
+    </div>
+    
+    <button class="floating-fab">⚙️</button>
+    
+    <div class="content">
+        <div class="demo-card">
+            <h2>Prototype 5: Floating Controls</h2>
+            <p><strong>Height:</strong> 32px (vs current ~120px)</p>
+            <p><strong>Features:</strong></p>
+            <ul style="text-align: left; margin: 10px 0;">
+                <li>Ultra-minimal header with only logo</li>
+                <li>Navigation in floating left sidebar</li>
+                <li>Controls in floating right panel</li>
+                <li>FAB button for additional settings</li>
+                <li>Modern mobile-app style interface</li>
+                <li>Maximum content space utilization</li>
+            </ul>
+            <p><strong>Space Savings:</strong> ~73% reduction in header height</p>
+            <p><strong>Note:</strong> Floating elements don't take up layout space</p>
+        </div>
+    </div>
+    
+    <script>
+        // Add interactivity for demo
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+        
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+        
+        document.querySelectorAll('.feature-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>

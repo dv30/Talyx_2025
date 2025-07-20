@@ -1,0 +1,716 @@
+/* ============================================
+   TALYX - Sidebar Navigation Design
+   CSS for space-efficient header with sidebar
+   ============================================ */
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* ============================================
+   COMPACT HEADER (40px height)
+   ============================================ */
+
+.header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    height: 40px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+.header .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 40px;
+}
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Sidebar Toggle Button */
+.sidebar-toggle {
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+}
+
+.sidebar-toggle span {
+    width: 16px;
+    height: 2px;
+    background: #667eea;
+    border-radius: 1px;
+    transition: all 0.3s ease;
+}
+
+.sidebar-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(4px, 4px);
+}
+
+.sidebar-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.sidebar-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(4px, -4px);
+}
+
+/* Logo */
+.logo {
+    font-size: 18px;
+    font-weight: bold;
+    color: #667eea;
+    letter-spacing: 2px;
+}
+/* Header Controls */
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.language-toggle {
+    display: flex;
+    background: rgba(102, 126, 234, 0.1);
+    border-radius: 14px;
+    padding: 2px;
+    gap: 1px;
+}
+
+.toggle-btn {
+    padding: 3px 8px;
+    border: none;
+    border-radius: 12px;
+    background: transparent;
+    color: #666;
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    height: 24px;
+    min-width: 32px;
+}
+
+.toggle-btn.active {
+    background: #667eea;
+    color: white;
+}
+
+.toggle-btn:hover:not(.active) {
+    background: rgba(102, 126, 234, 0.15);
+}
+
+.feature-controls {
+    display: flex;
+    gap: 4px;
+}
+
+.feature-btn {
+    width: 24px;
+    height: 24px;
+    border: none;
+    border-radius: 12px;
+    background: rgba(102, 126, 234, 0.1);
+    color: #667eea;
+    font-size: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.feature-btn.active {
+    background: #667eea;
+    color: white;
+}
+
+.feature-btn:hover:not(.active) {
+    background: rgba(102, 126, 234, 0.2);
+}
+/* ============================================
+   SIDEBAR NAVIGATION
+   ============================================ */
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 240px;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
+    box-shadow: 2px 0 20px rgba(0, 0, 0, 0.15);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    padding: 16px;
+    overflow-y: auto;
+}
+
+.sidebar.active {
+    transform: translateX(0);
+}
+
+.sidebar-header {
+    margin-bottom: 24px;
+    padding: 8px 0 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-logo {
+    font-size: 20px;
+    font-weight: bold;
+    color: #667eea;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+}
+
+.sidebar-subtitle {
+    font-size: 12px;
+    color: #888;
+    font-weight: 500;
+}
+.nav-section {
+    margin-bottom: 24px;
+}
+
+.nav-title {
+    font-size: 12px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 12px;
+    border-radius: 8px;
+    color: #333;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-bottom: 4px;
+    border: none;
+    background: transparent;
+    width: 100%;
+    text-align: left;
+}
+
+.nav-item:hover {
+    background: rgba(102, 126, 234, 0.1);
+}
+
+.nav-item.active {
+    background: #667eea;
+    color: white;
+}
+
+.nav-icon {
+    margin-right: 10px;
+    font-size: 16px;
+    width: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-text {
+    flex: 1;
+}
+/* Sidebar Overlay for Mobile */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ============================================
+   MAIN CONTENT AREA
+   ============================================ */
+
+.main-content {
+    margin-top: 40px;
+    transition: margin-left 0.3s ease;
+    min-height: calc(100vh - 40px);
+}
+
+.main-content.sidebar-open {
+    margin-left: 240px;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.content-layout {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+/* Story Sidebar (Right Panel) */
+.story-sidebar {
+    min-width: 280px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    height: fit-content;
+    position: sticky;
+    top: 60px;
+}
+
+.level-badge {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.progress-section {
+    margin-bottom: 24px;
+}
+
+.progress-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.progress-bar {
+    background: rgba(102, 126, 234, 0.2);
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.progress-fill {
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+    width: 100%;
+}
+
+.progress-text {
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+}
+.objectives {
+    margin-bottom: 20px;
+}
+
+.objectives h3 {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.objective-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    font-size: 13px;
+    color: #666;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.objective-item.completed {
+    color: #4CAF50;
+}
+
+.objective-item.current {
+    color: #667eea;
+    font-weight: 500;
+}
+
+.objective-icon {
+    margin-right: 8px;
+    font-size: 12px;
+    width: 16px;
+}
+
+/* ============================================
+   STORY CONTENT
+   ============================================ */
+
+.story-content {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    min-height: 600px;
+}
+.story-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid rgba(102, 126, 234, 0.1);
+}
+
+.story-title {
+    font-size: 2.2rem;
+    color: #333;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.story-meta {
+    color: #888;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.story-section {
+    margin-bottom: 30px;
+}
+
+.section-title {
+    font-size: 1.4rem;
+    color: #667eea;
+    margin-bottom: 20px;
+    font-weight: 600;
+    border-left: 4px solid #667eea;
+    padding-left: 12px;
+}
+
+.bilingual-text {
+    margin-bottom: 20px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.bilingual-text:last-child {
+    border-bottom: none;
+}
+
+.french-text, .english-text {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+
+.french-text {
+    color: #333;
+    font-weight: 500;
+}
+
+.english-text {
+    color: #666;
+    font-style: italic;
+}
+/* ============================================
+   VOCABULARY HIGHLIGHTING
+   ============================================ */
+
+.vocab-highlight {
+    border-bottom: 2px dotted #ff6b35;
+    position: relative;
+    cursor: help;
+}
+
+.grammar-highlight {
+    border-bottom: 2px dotted #667eea;
+    position: relative;
+    cursor: help;
+}
+
+.tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease;
+    z-index: 1000;
+}
+
+.vocab-highlight:hover .tooltip,
+.grammar-highlight:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ============================================
+   VOCABULARY PANEL
+   ============================================ */
+
+.vocabulary-panel {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.vocabulary-panel h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+.vocabulary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+}
+
+.vocab-card {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 16px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.vocab-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.vocab-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.vocab-header strong {
+    color: #667eea;
+    font-size: 16px;
+}
+
+.expand-icon {
+    color: #888;
+    font-size: 12px;
+    transition: transform 0.2s ease;
+}
+
+.vocab-card.expanded .expand-icon {
+    transform: rotate(180deg);
+}
+
+.vocab-details {
+    display: none;
+    margin-top: 12px;
+}
+
+.vocab-card.expanded .vocab-details {
+    display: block;
+}
+
+.vocab-english {
+    color: #666;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.vocab-chapter {
+    color: #888;
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+
+.vocab-usage {
+    background: rgba(102, 126, 234, 0.1);
+    padding: 8px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+}
+
+.usage-example {
+    font-style: italic;
+    color: #667eea;
+    font-size: 14px;
+}
+
+.vocab-note {
+    background: rgba(76, 175, 80, 0.1);
+    padding: 8px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #4CAF50;
+}
+
+.note-icon {
+    margin-right: 4px;
+}
+/* ============================================
+   LANGUAGE TOGGLE FUNCTIONALITY
+   ============================================ */
+
+body.lang-french .english-text {
+    display: none;
+}
+
+body.lang-english .french-text {
+    display: none;
+}
+
+body.lang-both .french-text,
+body.lang-both .english-text {
+    display: block;
+}
+
+body.lang-english .french-text {
+    opacity: 0.3;
+}
+
+body.highlights-off .vocab-highlight,
+body.highlights-off .grammar-highlight {
+    border-bottom: none;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 1024px) {
+    .main-content.sidebar-open {
+        margin-left: 0;
+    }
+    
+    .sidebar-overlay {
+        display: block;
+    }
+    
+    .content-layout {
+        flex-direction: column;
+    }
+    
+    .story-sidebar {
+        min-width: 100%;
+        position: static;
+        order: 2;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        height: 36px;
+    }
+    
+    .header-content {
+        height: 36px;
+        padding: 0 12px;
+    }
+    
+    .logo {
+        font-size: 16px;
+    }
+    
+    .toggle-btn {
+        font-size: 10px;
+        padding: 2px 6px;
+        height: 20px;
+        min-width: 28px;
+    }
+    
+    .feature-btn {
+        width: 20px;
+        height: 20px;
+        font-size: 9px;
+    }
+    
+    .sidebar {
+        width: 280px;
+    }
+    
+    .main-content {
+        margin-top: 36px;
+    }
+    
+    .container {
+        padding: 16px;
+    }
+    
+    .story-content {
+        padding: 20px;
+    }
+    
+    .story-title {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .vocabulary-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .story-content {
+        padding: 16px;
+    }
+    
+    .container {
+        padding: 12px;
+    }
+}
