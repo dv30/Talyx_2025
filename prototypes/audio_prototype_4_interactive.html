@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Prototype 4: Interactive Audio Cards</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .prototype-header {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .prototype-title {
+            color: #667eea;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .vocabulary-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .audio-card {
+            background: linear-gradient(135deg, #f8f9ff 0%, #e8f0ff 100%);
+            border: 2px solid #e1e5ff;
+            border-radius: 20px;
+            padding: 0;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            min-height: 200px;
+        }
+
+        .audio-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+            border-color: #667eea;
+        }
+
+        .audio-card.playing {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 25px 50px rgba(39, 174, 96, 0.4);
+            border-color: #27ae60;
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+        }
+
+        .audio-card.listening {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 25px 50px rgba(255, 152, 0, 0.4);
+            border-color: #ff9800;
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+        }
+
+        .card-content {
+            padding: 25px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .french-word {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .audio-card.playing .french-word {
+            color: #27ae60;
+            font-size: 32px;
+            text-shadow: 0 2px 15px rgba(39, 174, 96, 0.3);
+            animation: wordGlow 1.5s infinite alternate;
+        }
+
+        .audio-card.listening .french-word {
+            color: #ff9800;
+            font-size: 32px;
+            text-shadow: 0 2px 15px rgba(255, 152, 0, 0.3);
+            animation: wordListen 2s infinite;
+        }
+
+        @keyframes wordGlow {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.05); opacity: 0.9; }
+        }
+
+        @keyframes wordListen {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.02); }
+            50% { transform: scale(1.05); }
+            75% { transform: scale(1.02); }
+        }
+
+        .pronunciation-guide {
+            background: rgba(123, 31, 162, 0.1);
+            border: 1px solid rgba(123, 31, 162, 0.3);
+            border-radius: 10px;
+            padding: 8px 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            color: #7b1fa2;
+            text-align: center;
+            margin-bottom: 15px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.4s ease;
+        }
+
+        .audio-card:hover .pronunciation-guide,
+        .audio-card.playing .pronunciation-guide,
+        .audio-card.listening .pronunciation-guide {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slovak-translation {
+            color: #666;
+            font-size: 18px;
+            text-align: center;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .audio-card.playing .slovak-translation {
+            color: #2e7d32;
+            font-weight: 500;
+        }
+
+        .audio-card.listening .slovak-translation {
+            color: #f57c00;
+            font-weight: 500;
+        }
+
+        .audio-status {
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-weight: 500;
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .audio-card:hover .audio-status {
+            opacity: 1;
+            transform: translateY(0);
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+        }
+
+        .audio-card.playing .audio-status {
+            opacity: 1;
+            transform: translateY(0);
+            background: rgba(39, 174, 96, 0.2);
+            color: #27ae60;
+        }
+
+        .audio-card.listening .audio-status {
+            opacity: 1;
+            transform: translateY(0);
+            background: rgba(255, 152, 0, 0.2);
+            color: #ff9800;
+        }
+
+        .wave-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .audio-card.playing .wave-animation {
+            opacity: 0.3;
+        }
+
+        .wave {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid #27ae60;
+            animation: ripple 2s infinite;
+        }
+
+        .wave:nth-child(1) {
+            width: 50px;
+            height: 50px;
+            top: 50%;
+            left: 50%;
+            margin: -25px 0 0 -25px;
+            animation-delay: 0s;
+        }
+
+        .wave:nth-child(2) {
+            width: 100px;
+            height: 100px;
+            top: 50%;
+            left: 50%;
+            margin: -50px 0 0 -50px;
+            animation-delay: 0.5s;
+        }
+
+        .wave:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            top: 50%;
+            left: 50%;
+            margin: -75px 0 0 -75px;
+            animation-delay: 1s;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0;
+            }
+        }
+
+        .speed-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 15px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s ease;
+        }
+
+        .audio-card:hover .speed-indicators {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .speed-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(102, 126, 234, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .speed-dot:hover {
+            background: #667eea;
+            transform: scale(1.3);
+        }
+
+        .speed-dot.active {
+            background: #27ae60;
+            transform: scale(1.5);
+            box-shadow: 0 0 10px rgba(39, 174, 96, 0.5);
+        }
+
+        .speed-label {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 10px;
+            color: #666;
+            white-space: nowrap;
+        }
+
+        .usage-preview {
+            background: rgba(33, 150, 243, 0.1);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 15px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .audio-card:hover .usage-preview {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .usage-preview:hover {
+            background: rgba(33, 150, 243, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .usage-text {
+            font-style: italic;
+            color: #1565c0;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .listening-indicator {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 152, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .audio-card.listening .listening-indicator {
+            opacity: 1;
+            animation: listenPulse 1s infinite;
+        }
+
+        @keyframes listenPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .test-section {
+            background: #fff3e0;
+            border: 2px solid #ffb74d;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .test-title {
+            color: #f57c00;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .vocab-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="prototype-header">
+        <div class="prototype-title">🎭 Audio Prototype 4: Interactive Audio Cards</div>
+        <div style="color: #666;">Cards transform visually during audio playback with animations, states, and interactive elements.</div>
+    </div>
+
+    <div class="vocabulary-section">
+        <h3>Detective Marie Vocabulary - Interactive Card Experience</h3>
+        <div class="vocab-grid">
+            <div class="audio-card" onclick="playCardAudio('téléphone', this)">
+                <div class="listening-indicator">👂</div>
+                <div class="wave-animation">
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                </div>
+                <div class="card-content">
+                    <div class="french-word">téléphone</div>
+                    <div class="pronunciation-guide">/te.le.fɔn/</div>
+                    <div class="slovak-translation">📱 telefón</div>
+                    <div class="audio-status">Click to hear pronunciation</div>
+                    <div class="speed-indicators">
+                        <div class="speed-dot" data-speed="0.6" onclick="setSpeed(event, this, 'téléphone')">
+                            <div class="speed-label">Slow</div>
+                        </div>
+                        <div class="speed-dot active" data-speed="0.8" onclick="setSpeed(event, this, 'téléphone')">
+                            <div class="speed-label">Normal</div>
+                        </div>
+                        <div class="speed-dot" data-speed="1.0" onclick="setSpeed(event, this, 'téléphone')">
+                            <div class="speed-label">Fast</div>
+                        </div>
+                    </div>
+                    <div class="usage-preview" onclick="playSentenceCard('Le téléphone sonne dans le café', event)">
+                        <div class="usage-text">"Le téléphone sonne dans le café"</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="audio-card" onclick="playCardAudio('détective', this)">
+                <div class="listening-indicator">👂</div>
+                <div class="wave-animation">
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                </div>
+                <div class="card-content">
+                    <div class="french-word">détective</div>
+                    <div class="pronunciation-guide">/de.tɛk.tiv/</div>
+                    <div class="slovak-translation">🕵️ detektív</div>
+                    <div class="audio-status">Click to hear pronunciation</div>
+                    <div class="speed-indicators">
+                        <div class="speed-dot" data-speed="0.6" onclick="setSpeed(event, this, 'détective')">
+                            <div class="speed-label">Slow</div>
+                        </div>
+                        <div class="speed-dot active" data-speed="0.8" onclick="setSpeed(event, this, 'détective')">
+                            <div class="speed-label">Normal</div>
+                        </div>
+                        <div class="speed-dot" data-speed="1.0" onclick="setSpeed(event, this, 'détective')">
+                            <div class="speed-label">Fast</div>
+                        </div>
+                    </div>
+                    <div class="usage-preview" onclick="playSentenceCard('Marie est une détective expérimentée', event)">
+                        <div class="usage-text">"Marie est une détective expérimentée"</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="audio-card" onclick="playCardAudio('mystère', this)">
+                <div class="listening-indicator">👂</div>
+                <div class="wave-animation">
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                </div>
+                <div class="card-content">
+                    <div class="french-word">mystère</div>
+                    <div class="pronunciation-guide">/mis.tɛʁ/</div>
+                    <div class="slovak-translation">🧩 záhada</div>
+                    <div class="audio-status">Click to hear pronunciation</div>
+                    <div class="speed-indicators">
+                        <div class="speed-dot" data-speed="0.6" onclick="setSpeed(event, this, 'mystère')">
+                            <div class="speed-label">Slow</div>
+                        </div>
+                        <div class="speed-dot active" data-speed="0.8" onclick="setSpeed(event, this, 'mystère')">
+                            <div class="speed-label">Normal</div>
+                        </div>
+                        <div class="speed-dot" data-speed="1.0" onclick="setSpeed(event, this, 'mystère')">
+                            <div class="speed-label">Fast</div>
+                        </div>
+                    </div>
+                    <div class="usage-preview" onclick="playSentenceCard('C\'est un mystère intéressant', event)">
+                        <div class="usage-text">"C'est un mystère intéressant"</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="audio-card" onclick="playCardAudio('client', this)">
+                <div class="listening-indicator">👂</div>
+                <div class="wave-animation">
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                </div>
+                <div class="card-content">
+                    <div class="french-word">client</div>
+                    <div class="pronunciation-guide">/kli.ɑ̃/</div>
+                    <div class="slovak-translation">👤 klient</div>
+                    <div class="audio-status">Click to hear pronunciation</div>
+                    <div class="speed-indicators">
+                        <div class="speed-dot" data-speed="0.6" onclick="setSpeed(event, this, 'client')">
+                            <div class="speed-label">Slow</div>
+                        </div>
+                        <div class="speed-dot active" data-speed="0.8" onclick="setSpeed(event, this, 'client')">
+                            <div class="speed-label">Normal</div>
+                        </div>
+                        <div class="speed-dot" data-speed="1.0" onclick="setSpeed(event, this, 'client')">
+                            <div class="speed-label">Fast</div>
+                        </div>
+                    </div>
+                    <div class="usage-preview" onclick="playSentenceCard('Le client semble inquiet', event)">
+                        <div class="usage-text">"Le client semble inquiet"</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <div class="test-title">🧪 Interactive Card Features</div>
+        <p><strong>🎭 Visual Transformation:</strong> Cards change appearance during audio playback with colors and animations.</p>
+        <p><strong>🌊 Wave Animation:</strong> Ripple effects show audio is playing with layered wave patterns.</p>
+        <p><strong>⚡ Speed Selection:</strong> Click speed dots to change pronunciation speed (slow/normal/fast).</p>
+        <p><strong>👂 Listening State:</strong> Special orange state shows when listening mode is active.</p>
+        <p><strong>📖 Sentence Audio:</strong> Click usage examples to hear words in context.</p>
+        <p><strong>🎨 Hover Effects:</strong> Rich preview states reveal additional features and controls.</p>
+    </div>
+
+    <script>
+        let currentSpeech = null;
+        let currentCard = null;
+        let cardSpeeds = {};
+
+        function playCardAudio(word, card) {
+            // Stop any current audio
+            if (currentSpeech) {
+                speechSynthesis.cancel();
+                resetCardState();
+            }
+
+            // Get current speed for this word
+            const speed = cardSpeeds[word] || 0.8;
+
+            // Create speech
+            const utterance = new SpeechSynthesisUtterance(word);
+            utterance.lang = 'fr-FR';
+            utterance.rate = speed;
+            utterance.volume = 0.8;
+
+            // Update card state
+            currentCard = card;
+            card.classList.add('playing');
+            updateAudioStatus(card, 'Playing pronunciation...');
+
+            // Handle speech events
+            utterance.onend = function() {
+                resetCardState();
+                currentSpeech = null;
+                currentCard = null;
+            };
+
+            utterance.onerror = function() {
+                resetCardState();
+                updateAudioStatus(card, 'Audio not available', true);
+                setTimeout(() => resetCardState(), 2000);
+                currentSpeech = null;
+                currentCard = null;
+            };
+
+            currentSpeech = utterance;
+            speechSynthesis.speak(utterance);
+        }
+
+        function setSpeed(event, speedDot, word) {
+            event.stopPropagation();
+            
+            const card = speedDot.closest('.audio-card');
+            const speed = parseFloat(speedDot.dataset.speed);
+            
+            // Update speed for this word
+            cardSpeeds[word] = speed;
+            
+            // Update visual state
+            card.querySelectorAll('.speed-dot').forEach(dot => {
+                dot.classList.remove('active');
+            });
+            speedDot.classList.add('active');
+            
+            // Show feedback
+            card.classList.add('listening');
+            updateAudioStatus(card, `Speed set to ${speed === 0.6 ? 'slow' : speed === 0.8 ? 'normal' : 'fast'}`);
+            
+            setTimeout(() => {
+                card.classList.remove('listening');
+                updateAudioStatus(card, 'Click to hear pronunciation');
+            }, 1000);
+        }
+
+        function playSentenceCard(sentence, event) {
+            event.stopPropagation();
+            
+            if (currentSpeech) {
+                speechSynthesis.cancel();
+                resetCardState();
+            }
+            
+            const card = event.target.closest('.audio-card');
+            
+            const utterance = new SpeechSynthesisUtterance(sentence);
+            utterance.lang = 'fr-FR';
+            utterance.rate = 0.7;
+            utterance.volume = 0.8;
+            
+            currentCard = card;
+            card.classList.add('listening');
+            updateAudioStatus(card, 'Playing sentence example...');
+            
+            utterance.onend = function() {
+                resetCardState();
+                currentSpeech = null;
+                currentCard = null;
+            };
+            
+            utterance.onerror = function() {
+                resetCardState();
+                updateAudioStatus(card, 'Sentence audio not available', true);
+                setTimeout(() => resetCardState(), 2000);
+                currentSpeech = null;
+                currentCard = null;
+            };
+            
+            currentSpeech = utterance;
+            speechSynthesis.speak(utterance);
+        }
+
+        function updateAudioStatus(card, message, isError = false) {
+            const statusElement = card.querySelector('.audio-status');
+            statusElement.textContent = message;
+            if (isError) {
+                statusElement.style.color = '#e74c3c';
+                statusElement.style.background = 'rgba(231, 76, 60, 0.1)';
+            }
+        }
+
+        function resetCardState() {
+            if (currentCard) {
+                currentCard.classList.remove('playing', 'listening');
+                updateAudioStatus(currentCard, 'Click to hear pronunciation');
+                
+                const statusElement = currentCard.querySelector('.audio-status');
+                statusElement.style.color = '';
+                statusElement.style.background = '';
+            }
+        }
+
+        // Initialize default speeds
+        document.addEventListener('DOMContentLoaded', function() {
+            const words = ['téléphone', 'détective', 'mystère', 'client'];
+            words.forEach(word => {
+                cardSpeeds[word] = 0.8; // Default normal speed
+            });
+        });
+
+        // Check speech synthesis availability
+        if (!('speechSynthesis' in window)) {
+            document.body.insertAdjacentHTML('afterbegin', 
+                '<div style="background: #e74c3c; color: white; padding: 15px; text-align: center; margin-bottom: 20px; border-radius: 8px;">' +
+                '⚠️ Speech synthesis not available in this browser.' +
+                '</div>'
+            );
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Audio Prototype 5: Mobile-Optimized Touch</title>
+    <style>
+        * {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 100%;
+            margin: 0;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .prototype-header {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .prototype-title {
+            color: #667eea;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .mobile-instructions {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .vocabulary-section {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .mobile-vocab-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .mobile-card {
+            background: linear-gradient(135deg, #f8f9ff 0%, #e8f0ff 100%);
+            border: 2px solid #e1e5ff;
+            border-radius: 15px;
+            padding: 0;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            touch-action: manipulation;
+        }
+
+        .mobile-card:active {
+            transform: scale(0.98);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .mobile-card.playing {
+            border-color: #27ae60;
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+            animation: cardPulse 1.5s infinite;
+        }
+
+        .mobile-card.gesture-active {
+            border-color: #ff9800;
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            transform: scale(1.02);
+        }
+
+        @keyframes cardPulse {
+            0%, 100% { box-shadow: 0 5px 20px rgba(39, 174, 96, 0.3); }
+            50% { box-shadow: 0 8px 30px rgba(39, 174, 96, 0.5); }
+        }
+
+        .card-main {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .french-word {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .mobile-card.playing .french-word {
+            color: #27ae60;
+            animation: textGlow 1s infinite alternate;
+        }
+
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 5px rgba(39, 174, 96, 0.3); }
+            100% { text-shadow: 0 0 15px rgba(39, 174, 96, 0.7); }
+        }
+
+        .phonetic-mobile {
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: #7b1fa2;
+            margin-bottom: 8px;
+        }
+
+        .translation-mobile {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .mobile-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            border-left: 2px solid rgba(102, 126, 234, 0.2);
+            min-width: 80px;
+        }
+
+        .touch-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            touch-action: manipulation;
+        }
+
+        .play-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .play-btn:active {
+            transform: scale(0.9);
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.5);
+        }
+
+        .speed-btn {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            font-size: 16px;
+        }
+
+        .speed-btn:active {
+            background: rgba(102, 126, 234, 0.2);
+            transform: scale(0.9);
+        }
+
+        .speed-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .gesture-area {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: transparent;
+            z-index: 1;
+        }
+
+        .swipe-hint {
+            position: absolute;
+            bottom: 10px;
+            left: 20px;
+            font-size: 12px;
+            color: rgba(102, 126, 234, 0.7);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-card:hover .swipe-hint {
+            opacity: 1;
+        }
+
+        .sentence-area {
+            background: #e3f2fd;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .sentence-area:active {
+            border-color: #2196f3;
+            background: #bbdefb;
+            transform: scale(0.98);
+        }
+
+        .sentence-text {
+            font-style: italic;
+            color: #1565c0;
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .sentence-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .mini-btn {
+            background: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 6px 12px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            touch-action: manipulation;
+        }
+
+        .mini-btn:active {
+            transform: scale(0.9);
+            background: #1976d2;
+        }
+
+        .haptic-feedback {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-size: 16px;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .haptic-feedback.show {
+            opacity: 1;
+        }
+
+        .progress-ring {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 3px solid rgba(39, 174, 96, 0.2);
+            border-top: 3px solid #27ae60;
+            animation: spin 1s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-card.playing .progress-ring {
+            opacity: 1;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 20px;
+        }
+
+        .volume-btn {
+            background: transparent;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: #667eea;
+            padding: 5px;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .volume-btn:active {
+            background: rgba(102, 126, 234, 0.2);
+            transform: scale(0.9);
+        }
+
+        .volume-indicator {
+            width: 80px;
+            height: 4px;
+            background: rgba(102, 126, 234, 0.3);
+            border-radius: 2px;
+            position: relative;
+        }
+
+        .volume-fill {
+            height: 100%;
+            background: #667eea;
+            border-radius: 2px;
+            width: 80%;
+            transition: width 0.3s ease;
+        }
+
+        .test-section {
+            background: #fff3e0;
+            border: 2px solid #ffb74d;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .test-title {
+            color: #f57c00;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 480px) {
+            .prototype-title {
+                font-size: 20px;
+            }
+            
+            .french-word {
+                font-size: 22px;
+            }
+            
+            .mobile-controls {
+                min-width: 70px;
+                padding: 15px;
+            }
+            
+            .touch-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="prototype-header">
+        <div class="prototype-title">📱 Audio Prototype 5: Mobile-Optimized Touch</div>
+        <div style="color: #666; font-size: 14px;">Touch-friendly interface with gesture controls, haptic feedback, and mobile-first design.</div>
+    </div>
+
+    <div class="mobile-instructions">
+        <strong>📱 Mobile Touch Controls:</strong><br>
+        • <strong>Tap</strong> play button for pronunciation<br>
+        • <strong>Long press</strong> cards for slow pronunciation<br>
+        • <strong>Swipe right</strong> on cards for fast pronunciation<br>
+        • <strong>Double tap</strong> sentence areas for audio<br>
+        • <strong>Volume controls</strong> adjust audio level
+    </div>
+
+    <div class="vocabulary-section">
+        <h3>Detective Marie Vocabulary - Mobile Touch Interface</h3>
+        <div class="mobile-vocab-list">
+            
+            <div class="mobile-card" data-word="téléphone">
+                <div class="progress-ring"></div>
+                <div class="gesture-area"></div>
+                <div class="swipe-hint">← Swipe or long press for speed</div>
+                
+                <div class="card-main">
+                    <div class="french-word">téléphone</div>
+                    <div class="phonetic-mobile">/te.le.fɔn/</div>
+                    <div class="translation-mobile">📱 telefón</div>
+                    
+                    <div class="sentence-area" data-sentence="Le téléphone sonne dans le café">
+                        <div class="sentence-text">"Le téléphone sonne dans le café"</div>
+                        <div class="sentence-controls">
+                            <button class="mini-btn">🔊 Sentence</button>
+                            <button class="mini-btn">🐌 Slow</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mobile-controls">
+                    <button class="touch-btn play-btn" data-speed="normal">🔊</button>
+                    <button class="touch-btn speed-btn" data-speed="slow">🐌</button>
+                    <button class="touch-btn speed-btn" data-speed="fast">⚡</button>
+                </div>
+            </div>
+
+            <div class="mobile-card" data-word="détective">
+                <div class="progress-ring"></div>
+                <div class="gesture-area"></div>
+                <div class="swipe-hint">← Swipe or long press for speed</div>
+                
+                <div class="card-main">
+                    <div class="french-word">détective</div>
+                    <div class="phonetic-mobile">/de.tɛk.tiv/</div>
+                    <div class="translation-mobile">🕵️ detektív</div>
+                    
+                    <div class="sentence-area" data-sentence="Marie est une détective expérimentée">
+                        <div class="sentence-text">"Marie est une détective expérimentée"</div>
+                        <div class="sentence-controls">
+                            <button class="mini-btn">🔊 Sentence</button>
+                            <button class="mini-btn">🐌 Slow</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mobile-controls">
+                    <button class="touch-btn play-btn" data-speed="normal">🔊</button>
+                    <button class="touch-btn speed-btn" data-speed="slow">🐌</button>
+                    <button class="touch-btn speed-btn" data-speed="fast">⚡</button>
+                </div>
+            </div>
+
+            <div class="mobile-card" data-word="mystère">
+                <div class="progress-ring"></div>
+                <div class="gesture-area"></div>
+                <div class="swipe-hint">← Swipe or long press for speed</div>
+                
+                <div class="card-main">
+                    <div class="french-word">mystère</div>
+                    <div class="phonetic-mobile">/mis.tɛʁ/</div>
+                    <div class="translation-mobile">🧩 záhada</div>
+                    
+                    <div class="sentence-area" data-sentence="C'est un mystère intéressant">
+                        <div class="sentence-text">"C'est un mystère intéressant"</div>
+                        <div class="sentence-controls">
+                            <button class="mini-btn">🔊 Sentence</button>
+                            <button class="mini-btn">🐌 Slow</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mobile-controls">
+                    <button class="touch-btn play-btn" data-speed="normal">🔊</button>
+                    <button class="touch-btn speed-btn" data-speed="slow">🐌</button>
+                    <button class="touch-btn speed-btn" data-speed="fast">⚡</button>
+                </div>
+            </div>
+
+            <div class="mobile-card" data-word="client">
+                <div class="progress-ring"></div>
+                <div class="gesture-area"></div>
+                <div class="swipe-hint">← Swipe or long press for speed</div>
+                
+                <div class="card-main">
+                    <div class="french-word">client</div>
+                    <div class="phonetic-mobile">/kli.ɑ̃/</div>
+                    <div class="translation-mobile">👤 klient</div>
+                    
+                    <div class="sentence-area" data-sentence="Le client semble inquiet">
+                        <div class="sentence-text">"Le client semble inquiet"</div>
+                        <div class="sentence-controls">
+                            <button class="mini-btn">🔊 Sentence</button>
+                            <button class="mini-btn">🐌 Slow</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mobile-controls">
+                    <button class="touch-btn play-btn" data-speed="normal">🔊</button>
+                    <button class="touch-btn speed-btn" data-speed="slow">🐌</button>
+                    <button class="touch-btn speed-btn" data-speed="fast">⚡</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="volume-control">
+            <button class="volume-btn" onclick="adjustVolume(-0.1)">🔉</button>
+            <div class="volume-indicator">
+                <div class="volume-fill" id="volumeFill"></div>
+            </div>
+            <button class="volume-btn" onclick="adjustVolume(0.1)">🔊</button>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <div class="test-title">🧪 Mobile Touch Features</div>
+        <p><strong>👆 Touch Controls:</strong> Large, finger-friendly buttons optimized for mobile interaction.</p>
+        <p><strong>📱 Gesture Support:</strong> Swipe right for fast, long press for slow pronunciation.</p>
+        <p><strong>📳 Haptic Feedback:</strong> Visual feedback simulates device vibration during interactions.</p>
+        <p><strong>🔊 Volume Control:</strong> Dedicated audio level adjustment for comfortable learning.</p>
+        <p><strong>⚡ Quick Actions:</strong> Double-tap for instant sentence playback, single tap for words.</p>
+        <p><strong>🎯 Mobile-First:</strong> Designed specifically for smartphone and tablet usage patterns.</p>
+    </div>
+
+    <div class="haptic-feedback" id="hapticFeedback">Playing audio...</div>
+
+    <script>
+        let currentSpeech = null;
+        let currentVolume = 0.8;
+        let touchStartX = 0;
+        let touchStartTime = 0;
+        let longPressTimer = null;
+
+        // Initialize touch events for all cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.mobile-card');
+            cards.forEach(card => {
+                setupTouchEvents(card);
+            });
+
+            // Setup button events
+            setupButtonEvents();
+            
+            // Update volume display
+            updateVolumeDisplay();
+        });
+
+        function setupTouchEvents(card) {
+            const gestureArea = card.querySelector('.gesture-area');
+            const word = card.dataset.word;
+
+            // Touch start
+            gestureArea.addEventListener('touchstart', function(e) {
+                touchStartX = e.touches[0].clientX;
+                touchStartTime = Date.now();
+                card.classList.add('gesture-active');
+
+                // Start long press timer
+                longPressTimer = setTimeout(() => {
+                    showHapticFeedback('Slow pronunciation');
+                    playMobileAudio(word, 0.6, card);
+                }, 800);
+            });
+
+            // Touch move (for swipe detection)
+            gestureArea.addEventListener('touchmove', function(e) {
+                const touchX = e.touches[0].clientX;
+                const swipeDistance = touchX - touchStartX;
+                
+                if (Math.abs(swipeDistance) > 50) {
+                    clearTimeout(longPressTimer);
+                }
+            });
+
+            // Touch end
+            gestureArea.addEventListener('touchend', function(e) {
+                clearTimeout(longPressTimer);
+                card.classList.remove('gesture-active');
+
+                const touchEndX = e.changedTouches[0].clientX;
+                const swipeDistance = touchEndX - touchStartX;
+                const touchDuration = Date.now() - touchStartTime;
+
+                // Handle swipe right (fast pronunciation)
+                if (swipeDistance > 100 && touchDuration < 500) {
+                    showHapticFeedback('Fast pronunciation');
+                    playMobileAudio(word, 1.2, card);
+                }
+                // Handle normal tap
+                else if (Math.abs(swipeDistance) < 50 && touchDuration < 500) {
+                    showHapticFeedback('Normal pronunciation');
+                    playMobileAudio(word, 0.8, card);
+                }
+            });
+
+            // Prevent default touch behavior
+            gestureArea.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+            });
+        }
+
+        function setupButtonEvents() {
+            // Play buttons
+            document.querySelectorAll('.play-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const card = this.closest('.mobile-card');
+                    const word = card.dataset.word;
+                    playMobileAudio(word, 0.8, card);
+                });
+            });
+
+            // Speed buttons
+            document.querySelectorAll('.speed-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const card = this.closest('.mobile-card');
+                    const word = card.dataset.word;
+                    const speed = this.dataset.speed;
+                    
+                    // Update active state
+                    card.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const speedValue = speed === 'slow' ? 0.6 : speed === 'fast' ? 1.2 : 0.8;
+                    playMobileAudio(word, speedValue, card);
+                });
+            });
+
+            // Sentence areas
+            document.querySelectorAll('.sentence-area').forEach(area => {
+                area.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const sentence = this.dataset.sentence;
+                    playSentenceMobile(sentence, this);
+                });
+            });
+
+            // Mini buttons
+            document.querySelectorAll('.mini-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const sentenceArea = this.closest('.sentence-area');
+                    const sentence = sentenceArea.dataset.sentence;
+                    
+                    if (this.textContent.includes('Slow')) {
+                        playSentenceMobile(sentence, sentenceArea, 0.6);
+                    } else {
+                        playSentenceMobile(sentence, sentenceArea, 0.7);
+                    }
+                });
+            });
+        }
+
+        function playMobileAudio(word, speed, card) {
+            if (currentSpeech) {
+                speechSynthesis.cancel();
+                resetCardStates();
+            }
+
+            const utterance = new SpeechSynthesisUtterance(word);
+            utterance.lang = 'fr-FR';
+            utterance.rate = speed;
+            utterance.volume = currentVolume;
+
+            card.classList.add('playing');
+
+            utterance.onend = function() {
+                card.classList.remove('playing');
+                currentSpeech = null;
+            };
+
+            utterance.onerror = function() {
+                card.classList.remove('playing');
+                showHapticFeedback('Audio error', true);
+                currentSpeech = null;
+            };
+
+            currentSpeech = utterance;
+            speechSynthesis.speak(utterance);
+        }
+
+        function playSentenceMobile(sentence, element, speed = 0.7) {
+            if (currentSpeech) {
+                speechSynthesis.cancel();
+                resetCardStates();
+            }
+
+            const utterance = new SpeechSynthesisUtterance(sentence);
+            utterance.lang = 'fr-FR';
+            utterance.rate = speed;
+            utterance.volume = currentVolume;
+
+            element.style.background = '#81c784';
+            showHapticFeedback('Playing sentence');
+
+            utterance.onend = function() {
+                element.style.background = '#e3f2fd';
+                currentSpeech = null;
+            };
+
+            utterance.onerror = function() {
+                element.style.background = '#ffcdd2';
+                showHapticFeedback('Sentence error', true);
+                setTimeout(() => {
+                    element.style.background = '#e3f2fd';
+                }, 1000);
+                currentSpeech = null;
+            };
+
+            currentSpeech = utterance;
+            speechSynthesis.speak(utterance);
+        }
+
+        function showHapticFeedback(message, isError = false) {
+            const feedback = document.getElementById('hapticFeedback');
+            feedback.textContent = message;
+            feedback.style.background = isError ? 'rgba(231, 76, 60, 0.9)' : 'rgba(0,0,0,0.8)';
+            feedback.classList.add('show');
+
+            setTimeout(() => {
+                feedback.classList.remove('show');
+            }, 1000);
+        }
+
+        function adjustVolume(change) {
+            currentVolume = Math.max(0, Math.min(1, currentVolume + change));
+            updateVolumeDisplay();
+            showHapticFeedback(`Volume: ${Math.round(currentVolume * 100)}%`);
+        }
+
+        function updateVolumeDisplay() {
+            const volumeFill = document.getElementById('volumeFill');
+            volumeFill.style.width = (currentVolume * 100) + '%';
+        }
+
+        function resetCardStates() {
+            document.querySelectorAll('.mobile-card').forEach(card => {
+                card.classList.remove('playing', 'gesture-active');
+            });
+        }
+
+        // Check speech synthesis availability
+        if (!('speechSynthesis' in window)) {
+            document.body.insertAdjacentHTML('afterbegin', 
+                '<div style="background: #e74c3c; color: white; padding: 15px; text-align: center; margin-bottom: 20px; border-radius: 8px;">' +
+                '⚠️ Speech synthesis not available in this browser.' +
+                '</div>'
+            );
+        }
+    </script>
+</body>
+</html>

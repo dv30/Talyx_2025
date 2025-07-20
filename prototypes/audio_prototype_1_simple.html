@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Prototype 1: Simple Click Audio</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .prototype-header {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .prototype-title {
+            color: #667eea;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .vocabulary-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .vocab-card {
+            background: #f8f9ff;
+            border: 2px solid #e1e5ff;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .vocab-card:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.15);
+        }
+
+        .vocab-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .french-word {
+            font-size: 22px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-right: 10px;
+        }
+
+        .audio-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .audio-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .audio-btn:hover {
+            background: #5a6fd8;
+            transform: scale(1.05);
+        }
+
+        .audio-btn:active {
+            transform: scale(0.95);
+        }
+
+        .audio-btn.playing {
+            background: #27ae60;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .slovak-translation {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .usage-example {
+            background: #e3f2fd;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid #2196f3;
+            margin-top: 10px;
+            position: relative;
+        }
+
+        .usage-text {
+            font-style: italic;
+            color: #1565c0;
+            margin-bottom: 8px;
+        }
+
+        .sentence-audio {
+            background: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 6px 10px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .sentence-audio:hover {
+            background: #1976d2;
+        }
+
+        .audio-feedback {
+            position: absolute;
+            top: -30px;
+            right: 10px;
+            background: #27ae60;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .audio-feedback.show {
+            opacity: 1;
+        }
+
+        .test-section {
+            background: #fff3e0;
+            border: 2px solid #ffb74d;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .test-title {
+            color: #f57c00;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="prototype-header">
+        <div class="prototype-title">🔊 Audio Prototype 1: Simple Click Audio</div>
+        <div style="color: #666;">Basic audio buttons with immediate pronunciation. Clean, straightforward approach.</div>
+    </div>
+
+    <div class="vocabulary-section">
+        <h3>Detective Marie Vocabulary - Chapter 1</h3>
+        <div class="vocab-grid">
+            <div class="vocab-card">
+                <div class="vocab-header">
+                    <span class="french-word">téléphone</span>
+                    <div class="audio-controls">
+                        <button class="audio-btn" onclick="playAudio('téléphone', this)">
+                            🔊 Play
+                        </button>
+                        <button class="audio-btn" onclick="playAudio('téléphone', this, 0.6)">
+                            🐌 Slow
+                        </button>
+                    </div>
+                </div>
+                <div class="slovak-translation">📱 telefón</div>
+                <div class="usage-example">
+                    <div class="usage-text">"Le téléphone sonne dans le café"</div>
+                    <button class="sentence-audio" onclick="playSentence('Le téléphone sonne dans le café', this)">
+                        🔊 Hear sentence
+                    </button>
+                </div>
+                <div class="audio-feedback">Playing...</div>
+            </div>
+
+            <div class="vocab-card">
+                <div class="vocab-header">
+                    <span class="french-word">détective</span>
+                    <div class="audio-controls">
+                        <button class="audio-btn" onclick="playAudio('détective', this)">
+                            🔊 Play
+                        </button>
+                        <button class="audio-btn" onclick="playAudio('détective', this, 0.6)">
+                            🐌 Slow
+                        </button>
+                    </div>
+                </div>
+                <div class="slovak-translation">🕵️ detektív</div>
+                <div class="usage-example">
+                    <div class="usage-text">"Marie est une détective expérimentée"</div>
+                    <button class="sentence-audio" onclick="playSentence('Marie est une détective expérimentée', this)">
+                        🔊 Hear sentence
+                    </button>
+                </div>
+                <div class="audio-feedback">Playing...</div>
+            </div>
+
+            <div class="vocab-card">
+                <div class="vocab-header">
+                    <span class="french-word">mystère</span>
+                    <div class="audio-controls">
+                        <button class="audio-btn" onclick="playAudio('mystère', this)">
+                            🔊 Play
+                        </button>
+                        <button class="audio-btn" onclick="playAudio('mystère', this, 0.6)">
+                            🐌 Slow
+                        </button>
+                    </div>
+                </div>
+                <div class="slovak-translation">🧩 záhada</div>
+                <div class="usage-example">
+                    <div class="usage-text">"C'est un mystère intéressant"</div>
+                    <button class="sentence-audio" onclick="playSentence('C\'est un mystère intéressant', this)">
+                        🔊 Hear sentence
+                    </button>
+                </div>
+                <div class="audio-feedback">Playing...</div>
+            </div>
+
+            <div class="vocab-card">
+                <div class="vocab-header">
+                    <span class="french-word">client</span>
+                    <div class="audio-controls">
+                        <button class="audio-btn" onclick="playAudio('client', this)">
+                            🔊 Play
+                        </button>
+                        <button class="audio-btn" onclick="playAudio('client', this, 0.6)">
+                            🐌 Slow
+                        </button>
+                    </div>
+                </div>
+                <div class="slovak-translation">👤 klient</div>
+                <div class="usage-example">
+                    <div class="usage-text">"Le client semble inquiet"</div>
+                    <button class="sentence-audio" onclick="playSentence('Le client semble inquiet', this)">
+                        🔊 Hear sentence
+                    </button>
+                </div>
+                <div class="audio-feedback">Playing...</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <div class="test-title">🧪 Testing Features</div>
+        <p><strong>✅ What works:</strong> Click any 🔊 button to hear French pronunciation. Try both normal and slow speeds.</p>
+        <p><strong>🎯 User Experience:</strong> Simple, immediate audio feedback. Clear visual states (playing animation).</p>
+        <p><strong>📱 Mobile:</strong> Large, touch-friendly buttons. Works on all devices with speech synthesis.</p>
+        <p><strong>⚡ Performance:</strong> Instant audio using browser's native speech engine. No loading time.</p>
+    </div>
+
+    <script>
+        let currentSpeech = null;
+
+        function playAudio(text, button, rate = 0.8) {
+            // Stop any current speech
+            if (currentSpeech) {
+                speechSynthesis.cancel();
+            }
+
+            // Create new speech utterance
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'fr-FR';
+            utterance.rate = rate;
+            utterance.volume = 0.8;
+            utterance.pitch = 1.0;
+
+            // Visual feedback
+            button.classList.add('playing');
+            const feedback = button.closest('.vocab-card').querySelector('.audio-feedback');
+            feedback.classList.add('show');
+            feedback.textContent = rate < 0.8 ? 'Playing slowly...' : 'Playing...';
+
+            // Handle speech events
+            utterance.onend = function() {
+                button.classList.remove('playing');
+                feedback.classList.remove('show');
+                currentSpeech = null;
+            };
+
+            utterance.onerror = function() {
+                button.classList.remove('playing');
+                feedback.classList.remove('show');
+                feedback.textContent = 'Audio not available';
+                feedback.classList.add('show');
+                setTimeout(() => feedback.classList.remove('show'), 2000);
+                currentSpeech = null;
+            };
+
+            currentSpeech = utterance;
+            speechSynthesis.speak(utterance);
+        }
+
+        function playSentence(text, button) {
+            // Stop any current speech
+            if (currentSpeech) {
+                speechSynthesis.cancel();
+            }
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'fr-FR';
+            utterance.rate = 0.7; // Slightly slower for sentences
+            utterance.volume = 0.8;
+
+            // Visual feedback
+            button.style.background = '#27ae60';
+            button.textContent = '🔊 Playing...';
+
+            utterance.onend = function() {
+                button.style.background = '#2196f3';
+                button.textContent = '🔊 Hear sentence';
+                currentSpeech = null;
+            };
+
+            utterance.onerror = function() {
+                button.style.background = '#e74c3c';
+                button.textContent = '❌ Error';
+                setTimeout(() => {
+                    button.style.background = '#2196f3';
+                    button.textContent = '🔊 Hear sentence';
+                }, 2000);
+                currentSpeech = null;
+            };
+
+            currentSpeech = utterance;
+            speechSynthesis.speak(utterance);
+        }
+
+        // Check if speech synthesis is available
+        if (!('speechSynthesis' in window)) {
+            document.body.insertAdjacentHTML('afterbegin', 
+                '<div style="background: #e74c3c; color: white; padding: 15px; text-align: center; margin-bottom: 20px; border-radius: 8px;">' +
+                '⚠️ Speech synthesis not available in this browser. Audio features will not work.' +
+                '</div>'
+            );
+        }
+    </script>
+</body>
+</html>
