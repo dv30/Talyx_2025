@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Integration Test - TALYX</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles_sidebar.css">
+    <style>
+        body {
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .test-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .test-title {
+            color: #667eea;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .test-subtitle {
+            color: #666;
+            font-size: 16px;
+        }
+        .vocabulary-panel {
+            margin-top: 20px;
+        }
+        .test-instructions {
+            background: #f8f9ff;
+            border: 2px solid #e1e5ff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .test-instructions h3 {
+            color: #667eea;
+            margin-top: 0;
+        }
+        .test-step {
+            margin: 8px 0;
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-header">
+            <div class="test-title">🎯 Audio Integration Test</div>
+            <div class="test-subtitle">Phase 1: Simple Click Audio - Vocabulary Cards</div>
+        </div>
+        
+        <div class="test-instructions">
+            <h3>🔊 Test Instructions</h3>
+            <div class="test-step">1. <strong>Word Audio:</strong> Click the 🔊 button next to each French word</div>
+            <div class="test-step">2. <strong>Sentence Audio:</strong> Expand vocabulary cards and try both "🔊 Play" and "🐌 Slow" buttons</div>
+            <div class="test-step">3. <strong>Visual Feedback:</strong> Watch for playing animations and status messages</div>
+            <div class="test-step">4. <strong>Error Handling:</strong> Test works in Chrome, Firefox, Safari (may not work in older browsers)</div>
+        </div>
+
+        <div class="vocabulary-panel">
+            <h3>🎓 Test Vocabulary</h3>
+            <div class="vocabulary-grid">
+                <div class="vocab-card" data-word="detective">
+                    <div class="vocab-header">
+                        <div class="vocab-word-section">
+                            <strong>détective</strong>
+                            <button class="audio-word-btn" onclick="playWordAudio('détective', this)" title="Pronounce word">🔊</button>
+                        </div>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                    <div class="vocab-details">
+                        <div class="vocab-english">detective (feminine/masculine)</div>
+                        <div class="vocab-chapter">📖 Chapter 1: The Missing Phone</div>
+                        <div class="vocab-usage">
+                            <div class="usage-example">"Detective Marie est dans un petit café"</div>
+                            <div class="sentence-audio-controls">
+                                <button class="audio-sentence-btn" onclick="playSentenceAudio('Detective Marie est dans un petit café', this, 1.0)" title="Normal speed">🔊 Play</button>
+                                <button class="audio-sentence-btn slow" onclick="playSentenceAudio('Detective Marie est dans un petit café', this, 0.6)" title="Slow speed">🐌 Slow</button>
+                            </div>
+                        </div>
+                        <div class="vocab-note">
+                            <span class="note-icon">💡</span>
+                            Can be used for both male and female detectives
+                        </div>
+                        <div class="audio-feedback"></div>
+                    </div>
+                </div>
+                
+                <div class="vocab-card" data-word="café">
+                    <div class="vocab-header">
+                        <div class="vocab-word-section">
+                            <strong>café</strong>
+                            <button class="audio-word-btn" onclick="playWordAudio('café', this)" title="Pronounce word">🔊</button>
+                        </div>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                    <div class="vocab-details">
+                        <div class="vocab-english">coffee / café</div>
+                        <div class="vocab-chapter">📖 Chapter 1: The Missing Phone</div>
+                        <div class="vocab-usage">
+                            <div class="usage-example">"dans un petit café à Paris"</div>
+                            <div class="sentence-audio-controls">
+                                <button class="audio-sentence-btn" onclick="playSentenceAudio('dans un petit café à Paris', this, 1.0)" title="Normal speed">🔊 Play</button>
+                                <button class="audio-sentence-btn slow" onclick="playSentenceAudio('dans un petit café à Paris', this, 0.6)" title="Slow speed">🐌 Slow</button>
+                            </div>
+                        </div>
+                        <div class="audio-feedback"></div>
+                    </div>
+                </div>
+
+                <div class="vocab-card" data-word="telephone">
+                    <div class="vocab-header">
+                        <div class="vocab-word-section">
+                            <strong>téléphone</strong>
+                            <button class="audio-word-btn" onclick="playWordAudio('téléphone', this)" title="Pronounce word">🔊</button>
+                        </div>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                    <div class="vocab-details">
+                        <div class="vocab-english">telephone / phone</div>
+                        <div class="vocab-chapter">📖 Chapter 1: The Missing Phone</div>
+                        <div class="vocab-usage">
+                            <div class="usage-example">"Le téléphone sonne dans le café"</div>
+                            <div class="sentence-audio-controls">
+                                <button class="audio-sentence-btn" onclick="playSentenceAudio('Le téléphone sonne dans le café', this, 1.0)" title="Normal speed">🔊 Play</button>
+                                <button class="audio-sentence-btn slow" onclick="playSentenceAudio('Le téléphone sonne dans le café', this, 0.6)" title="Slow speed">🐌 Slow</button>
+                            </div>
+                        </div>
+                        <div class="vocab-note">
+                            <span class="note-icon">💡</span>
+                            Classic French pronunciation: [te-le-FON]
+                        </div>
+                        <div class="audio-feedback"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load the audio functionality -->
+    <script src="js/app_sidebar.js"></script>
+    
+    <!-- Additional test functionality -->
+    <script>
+        // Enable vocabulary card expansion for testing
+        document.querySelectorAll('.vocab-card').forEach(card => {
+            const header = card.querySelector('.vocab-header');
+            const details = card.querySelector('.vocab-details');
+            const icon = card.querySelector('.expand-icon');
+            
+            header.addEventListener('click', function(e) {
+                // Don't trigger expansion when clicking audio buttons
+                if (e.target.closest('.audio-word-btn')) return;
+                
+                const isExpanded = details.style.display === 'block';
+                details.style.display = isExpanded ? 'none' : 'block';
+                icon.style.transform = isExpanded ? 'rotate(0deg)' : 'rotate(180deg)';
+            });
+            
+            // Start with first card expanded for testing
+            if (card.dataset.word === 'detective') {
+                details.style.display = 'block';
+                icon.style.transform = 'rotate(180deg)';
+            }
+        });
+    </script>
+</body>
+</html>
