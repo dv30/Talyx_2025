@@ -151,3 +151,41 @@ This configuration is implemented to optimize token usage by maintaining consist
 **Last Updated:** 2025-07-20 13:15 (UTC+2)
 **Version:** 1.0 - Initial comprehensive project guidelines
 **Next Review:** Upon completion of next major development phase
+## Git Version Control Protocol
+
+**Purpose:** Prevent work loss during chat interruptions and enable safe recovery
+
+### Essential Git Commands (Desktop Commander)
+```bash
+# Safe checkpoint before major changes
+cd "PROJECT_PATH"; git add .; git commit -m "Checkpoint: [operation description]"
+
+# Completed section save  
+cd "PROJECT_PATH"; git add .; git commit -m "Completed: [achievement description]"
+
+# End-of-session backup
+cd "PROJECT_PATH"; git push origin main
+```
+
+### Workflow Integration
+1. **Before file operations** → Create checkpoint commit
+2. **After completing tasks** → Commit changes with descriptive message
+3. **Session end** → Push to GitHub for backup
+4. **Chat interruption recovery** → Check `git log` for latest safe state
+
+### GitHub Setup (One-time)
+- Create repository at github.com/USERNAME/Talyx_2025
+- Link local: `git remote add origin [GitHub URL]`
+- Initial push: `git branch -M main; git push -u origin main`
+
+### Recovery Commands
+```bash
+# Check recent commits
+git log --oneline -10
+
+# Return to specific commit if needed  
+git reset --hard [commit-hash]
+
+# View current status
+git status
+```
