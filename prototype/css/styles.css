@@ -1,0 +1,569 @@
+/* TALYX - Development Enhanced Styles */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: #E5E7EB;
+    color: #374151;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* Development Controls */
+.dev-controls {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+    display: flex;
+    gap: 0.5rem;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 0.5rem;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+}
+
+.dev-btn {
+    background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.dev-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+/* Development Tooltips */
+.edit-tooltip {
+    position: absolute;
+    top: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1F2937;
+    color: #F9FAFB;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    z-index: 1001;
+    white-space: nowrap;
+}
+
+.edit-tooltip::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: #1F2937;
+}
+
+/* Show tooltips on hover in dev mode */
+[data-edit]:hover .edit-tooltip {
+    opacity: 1;
+}
+
+/* Development mode indicators */
+.dev-mode [data-edit] {
+    position: relative;
+    border: 2px dashed transparent;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.dev-mode [data-edit]:hover {
+    border-color: #6366F1;
+    background: rgba(99, 102, 241, 0.05);
+}
+
+/* Hide dev tooltips by default */
+body:not(.dev-mode) .edit-tooltip {
+    display: none;
+}
+/* Core Layout Styles */
+.header {
+    background: #E5E7EB;
+    padding: 1.5rem 0;
+    box-shadow: 8px 8px 16px #D1D5DB, -8px -8px 16px #F9FAFB;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #E5E7EB;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+}
+
+.logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #6366F1;
+    letter-spacing: 2px;
+}
+
+.nav {
+    display: flex;
+    gap: 1rem;
+}
+
+.nav-btn {
+    background: #E5E7EB;
+    border: none;
+    padding: 0.7rem 1.2rem;
+    border-radius: 8px;
+    color: #374151;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 6px 6px 12px #D1D5DB, -6px -6px 12px #F9FAFB;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+}
+
+.nav-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 8px 8px 16px #D1D5DB, -8px -8px 16px #F9FAFB;
+}
+
+.nav-btn.active {
+    background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+    color: white;
+    box-shadow: inset 4px 4px 8px rgba(0,0,0,0.1);
+}
+/* Main Layout */
+.main-layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+.sidebar {
+    background: #E5E7EB;
+    border-radius: 12px;
+    padding: 2rem;
+    height: fit-content;
+    position: sticky;
+    top: 120px;
+    box-shadow: inset 6px 6px 12px #D1D5DB, inset -6px -6px 12px #F9FAFB;
+}
+
+.story-content {
+    background: #E5E7EB;
+    border-radius: 12px;
+    padding: 3rem;
+    box-shadow: 8px 8px 16px #D1D5DB, -8px -8px 16px #F9FAFB;
+}
+
+/* Sidebar Elements */
+.level-badge {
+    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+}
+
+.progress-section {
+    margin-bottom: 2rem;
+}
+
+.progress-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.progress-bar {
+    background: #D1D5DB;
+    height: 6px;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.progress-fill {
+    background: linear-gradient(90deg, #6366F1 0%, #8B5CF6 100%);
+    height: 100%;
+    width: 35%;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #6B7280;
+    margin-top: 0.5rem;
+    font-weight: 500;
+    font-family: 'JetBrains Mono', monospace;
+}
+/* Objectives Section */
+.objectives {
+    background: #E5E7EB;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: inset 4px 4px 8px #D1D5DB, inset -4px -4px 8px #F9FAFB;
+    position: relative;
+}
+
+.objectives h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    color: #111827;
+    text-transform: uppercase;
+}
+
+.objective-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.8rem;
+    font-size: 0.9rem;
+    color: #6B7280;
+    position: relative;
+    padding: 0.5rem;
+    border-radius: 4px;
+}
+
+.objective-icon {
+    margin-right: 0.5rem;
+    font-weight: bold;
+}
+
+.completed { color: #10B981; }
+.current { color: #6366F1; }
+.pending { color: #9CA3AF; }
+
+/* Story Header */
+.story-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    border-bottom: 2px solid #D1D5DB;
+    padding-bottom: 2rem;
+    position: relative;
+}
+
+.story-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 1rem;
+    letter-spacing: -1px;
+}
+
+.story-meta {
+    color: #6B7280;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+/* Language Toggle */
+.language-toggle {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+    gap: 0.5rem;
+}
+
+.toggle-btn {
+    background: #E5E7EB;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+    box-shadow: 4px 4px 8px #D1D5DB, -4px -4px 8px #F9FAFB;
+}
+
+.toggle-btn.active {
+    background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+    color: white;
+    box-shadow: inset 3px 3px 6px rgba(0,0,0,0.1);
+}
+
+/* Story Sections */
+.story-section {
+    margin-bottom: 3rem;
+    background: #E5E7EB;
+    border-radius: 10px;
+    padding: 2.5rem;
+    box-shadow: inset 3px 3px 6px #D1D5DB, inset -3px -3px 6px #F9FAFB;
+    border-left: 4px solid #EC4899;
+    position: relative;
+}
+
+.section-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+}
+
+.bilingual-text {
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding: 1rem;
+    border-radius: 6px;
+}
+
+.french-text {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.8rem;
+    line-height: 1.5;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.english-text {
+    font-size: 1.1rem;
+    color: #6B7280;
+    font-style: italic;
+    transition: opacity 0.3s ease;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.english-text.hidden {
+    opacity: 0.3;
+}
+/* Vocabulary and Grammar Highlighting */
+.vocab-highlight {
+    background: linear-gradient(120deg, #FEF3C7 0%, #FDE68A 100%);
+    padding: 2px 4px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.vocab-highlight:hover {
+    background: linear-gradient(120deg, #F59E0B 0%, #D97706 100%);
+    color: white;
+    transform: scale(1.05);
+}
+
+.grammar-highlight {
+    background: linear-gradient(120deg, #DBEAFE 0%, #BFDBFE 100%);
+    padding: 2px 4px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.grammar-highlight:hover {
+    background: linear-gradient(120deg, #3B82F6 0%, #2563EB 100%);
+    color: white;
+    transform: scale(1.05);
+}
+
+/* Tooltips for vocabulary/grammar */
+.tooltip {
+    position: absolute;
+    background: #111827;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 5px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    z-index: 1000;
+    font-family: 'JetBrains Mono', monospace;
+    white-space: nowrap;
+}
+
+.vocab-highlight:hover .tooltip,
+.grammar-highlight:hover .tooltip {
+    opacity: 1;
+}
+
+/* Vocabulary Panel */
+.vocabulary-panel {
+    background: #E5E7EB;
+    border-radius: 10px;
+    padding: 2rem;
+    margin-top: 2rem;
+    box-shadow: inset 4px 4px 8px #D1D5DB, inset -4px -4px 8px #F9FAFB;
+    position: relative;
+}
+
+.panel-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.vocab-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.vocab-card {
+    background: #E5E7EB;
+    border-radius: 6px;
+    padding: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s ease;
+    box-shadow: 4px 4px 8px #D1D5DB, -4px -4px 8px #F9FAFB;
+    position: relative;
+}
+
+.vocab-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 6px 6px 12px #D1D5DB, -6px -6px 12px #F9FAFB;
+}
+
+.vocab-french {
+    font-weight: 600;
+    color: #111827;
+    font-size: 1.1rem;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.vocab-english {
+    color: #6B7280;
+    font-style: italic;
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .sidebar {
+        position: static;
+        order: 2;
+    }
+    
+    .story-title {
+        font-size: 2rem;
+    }
+    
+    .french-text {
+        font-size: 1.1rem;
+    }
+    
+    .dev-controls {
+        position: fixed;
+        top: 5px;
+        right: 5px;
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+    
+    .dev-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.7rem;
+    }
+}
+
+/* Additional Development Features */
+.dev-mode .story-section:hover::before {
+    content: "Section: " attr(data-edit);
+    position: absolute;
+    top: -25px;
+    left: 10px;
+    background: #6366F1;
+    color: white;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-family: 'JetBrains Mono', monospace;
+    z-index: 1002;
+}
+
+.dev-mode .bilingual-text:hover::before {
+    content: "Paragraph: " attr(data-edit);
+    position: absolute;
+    top: -20px;
+    right: 10px;
+    background: #EC4899;
+    color: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    font-size: 0.6rem;
+    font-family: 'JetBrains Mono', monospace;
+    z-index: 1002;
+}
+
+/* Animation for progress updates */
+@keyframes progressUpdate {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.progress-fill.updating {
+    animation: progressUpdate 0.3s ease;
+}
+
+/* Save confirmation */
+.save-confirmation {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #10B981;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    z-index: 1003;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.save-confirmation.show {
+    opacity: 1;
+}

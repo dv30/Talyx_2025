@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TALYX - The Missing Phone (Development Version)</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Development Controls -->
+    <div id="dev-controls" class="dev-controls">
+        <button id="dev-toggle" class="dev-btn">🔧 Dev Mode: ON</button>
+        <button id="save-progress" class="dev-btn">💾 Save Progress</button>
+        <button id="reset-progress" class="dev-btn">🔄 Reset</button>
+    </div>
+
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">TALYX</div>
+                <nav class="nav">
+                    <button class="nav-btn active">Story</button>
+                    <button class="nav-btn">Vocabulary</button>
+                    <button class="nav-btn">Grammar</button>
+                    <button class="nav-btn">Exercises</button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="main-layout">
+            <aside class="sidebar">
+                <div class="level-badge">A1-A2 Level</div>
+                
+                <div class="progress-section">
+                    <div class="progress-title">Chapter Progress</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <div class="progress-text" id="progress-text">35% Complete</div>
+                </div>
+                
+                <div class="objectives">
+                    <h3>Learning Objectives</h3>
+                    <div class="objective-item completed" data-edit="objectives-1">
+                        <span class="objective-icon">✓</span>
+                        Present tense verbs
+                        <span class="edit-tooltip">Edit Objective 1</span>
+                    </div>                    <div class="objective-item current" data-edit="objectives-2">
+                        <span class="objective-icon">◉</span>
+                        Question formation
+                        <span class="edit-tooltip">Edit Objective 2</span>
+                    </div>
+                    <div class="objective-item pending" data-edit="objectives-3">
+                        <span class="objective-icon">○</span>
+                        Past tense introduction
+                        <span class="edit-tooltip">Edit Objective 3</span>
+                    </div>
+                    <div class="objective-item pending" data-edit="objectives-4">
+                        <span class="objective-icon">○</span>
+                        Technology vocabulary
+                        <span class="edit-tooltip">Edit Objective 4</span>
+                    </div>
+                </div>
+            </aside>
+
+            <main class="story-content">
+                <div class="story-header" data-edit="story-header">
+                    <h1 class="story-title">The Missing Phone</h1>
+                    <div class="story-meta">Detective Marie Series • Chapter 1 • 15 minutes</div>
+                    <span class="edit-tooltip">Edit Story Header</span>
+                </div>
+
+                <div class="language-toggle">
+                    <button class="toggle-btn active" onclick="toggleLanguage('both')">Both Languages</button>
+                    <button class="toggle-btn" onclick="toggleLanguage('french')">French Only</button>
+                    <button class="toggle-btn" onclick="toggleLanguage('english')">English Only</button>
+                </div>
+
+                <section class="story-section" data-edit="section-1" id="section-1">
+                    <h2 class="section-title">1. The Café Incident</h2>
+                    <span class="edit-tooltip">Edit Section 1: Café Incident</span>
+                    
+                    <div class="bilingual-text" data-edit="paragraph-1-1">
+                        <p class="french-text">
+                            <span class="vocab-highlight" data-word="café">Detective Marie</span> 
+                            <span class="grammar-highlight">est</span> 
+                            dans un <span class="vocab-highlight">petit café<span class="tooltip">small café</span></span> à Paris. 
+                            Elle <span class="grammar-highlight">boit<span class="tooltip">drinks (3rd person singular)</span></span> 
+                            son <span class="vocab-highlight">café au lait<span class="tooltip">coffee with milk</span></span>.
+                        </p>
+                        <p class="english-text">
+                            Detective Marie is in a small café in Paris. She drinks her coffee with milk.
+                        </p>
+                        <span class="edit-tooltip">Edit Paragraph 1.1</span>
+                    </div>                    
+                    <div class="bilingual-text" data-edit="paragraph-1-2">
+                        <p class="french-text">
+                            Soudain, une <span class="vocab-highlight">jeune femme<span class="tooltip">young woman</span></span> 
+                            <span class="grammar-highlight">arrive<span class="tooltip">arrives (3rd person singular)</span></span> 
+                            en courant. Elle <span class="vocab-highlight">pleure<span class="tooltip">cries/is crying</span></span>.
+                        </p>
+                        <p class="english-text">
+                            Suddenly, a young woman arrives running. She is crying.
+                        </p>
+                        <span class="edit-tooltip">Edit Paragraph 1.2</span>
+                    </div>
+                    
+                    <div class="bilingual-text" data-edit="paragraph-1-3">
+                        <p class="french-text">
+                            "Excusez-moi, madame," dit la femme. "Vous <span class="grammar-highlight">êtes<span class="tooltip">are (2nd person formal)</span></span> 
+                            <span class="vocab-highlight">détective<span class="tooltip">detective</span></span>, non? 
+                            J'ai <span class="vocab-highlight">besoin<span class="tooltip">need</span></span> de votre aide!"
+                        </p>
+                        <p class="english-text">
+                            "Excuse me, madam," says the woman. "You are a detective, aren't you? I need your help!"
+                        </p>
+                        <span class="edit-tooltip">Edit Paragraph 1.3</span>
+                    </div>
+                </section>
+
+                <section class="story-section" data-edit="section-2" id="section-2">
+                    <h2 class="section-title">2. The Problem</h2>
+                    <span class="edit-tooltip">Edit Section 2: The Problem</span>
+                    
+                    <div class="bilingual-text" data-edit="paragraph-2-1">
+                        <p class="french-text">
+                            Marie <span class="grammar-highlight">regarde<span class="tooltip">looks at (3rd person singular)</span></span> 
+                            la jeune femme. "Je <span class="grammar-highlight">suis<span class="tooltip">am (1st person singular)</span></span> 
+                            Detective Marie Dubois. <span class="grammar-highlight">Comment<span class="tooltip">how (question word)</span></span> 
+                            vous <span class="vocab-highlight">appelez<span class="tooltip">call yourselves</span></span>-vous?"
+                        </p>
+                        <p class="english-text">
+                            Marie looks at the young woman. "I am Detective Marie Dubois. What is your name?"
+                        </p>
+                        <span class="edit-tooltip">Edit Paragraph 2.1</span>
+                    </div>                    
+                    <div class="bilingual-text" data-edit="paragraph-2-2">
+                        <p class="french-text">
+                            "Je <span class="grammar-highlight">m'appelle<span class="tooltip">my name is (reflexive verb)</span></span> 
+                            Lisa," répond la femme. "Mon <span class="vocab-highlight">téléphone portable<span class="tooltip">mobile phone</span></span> 
+                            a <span class="vocab-highlight">disparu<span class="tooltip">disappeared</span></span>! 
+                            Il <span class="grammar-highlight">était<span class="tooltip">was (3rd person singular, past)</span></span> 
+                            sur cette <span class="vocab-highlight">table<span class="tooltip">table</span></span>."
+                        </p>
+                        <p class="english-text">
+                            "My name is Lisa," replies the woman. "My mobile phone has disappeared! It was on this table."
+                        </p>
+                        <span class="edit-tooltip">Edit Paragraph 2.2</span>
+                    </div>
+                    
+                    <div class="bilingual-text" data-edit="paragraph-2-3">
+                        <p class="french-text">
+                            Marie <span class="grammar-highlight">demande<span class="tooltip">asks (3rd person singular)</span></span>: 
+                            "<span class="grammar-highlight">Quand<span class="tooltip">when (question word)</span></span> 
+                            avez-vous vu votre téléphone pour la 
+                            <span class="vocab-highlight">dernière fois<span class="tooltip">last time</span></span>?"
+                        </p>
+                        <p class="english-text">
+                            Marie asks: "When did you see your phone for the last time?"
+                        </p>
+                        <span class="edit-tooltip">Edit Paragraph 2.3</span>
+                    </div>
+                </section>
+
+                <section class="story-section" data-edit="section-3" id="section-3">
+                    <h2 class="section-title">3. The Investigation Begins</h2>
+                    <span class="edit-tooltip">Edit Section 3: Investigation Begins</span>
+                    
+                    <div class="bilingual-text" data-edit="paragraph-3-1">
+                        <p class="french-text">
+                            "Il y a <span class="vocab-highlight">dix minutes<span class="tooltip">ten minutes</span></span>," 
+                            dit Lisa. "Je <span class="grammar-highlight">suis allée<span class="tooltip">went (1st person feminine, past)</span></span> 
+                            aux <span class="vocab-highlight">toilettes<span class="tooltip">toilets/restroom</span></span>. 
+                            Quand je <span class="grammar-highlight">suis revenue<span class="tooltip">came back (1st person feminine, past)</span></span>, 
+                            mon téléphone <span class="grammar-highlight">n'était plus<span class="tooltip">was no longer</span></span> là!"
+                        </p>
+                        <p class="english-text">
+                            "Ten minutes ago," says Lisa. "I went to the restroom. When I came back, my phone was no longer there!"
+                        </p>
+                        <span class="edit-tooltip">Edit Paragraph 3.1</span>
+                    </div>                    
+                    <div class="bilingual-text" data-edit="paragraph-3-2">
+                        <p class="french-text">
+                            Marie <span class="grammar-highlight">observe<span class="tooltip">observes (3rd person singular)</span></span> 
+                            attentivement la table. Elle <span class="grammar-highlight">voit<span class="tooltip">sees (3rd person singular)</span></span> 
+                            une <span class="vocab-highlight">tasse de café<span class="tooltip">coffee cup</span></span> 
+                            et un <span class="vocab-highlight">journal<span class="tooltip">newspaper</span></span>, 
+                            mais pas de téléphone.
+                        </p>
+                        <p class="english-text">
+                            Marie carefully observes the table. She sees a coffee cup and a newspaper, but no phone.
+                        </p>
+                        <span class="edit-tooltip">Edit Paragraph 3.2</span>
+                    </div>
+                </section>
+
+                <div class="vocabulary-panel" data-edit="vocabulary-panel">
+                    <h3 class="panel-title">Key Vocabulary</h3>
+                    <span class="edit-tooltip">Edit Vocabulary Panel</span>
+                    <div class="vocab-grid">
+                        <div class="vocab-card" data-edit="vocab-1">
+                            <span class="vocab-french">téléphone portable</span>
+                            <span class="vocab-english">mobile phone</span>
+                            <span class="edit-tooltip">Edit Vocab 1</span>
+                        </div>
+                        <div class="vocab-card" data-edit="vocab-2">
+                            <span class="vocab-french">disparu</span>
+                            <span class="vocab-english">disappeared</span>
+                            <span class="edit-tooltip">Edit Vocab 2</span>
+                        </div>
+                        <div class="vocab-card" data-edit="vocab-3">
+                            <span class="vocab-french">dernière fois</span>
+                            <span class="vocab-english">last time</span>
+                            <span class="edit-tooltip">Edit Vocab 3</span>
+                        </div>
+                        <div class="vocab-card" data-edit="vocab-4">
+                            <span class="vocab-french">détective</span>
+                            <span class="vocab-english">detective</span>
+                            <span class="edit-tooltip">Edit Vocab 4</span>
+                        </div>
+                        <div class="vocab-card" data-edit="vocab-5">
+                            <span class="vocab-french">toilettes</span>
+                            <span class="vocab-english">restroom</span>
+                            <span class="edit-tooltip">Edit Vocab 5</span>
+                        </div>
+                        <div class="vocab-card" data-edit="vocab-6">
+                            <span class="vocab-french">dix minutes</span>
+                            <span class="vocab-english">ten minutes</span>
+                            <span class="edit-tooltip">Edit Vocab 6</span>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
