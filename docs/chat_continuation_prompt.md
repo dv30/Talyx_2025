@@ -133,17 +133,28 @@ The project was analyzed from 14 professional perspectives:
 ### 1. Start with Time Query:
 Use Desktop Commander to get current system time with `Get-Date`
 
-### 2. Review Current Status:
+### 2. Check Git Status:
+Verify project state with Git Zero Risk Workflow check:
+- `git status` - Check for any uncommitted changes
+- If changes exist, assess whether they need immediate attention
+- Verify last commit matches expected session end state
+
+### 3. Review Current Status:
 Check `README.md` and `progress\checkpoint.md` for latest project state
 
-### 3. Choose Development Direction:
+### 4. Choose Development Direction:
 Ask user to confirm next development focus area from immediate next steps
 
-### 4. Follow Project Guidelines:
+### 5. Follow Project Guidelines:
 Reference `docs\project_instructions.md` for all development standards
 
-### 5. Maintain Recovery Protocol:
+### 6. Maintain Recovery Protocol:
 Update checkpoint files after completing major operations
+
+### 7. Execute Git Zero Risk Workflow during development:
+- **Before major operation:** `git add .; git commit -m "Checkpoint: before [operation]"`
+- **After completing section:** `git add .; git commit -m "Completed: [specific achievement]"`
+- **At session end:** Follow session end prompt for final Git push
 
 ## Important Constraints & Standards
 
@@ -168,5 +179,27 @@ Update checkpoint files after completing major operations
 ---
 
 **Created:** 2025-07-20 13:32 (UTC+2)  
+**Updated:** 2025-07-20 21:40 (UTC+2) - Added Git Zero Risk Workflow
 **Purpose:** Seamless project continuation across chat sessions  
 **Next Action:** Choose development direction and begin with time query
+
+---
+
+## GIT ZERO RISK WORKFLOW INTEGRATION
+
+**Session Start Git Check:**
+```powershell
+Set-Location "C:\Users\maria\OneDrive\Documents\Projekt-Francuzsky_jazyk\LinguaStory_2025\Talyx"
+git status
+```
+
+**During Development:**
+1. **Before major operation:** `git add .; git commit -m "Checkpoint: before [operation]"`
+2. **After completing section:** `git add .; git commit -m "Completed: [specific achievement]"`  
+3. **At session end:** `git push origin main`
+
+**Benefits:**
+- Zero risk of work loss between sessions
+- Complete development history and version control
+- Cloud backup ensures project safety
+- Easy rollback if needed
