@@ -715,6 +715,120 @@ body.highlights-off .grammar-highlight {
     }
 }
 
+/* =================== STORY PARAGRAPH AUDIO CONTROLS =================== */
+
+/* Paragraph section layout */
+.paragraph-section {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.paragraph-audio-controls {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+/* Story audio button styling */
+.story-audio-btn {
+    background: #34495e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 11px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 500;
+    min-width: 70px;
+    justify-content: center;
+}
+
+.story-audio-btn:hover {
+    background: #2c3e50;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(52, 73, 94, 0.3);
+}
+
+.story-audio-btn:active {
+    transform: translateY(0);
+}
+
+/* Language-specific button colors */
+.story-audio-btn.french {
+    background: #3498db;
+}
+
+.story-audio-btn.french:hover {
+    background: #2980b9;
+}
+
+.story-audio-btn.english {
+    background: #27ae60;
+}
+
+.story-audio-btn.english:hover {
+    background: #229954;
+}
+
+/* Slow speed button variants */
+.story-audio-btn.slow {
+    opacity: 0.85;
+}
+
+.story-audio-btn.french.slow {
+    background: #2980b9;
+}
+
+.story-audio-btn.french.slow:hover {
+    background: #21618c;
+}
+
+.story-audio-btn.english.slow {
+    background: #229954;
+}
+
+.story-audio-btn.english.slow:hover {
+    background: #1e8449;
+}
+
+/* Playing state */
+.story-audio-btn.playing {
+    background: #e67e22 !important;
+    animation: pulse 1s infinite;
+}
+
+/* Responsive adjustments for story audio */
+@media (max-width: 768px) {
+    .paragraph-audio-controls {
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+    
+    .story-audio-btn {
+        font-size: 10px;
+        padding: 6px 8px;
+        min-width: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    .paragraph-audio-controls {
+        flex-direction: column;
+        gap: 6px;
+    }
+    
+    .story-audio-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
 /* =================== AUDIO CONTROL STYLING =================== */
 
 /* Word-level audio controls */

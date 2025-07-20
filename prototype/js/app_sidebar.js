@@ -350,6 +350,73 @@ function playSentenceAudio(text, button, rate = 1.0) {
     speechSynthesis.speak(utterance);
 }
 
+// =================== STORY PARAGRAPH AUDIO FUNCTION ===================
+
+function playStoryAudio(text, button, language, rate = 1.0) {
+    // Stop any current speech
+    if (currentSpeech) {
+        speechSynthesis.cancel();
+    }
+
+    // Create new speech utterance for story paragraph
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = language; // 'fr-FR' or 'en-US'
+    utterance.rate = rate;
+    utterance.volume = 0.8;
+    utterance.pitch = 1.0;
+
+    // Visual feedback
+    button.classList.add('playing');
+    
+    // Create temporary feedback if it doesn't exist
+    let feedback = button.parentElement.querySelector('.story-audio-feedback');
+    if (!feedback) {
+        feedback = document.createElement('div');
+        feedback.className = 'story-audio-feedback';
+        feedback.style.cssText = `
+            margin-top: 8px;
+            padding: 6px 10px;
+            border-radius: 6px;
+            background: #ecf0f1;
+            color: #2c3e50;
+            font-size: 11px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            text-align: center;
+        `;
+        button.parentElement.appendChild(feedback);
+    }
+    
+    feedback.classList.remove('error');
+    feedback.style.opacity = '1';
+    const languageName = language === 'fr-FR' ? 'French' : 'English';
+    feedback.textContent = rate < 0.8 ? `Playing ${languageName} slowly...` : `Playing ${languageName}...`;
+
+    // Handle speech events
+    utterance.onend = function() {
+        button.classList.remove('playing');
+        feedback.style.opacity = '0';
+        currentSpeech = null;
+    };
+
+    utterance.onerror = function() {
+        button.classList.remove('playing');
+        feedback.style.background = '#e74c3c';
+        feedback.style.color = 'white';
+        feedback.style.opacity = '1';
+        feedback.textContent = 'Audio not available';
+        setTimeout(() => {
+            feedback.style.opacity = '0';
+            feedback.style.background = '#ecf0f1';
+            feedback.style.color = '#2c3e50';
+        }, 2000);
+        currentSpeech = null;
+    };
+
+    currentSpeech = utterance;
+    speechSynthesis.speak(utterance);
+}
+
 // Check if speech synthesis is available on page load
 document.addEventListener('DOMContentLoaded', function() {
     if (!('speechSynthesis' in window)) {
@@ -386,3 +453,4 @@ window.toggleDevMode = toggleDevMode;
 window.saveProgress = saveProgress;
 window.playWordAudio = playWordAudio;
 window.playSentenceAudio = playSentenceAudio;
+window.playStoryAudio = playStoryAudio;
