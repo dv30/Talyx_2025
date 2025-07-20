@@ -3,6 +3,7 @@
 class TalyxApp {
     constructor() {
         this.devMode = true;
+        this.highlightingEnabled = localStorage.getItem('talyx-highlighting') !== 'false'; // Default true
         this.progress = parseInt(localStorage.getItem('talyx-progress')) || 35;
         this.userInteractions = JSON.parse(localStorage.getItem('talyx-interactions')) || {};
         this.currentLanguageMode = localStorage.getItem('talyx-language-mode') || 'both';
@@ -20,6 +21,14 @@ class TalyxApp {
         // Initialize language mode
         this.setLanguageMode(this.currentLanguageMode);
         
+        // Initialize highlighting state
+        document.body.classList.toggle('highlights-disabled', !this.highlightingEnabled);
+        const highlightBtn = document.getElementById('highlight-toggle');
+        if (highlightBtn) {
+            highlightBtn.classList.toggle('active', this.highlightingEnabled);
+            highlightBtn.textContent = `✨ ${this.highlightingEnabled ? 'Highlights' : 'No Highlights'}`;
+        }
+        
         // Setup event listeners
         this.setupEventListeners();
         
@@ -36,6 +45,9 @@ class TalyxApp {
         document.getElementById('dev-toggle').addEventListener('click', () => this.toggleDevMode());
         document.getElementById('save-progress').addEventListener('click', () => this.saveProgress());
         document.getElementById('reset-progress').addEventListener('click', () => this.resetProgress());
+        
+        // Feature toggles
+        document.getElementById('highlight-toggle').addEventListener('click', () => this.toggleHighlighting());
         
         // Language toggle buttons
         document.querySelectorAll('.toggle-btn').forEach(btn => {
@@ -73,6 +85,20 @@ class TalyxApp {
         console.log(`🔧 Development Mode: ${this.devMode ? 'ON' : 'OFF'}`);
     }
     
+    toggleHighlighting() {
+        this.highlightingEnabled = !this.highlightingEnabled;
+        document.body.classList.toggle('highlights-disabled', !this.highlightingEnabled);
+        
+        const btn = document.getElementById('highlight-toggle');
+        btn.classList.toggle('active', this.highlightingEnabled);
+        btn.textContent = `✨ ${this.highlightingEnabled ? 'Highlights' : 'No Highlights'}`;
+        
+        // Save highlighting preference
+        localStorage.setItem('talyx-highlighting', this.highlightingEnabled);
+        
+        console.log(`✨ Highlighting: ${this.highlightingEnabled ? 'ON' : 'OFF'}`);
+    }
+    
     toggleLanguage(mode) {
         const englishTexts = document.querySelectorAll('.english-text');
         const buttons = document.querySelectorAll('.toggle-btn');
@@ -89,20 +115,26 @@ class TalyxApp {
         
         switch(mode) {
             case 'both':
+                // Show both French and English text
+                document.querySelectorAll('.french-text').forEach(text => text.style.display = 'block');
                 englishTexts.forEach(text => {
                     text.style.display = 'block';
                     text.classList.remove('hidden');
+                    text.style.color = ''; // Reset to CSS default
                 });
                 break;
             case 'french':
-                englishTexts.forEach(text => {
-                    text.style.display = 'none';
-                });
+                // Show only French text, hide English
+                document.querySelectorAll('.french-text').forEach(text => text.style.display = 'block');
+                englishTexts.forEach(text => text.style.display = 'none');
                 break;
             case 'english':
+                // Hide French text completely, show English text with full opacity
+                document.querySelectorAll('.french-text').forEach(text => text.style.display = 'none');
                 englishTexts.forEach(text => {
                     text.style.display = 'block';
-                    text.classList.add('hidden');
+                    text.classList.remove('hidden');
+                    text.style.color = '#111827'; // Same as French text color for readability
                 });
                 break;
         }
@@ -260,20 +292,26 @@ class TalyxApp {
         // Apply language mode
         switch(mode) {
             case 'both':
+                // Show both French and English text
+                document.querySelectorAll('.french-text').forEach(text => text.style.display = 'block');
                 englishTexts.forEach(text => {
                     text.style.display = 'block';
                     text.classList.remove('hidden');
+                    text.style.color = ''; // Reset to CSS default
                 });
                 break;
             case 'french':
-                englishTexts.forEach(text => {
-                    text.style.display = 'none';
-                });
+                // Show only French text, hide English
+                document.querySelectorAll('.french-text').forEach(text => text.style.display = 'block');
+                englishTexts.forEach(text => text.style.display = 'none');
                 break;
             case 'english':
+                // Hide French text completely, show English text with full opacity
+                document.querySelectorAll('.french-text').forEach(text => text.style.display = 'none');
                 englishTexts.forEach(text => {
                     text.style.display = 'block';
-                    text.classList.add('hidden');
+                    text.classList.remove('hidden');
+                    text.style.color = '#111827'; // Same as French text color for readability
                 });
                 break;
         }

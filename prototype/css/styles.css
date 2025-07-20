@@ -121,6 +121,78 @@ body:not(.dev-mode) .edit-tooltip {
     border-radius: 12px;
 }
 
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.language-toggle {
+    display: flex;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    padding: 0.25rem;
+    gap: 0.25rem;
+}
+
+.dev-controls-header {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.dev-controls-header .dev-btn {
+    padding: 0.5rem 0.75rem;
+    background: rgba(55, 65, 81, 0.1);
+    border: none;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.dev-controls-header .dev-btn:hover {
+    background: rgba(55, 65, 81, 0.2);
+    transform: translateY(-1px);
+}
+
+.feature-toggles {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.feature-btn {
+    padding: 0.5rem 0.75rem;
+    background: rgba(168, 85, 247, 0.1);
+    border: none;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #7C3AED;
+}
+
+.feature-btn:hover {
+    background: rgba(168, 85, 247, 0.2);
+    transform: translateY(-1px);
+}
+
+.feature-btn.active {
+    background: #7C3AED;
+    color: white;
+}
+
+/* Highlighting disabled state */
+.highlights-disabled .vocab-highlight,
+.highlights-disabled .grammar-highlight {
+    border-bottom: none !important;
+    cursor: default !important;
+}
+
+.highlights-disabled .vocab-highlight:hover,
+.highlights-disabled .grammar-highlight:hover {
+    color: inherit !important;
+}
+
 .logo {
     font-family: 'JetBrains Mono', monospace;
     font-size: 1.8rem;
@@ -342,7 +414,7 @@ body:not(.dev-mode) .edit-tooltip {
 .bilingual-text {
     margin-bottom: 1.5rem;
     position: relative;
-    padding: 1rem;
+    padding: 0.8rem; /* Reduced from 1rem (20% reduction) */
     border-radius: 6px;
 }
 
@@ -368,33 +440,29 @@ body:not(.dev-mode) .edit-tooltip {
 }
 /* Vocabulary and Grammar Highlighting */
 .vocab-highlight {
-    background: linear-gradient(120deg, #FEF3C7 0%, #FDE68A 100%);
-    padding: 2px 4px;
-    border-radius: 3px;
+    border-bottom: 2px dotted #F59E0B;
     cursor: pointer;
     transition: all 0.2s ease;
     position: relative;
+    background: transparent;
 }
 
 .vocab-highlight:hover {
-    background: linear-gradient(120deg, #F59E0B 0%, #D97706 100%);
-    color: white;
-    transform: scale(1.05);
+    border-bottom: 2px solid #F59E0B;
+    color: #F59E0B;
 }
 
 .grammar-highlight {
-    background: linear-gradient(120deg, #DBEAFE 0%, #BFDBFE 100%);
-    padding: 2px 4px;
-    border-radius: 3px;
+    border-bottom: 2px dotted #3B82F6;
     cursor: pointer;
     transition: all 0.2s ease;
     position: relative;
+    background: transparent;
 }
 
 .grammar-highlight:hover {
-    background: linear-gradient(120deg, #3B82F6 0%, #2563EB 100%);
-    color: white;
-    transform: scale(1.05);
+    border-bottom: 2px solid #3B82F6;
+    color: #3B82F6;
 }
 
 /* Tooltips for vocabulary/grammar */

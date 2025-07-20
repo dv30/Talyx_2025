@@ -8,12 +8,7 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <!-- Development Controls -->
-    <div id="dev-controls" class="dev-controls">
-        <button id="dev-toggle" class="dev-btn">🔧 Dev Mode: ON</button>
-        <button id="save-progress" class="dev-btn">💾 Save Progress</button>
-        <button id="reset-progress" class="dev-btn">🔄 Reset</button>
-    </div>
+
 
     <header class="header">
         <div class="container">
@@ -25,6 +20,21 @@
                     <button class="nav-btn">Grammar</button>
                     <button class="nav-btn">Exercises</button>
                 </nav>
+                <div class="header-controls">
+                    <div class="language-toggle">
+                        <button class="toggle-btn active" onclick="toggleLanguage('both')">Both</button>
+                        <button class="toggle-btn" onclick="toggleLanguage('french')">French</button>
+                        <button class="toggle-btn" onclick="toggleLanguage('english')">English</button>
+                    </div>
+                    <div class="feature-toggles">
+                        <button id="highlight-toggle" class="feature-btn active" title="Toggle vocabulary/grammar highlighting">✨ Highlights</button>
+                    </div>
+                    <div class="dev-controls-header">
+                        <button id="dev-toggle" class="dev-btn">🔧 Dev</button>
+                        <button id="save-progress" class="dev-btn">💾</button>
+                        <button id="reset-progress" class="dev-btn">🔄</button>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
@@ -73,11 +83,7 @@
                     <span class="edit-tooltip">Edit Story Header</span>
                 </div>
 
-                <div class="language-toggle">
-                    <button class="toggle-btn active" onclick="toggleLanguage('both')">Both Languages</button>
-                    <button class="toggle-btn" onclick="toggleLanguage('french')">French Only</button>
-                    <button class="toggle-btn" onclick="toggleLanguage('english')">English Only</button>
-                </div>
+
 
                 <section class="story-section" data-edit="section-1" id="section-1">
                     <h2 class="section-title">1. The Café Incident</h2>
@@ -85,7 +91,7 @@
                     
                     <div class="bilingual-text" data-edit="paragraph-1-1">
                         <p class="french-text">
-                            <span class="vocab-highlight" data-word="café">Detective Marie</span> 
+                            <span class="vocab-highlight" data-word="detective">Detective Marie<span class="tooltip">female detective</span></span> 
                             <span class="grammar-highlight">est</span> 
                             dans un <span class="vocab-highlight">petit café<span class="tooltip">small café</span></span> à Paris. 
                             Elle <span class="grammar-highlight">boit<span class="tooltip">drinks (3rd person singular)</span></span> 
