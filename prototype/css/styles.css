@@ -532,6 +532,34 @@ body:not(.dev-mode) .edit-tooltip {
     box-shadow: 6px 6px 12px #D1D5DB, -6px -6px 12px #F9FAFB;
 }
 
+.vocab-card.expandable {
+    cursor: pointer;
+}
+
+.vocab-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    margin-top: 0.5rem;
+}
+
+.vocab-card.expanded .vocab-details {
+    max-height: 100px;
+}
+
+.vocab-usage {
+    font-style: italic;
+    color: #6B7280;
+    font-size: 0.85rem;
+    margin-bottom: 0.25rem;
+}
+
+.vocab-note {
+    color: #059669;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
 .vocab-french {
     font-weight: 600;
     color: #111827;

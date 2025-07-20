@@ -388,6 +388,16 @@ function toggleLanguage(mode) {
     }
 }
 
+function toggleVocabDetails(card) {
+    card.classList.toggle('expanded');
+    
+    // Visual feedback
+    card.style.transform = 'scale(0.98)';
+    setTimeout(() => {
+        card.style.transform = '';
+    }, 150);
+}
+
 // Initialize application when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     window.talyxApp = new TalyxApp();
