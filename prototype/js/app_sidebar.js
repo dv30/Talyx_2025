@@ -268,9 +268,121 @@ function updateHighlightState() {
     }
 }
 
+// =================== AUDIO PRONUNCIATION FUNCTIONS ===================
+
+let currentSpeech = null;
+
+function playWordAudio(text, button) {
+    // Stop any current speech
+    if (currentSpeech) {
+        speechSynthesis.cancel();
+    }
+
+    // Create new speech utterance for word
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'fr-FR';
+    utterance.rate = 0.8;
+    utterance.volume = 0.8;
+    utterance.pitch = 1.0;
+
+    // Visual feedback
+    button.classList.add('playing');
+    const feedback = button.closest('.vocab-card').querySelector('.audio-feedback');
+    feedback.classList.remove('error');
+    feedback.classList.add('show');
+    feedback.textContent = 'Playing...';
+
+    // Handle speech events
+    utterance.onend = function() {
+        button.classList.remove('playing');
+        feedback.classList.remove('show');
+        currentSpeech = null;
+    };
+
+    utterance.onerror = function() {
+        button.classList.remove('playing');
+        feedback.classList.add('error', 'show');
+        feedback.textContent = 'Audio not available';
+        setTimeout(() => feedback.classList.remove('show', 'error'), 2000);
+        currentSpeech = null;
+    };
+
+    currentSpeech = utterance;
+    speechSynthesis.speak(utterance);
+}
+
+function playSentenceAudio(text, button, rate = 1.0) {
+    // Stop any current speech
+    if (currentSpeech) {
+        speechSynthesis.cancel();
+    }
+
+    // Create new speech utterance for sentence
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'fr-FR';
+    utterance.rate = rate;
+    utterance.volume = 0.8;
+    utterance.pitch = 1.0;
+
+    // Visual feedback
+    button.classList.add('playing');
+    const feedback = button.closest('.vocab-card').querySelector('.audio-feedback');
+    feedback.classList.remove('error');
+    feedback.classList.add('show');
+    feedback.textContent = rate < 0.8 ? 'Playing slowly...' : 'Playing...';
+
+    // Handle speech events
+    utterance.onend = function() {
+        button.classList.remove('playing');
+        feedback.classList.remove('show');
+        currentSpeech = null;
+    };
+
+    utterance.onerror = function() {
+        button.classList.remove('playing');
+        feedback.classList.add('error', 'show');
+        feedback.textContent = 'Audio not available';
+        setTimeout(() => feedback.classList.remove('show', 'error'), 2000);
+        currentSpeech = null;
+    };
+
+    currentSpeech = utterance;
+    speechSynthesis.speak(utterance);
+}
+
+// Check if speech synthesis is available on page load
+document.addEventListener('DOMContentLoaded', function() {
+    if (!('speechSynthesis' in window)) {
+        // Create warning banner for unsupported browsers
+        const warningBanner = document.createElement('div');
+        warningBanner.style.cssText = `
+            background: #e74c3c;
+            color: white;
+            padding: 12px 20px;
+            text-align: center;
+            font-size: 14px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        `;
+        warningBanner.innerHTML = '⚠️ Audio pronunciation not available in this browser. Please use Chrome, Firefox, or Safari for audio features.';
+        document.body.insertBefore(warningBanner, document.body.firstChild);
+        
+        // Disable all audio buttons
+        document.querySelectorAll('.audio-word-btn, .audio-sentence-btn').forEach(btn => {
+            btn.disabled = true;
+            btn.style.opacity = '0.5';
+            btn.style.cursor = 'not-allowed';
+        });
+    }
+});
+
 // Export functions for global access
 window.toggleSidebar = toggleSidebar;
 window.toggleLanguage = toggleLanguage;
 window.toggleHighlights = toggleHighlights;
 window.toggleDevMode = toggleDevMode;
 window.saveProgress = saveProgress;
+window.playWordAudio = playWordAudio;
+window.playSentenceAudio = playSentenceAudio;

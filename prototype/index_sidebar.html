@@ -184,7 +184,10 @@
             <div class="vocabulary-grid">
                 <div class="vocab-card" data-word="detective">
                     <div class="vocab-header">
-                        <strong>détective</strong>
+                        <div class="vocab-word-section">
+                            <strong>détective</strong>
+                            <button class="audio-word-btn" onclick="playWordAudio('détective', this)" title="Pronounce word">🔊</button>
+                        </div>
                         <span class="expand-icon">▼</span>
                     </div>
                     <div class="vocab-details">
@@ -192,17 +195,25 @@
                         <div class="vocab-chapter">📖 Chapter 1: The Missing Phone</div>
                         <div class="vocab-usage">
                             <div class="usage-example">"Detective Marie est dans un petit café"</div>
+                            <div class="sentence-audio-controls">
+                                <button class="audio-sentence-btn" onclick="playSentenceAudio('Detective Marie est dans un petit café', this, 1.0)" title="Normal speed">🔊 Play</button>
+                                <button class="audio-sentence-btn slow" onclick="playSentenceAudio('Detective Marie est dans un petit café', this, 0.6)" title="Slow speed">🐌 Slow</button>
+                            </div>
                         </div>
                         <div class="vocab-note">
                             <span class="note-icon">💡</span>
                             Can be used for both male and female detectives
                         </div>
+                        <div class="audio-feedback"></div>
                     </div>
                 </div>
                 
                 <div class="vocab-card" data-word="café">
                     <div class="vocab-header">
-                        <strong>café</strong>
+                        <div class="vocab-word-section">
+                            <strong>café</strong>
+                            <button class="audio-word-btn" onclick="playWordAudio('café', this)" title="Pronounce word">🔊</button>
+                        </div>
                         <span class="expand-icon">▼</span>
                     </div>
                     <div class="vocab-details">
@@ -210,7 +221,12 @@
                         <div class="vocab-chapter">📖 Chapter 1: The Missing Phone</div>
                         <div class="vocab-usage">
                             <div class="usage-example">"dans un petit café à Paris"</div>
+                            <div class="sentence-audio-controls">
+                                <button class="audio-sentence-btn" onclick="playSentenceAudio('dans un petit café à Paris', this, 1.0)" title="Normal speed">🔊 Play</button>
+                                <button class="audio-sentence-btn slow" onclick="playSentenceAudio('dans un petit café à Paris', this, 0.6)" title="Slow speed">🐌 Slow</button>
+                            </div>
                         </div>
+                        <div class="audio-feedback"></div>
                     </div>
                 </div>
             </div>

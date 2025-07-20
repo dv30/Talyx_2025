@@ -714,3 +714,134 @@ body.highlights-off .grammar-highlight {
         padding: 12px;
     }
 }
+
+/* =================== AUDIO CONTROL STYLING =================== */
+
+/* Word-level audio controls */
+.vocab-word-section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.audio-word-btn {
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    min-width: 32px;
+    height: 28px;
+    justify-content: center;
+}
+
+.audio-word-btn:hover {
+    background: #5a6fd8;
+    transform: scale(1.05);
+}
+
+.audio-word-btn:active {
+    transform: scale(0.95);
+}
+
+.audio-word-btn.playing {
+    background: #27ae60;
+    animation: pulse 1s infinite;
+}
+
+/* Sentence-level audio controls */
+.sentence-audio-controls {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+    align-items: center;
+}
+
+.audio-sentence-btn {
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.audio-sentence-btn:hover {
+    background: #2980b9;
+    transform: translateY(-1px);
+}
+
+.audio-sentence-btn:active {
+    transform: translateY(0);
+}
+
+.audio-sentence-btn.slow {
+    background: #e67e22;
+}
+
+.audio-sentence-btn.slow:hover {
+    background: #d35400;
+}
+
+.audio-sentence-btn.playing {
+    background: #27ae60;
+    animation: pulse 1s infinite;
+}
+
+/* Audio feedback styling */
+.audio-feedback {
+    margin-top: 8px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    background: #ecf0f1;
+    color: #2c3e50;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    text-align: center;
+}
+
+.audio-feedback.show {
+    opacity: 1;
+}
+
+.audio-feedback.error {
+    background: #e74c3c;
+    color: white;
+}
+
+/* Animation for playing state */
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+    .sentence-audio-controls {
+        flex-direction: column;
+        gap: 6px;
+    }
+    
+    .audio-sentence-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .audio-word-btn {
+        min-width: 28px;
+        height: 24px;
+        font-size: 12px;
+    }
+}
