@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talyx Development Dashboard</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .dashboard {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .session-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .chunk-timeline {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        
+        .chunk {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .chunk.success { background: #4CAF50; }
+        .chunk.interrupted { background: #FF9800; }
+        .chunk.failed { background: #F44336; }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: #4CAF50;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <header>
+            <h1>🚀 Talyx Development Dashboard</h1>
+            <p>Real-time chunk logging visualization</p>
+        </header>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <span class="stat-number" id="totalSessions">2</span>
+                <span>Development Sessions</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="totalChunks">9</span>
+                <span>Total Chunks</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="successRate">89%</span>
+                <span>Success Rate</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="recoveryNeeded">1</span>
+                <span>Recovery Needed</span>
+            </div>
+        </div>
+        
+        <div class="session-card">
+            <h3>📅 Session: 2025-07-21 @ 12:08 - Large Scale Audio Integration</h3>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 83%"></div>
+            </div>
+            <p><strong>Status:</strong> 5/6 chunks completed (1 needs recovery)</p>
+            
+            <div class="chunk-timeline">
+                <div class="chunk success">A: Audio Controller ✅</div>
+                <div class="chunk success">B: Chapter 1 Integration ✅</div>
+                <div class="chunk success">C: Chapter 2 Expansion ✅</div>
+                <div class="chunk success">D: Story Audio Component ✅</div>
+                <div class="chunk success">E: Mobile Optimizations ✅</div>
+                <div class="chunk interrupted">F: Browser Testing ⚠️</div>
+            </div>
+            
+            <p><strong>Files Created:</strong> 6 | <strong>Total Lines:</strong> 404+ | <strong>Duration:</strong> 2 minutes</p>
+        </div>
+        
+        <div class="session-card">
+            <h3>📅 Session: 2025-07-21 @ 11:53 - Chunk Logging Testing</h3>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 67%"></div>
+            </div>
+            <p><strong>Status:</strong> 2/3 chunks completed (1 needs recovery)</p>
+            
+            <div class="chunk-timeline">
+                <div class="chunk success">A: CSS Vocabulary Cards ✅</div>
+                <div class="chunk success">B: Hover Effects ✅</div>
+                <div class="chunk interrupted">C: Mobile Responsiveness ⚠️</div>
+            </div>
+            
+            <p><strong>Files Created:</strong> 2 | <strong>Total Lines:</strong> 67+ | <strong>Duration:</strong> 3 minutes</p>
+        </div>
+        
+        <footer style="margin-top: 40px; text-align: center; opacity: 0.8;">
+            <p>📊 Generated from: progress/logs/*.md | Last updated: <span id="lastUpdate">2025-07-21 12:10</span></p>
+        </footer>
+    </div>
+    
+    <script>
+        // This would be generated from actual log parsing
+        function updateDashboard() {
+            // Parse log files and update statistics
+            console.log('Dashboard updated from log files');
+        }
+        
+        // Auto-refresh every 30 seconds
+        setInterval(updateDashboard, 30000);
+    </script>
+</body>
+</html>

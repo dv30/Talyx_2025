@@ -1,0 +1,74 @@
+/* Talyx Vocabulary Cards - Enhanced Styling */
+/* Created: 2025-07-21 for chunk logging testing */
+
+.vocabulary-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 16px 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+/* CHUNK_B: Hover Effects Added */
+.vocabulary-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+.vocabulary-card:active {
+    transform: translateY(-2px);
+    transition: all 0.1s ease;
+}
+
+.vocabulary-word {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.vocabulary-card:hover .vocabulary-word {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    transform: scale(1.02);
+}
+
+.vocabulary-translation {
+    font-size: 1.2rem;
+    color: #f0f0f0;
+    font-style: italic;
+    margin-bottom: 12px;
+    transition: color 0.3s ease;
+}
+
+.vocabulary-card:hover .vocabulary-translation {
+    color: #ffffff;
+}
+
+.vocabulary-example {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #ffffff;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.vocabulary-card:hover .vocabulary-example {
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+/* CHUNK_C: Mobile Responsiveness - IN PROGRESS */
+@media (max-width: 768px) {
+    .vocabulary-card {
+        margin: 12px 0;
+        padding: 16px;
+    }

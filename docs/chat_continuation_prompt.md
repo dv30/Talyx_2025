@@ -173,6 +173,38 @@ The project was analyzed from 14 professional perspectives:
 
 ## Session Continuation Instructions
 
+### 🚨 **STEP 0: CHUNK RECOVERY CHECK (CRITICAL PRIORITY)**
+
+**Before any other action, check for incomplete chunks from previous session:**
+
+1. **Get current timestamp:** `Get-Date` via Desktop Commander
+2. **Check today's development log:** Look for `progress/logs/log_YYYY-MM-DD_HHMM.md`
+3. **Scan for incomplete chunks:** Search for patterns:
+   - `CHUNK_START` without matching `CHUNK_END` = **INTERRUPTED**
+   - `CHUNK_INTERRUPTED` entries = **NEEDS RECOVERY**
+   - Planned chunks that never started = **PENDING**
+
+4. **If incomplete chunks found:**
+   ```markdown
+   🔍 RECOVERY ANALYSIS:
+   
+   CHUNKS FOUND: [list with status]
+   ├── CHUNK_A: ✅ COMPLETED 
+   ├── CHUNK_B: ⚠️ NEEDS_VERIFICATION 
+   └── CHUNK_C: ❌ NOT_STARTED
+   
+   🎯 RECOMMEND: Continue from CHUNK_B verification
+   ```
+
+5. **Automatic file verification:**
+   - Check file modification times vs chunk start times
+   - Verify Git commits since last complete chunk
+   - Report status and wait for user confirmation
+
+6. **If no incomplete chunks:** Note "Clean session start, no recovery needed"
+
+---
+
 ### 1. Start with Time Query:
 Use Desktop Commander to get current system time with `Get-Date`
 

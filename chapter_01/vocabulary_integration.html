@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talyx Chapter 1 - Vocabulary Integration</title>
+    <link rel="stylesheet" href="../styles/vocabulary_cards.css">
+</head>
+<body>
+    <div class="talyx-container">
+        <header class="chapter-header">
+            <h1>Chapter 1: Detective Marie - Missing Phone</h1>
+            <p class="chapter-subtitle">Interactive Vocabulary with Audio</p>
+        </header>
+
+        <section class="vocabulary-section">
+            <h2>Key Vocabulary</h2>
+            
+            <div class="vocabulary-card" data-word="téléphone">
+                <div class="vocabulary-word">
+                    📱 téléphone 
+                    <button class="audio-btn" onclick="playWord('téléphone')">🔊</button>
+                </div>
+                <div class="vocabulary-translation">= telefón</div>
+                <div class="vocabulary-example">
+                    "Le téléphone sonne dans le café"
+                    <div class="audio-controls">
+                        <button class="audio-btn" onclick="playSentence('Le téléphone sonne dans le café')">🔊 Play</button>
+                        <button class="audio-btn slow" onclick="playSentenceSlow('Le téléphone sonne dans le café')">🐌 Slow</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="vocabulary-card" data-word="café">
+                <div class="vocabulary-word">
+                    ☕ café 
+                    <button class="audio-btn" onclick="playWord('café')">🔊</button>
+                </div>
+                <div class="vocabulary-translation">= kaviareň</div>
+                <div class="vocabulary-example">
+                    "Marie entre dans le café"
+                    <div class="audio-controls">
+                        <button class="audio-btn" onclick="playSentence('Marie entre dans le café')">🔊 Play</button>
+                        <button class="audio-btn slow" onclick="playSentenceSlow('Marie entre dans le café')">🐌 Slow</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="vocabulary-card" data-word="detective">
+                <div class="vocabulary-word">
+                    🔍 détective 
+                    <button class="audio-btn" onclick="playWord('détective')">🔊</button>
+                </div>
+                <div class="vocabulary-translation">= detektív</div>
+                <div class="vocabulary-example">
+                    "La détective Marie enquête"
+                    <div class="audio-controls">
+                        <button class="audio-btn" onclick="playSentence('La détective Marie enquête')">🔊 Play</button>
+                        <button class="audio-btn slow" onclick="playSentenceSlow('La détective Marie enquête')">🐌 Slow</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="../js/audio_controller.js"></script>
+    <script>
+        // Audio integration functions
+        function playWord(word) {
+            const button = event.target;
+            button.classList.add('playing');
+            
+            talyxAudio.speak(word, 'fr-FR', 1.0, () => {
+                button.classList.remove('playing');
+            });
+        }
+
+        function playSentence(sentence) {
+            const button = event.target;
+            button.classList.add('playing');
+            
+            talyxAudio.speak(sentence, 'fr-FR', 1.0, () => {
+                button.classList.remove('playing');
+            });
+        }
+
+        function playSentenceSlow(sentence) {
+            const button = event.target;
+            button.classList.add('playing');
+            
+            talyxAudio.speak(sentence, 'fr-FR', 0.7, () => {
+                button.classList.remove('playing');
+            });
+        }
+    </script>
+</body>
+</html>

@@ -9,6 +9,40 @@
 - **Use targeted operations** when working with MCP servers instead of bulk modifications
 - **Pause between chunks** to allow for user feedback and direction changes
 
+## Chunk Logging Workflow (CRITICAL SAFETY PROTOCOL)
+
+**Implementation Required:** All development sessions MUST use chunk logging for recovery safety.
+
+### **Session Planning & Execution:**
+1. **Pre-Session Planning:** Create daily log file `progress/logs/log_YYYY-MM-DD_HHMM.md`
+2. **Chunk Planning:** Define all planned chunks before starting execution
+3. **Real-time Logging:** Log each chunk start/end with precise timestamps
+4. **Recovery Safety:** Enable exact continuation after unexpected chat termination
+
+### **Chunk Logging Format (Use Simple Template):**
+```markdown
+## 📝 PLAN: X chunks planned
+1. **A:** Brief description (target files)
+2. **B:** Brief description (target files)
+
+## ⏳ A_START: HH:MM - Chunk title
+Target: specific_files.ext
+
+## ✅ A_END: HH:MM - STATUS
+Git: commit_hash | Files: modifications_summary
+```
+
+### **Recovery Indicators:**
+- **✅ COMPLETED:** Chunk finished successfully
+- **⚠️ INTERRUPTED:** Chat terminated during chunk
+- **❌ NOT_STARTED:** Planned but never attempted
+
+### **Benefits:**
+- **Zero data loss** from chat terminations
+- **Precise recovery** - know exact continuation point
+- **Audit trail** - complete development history
+- **Minimal overhead** - ~20 tokens per chunk
+
 ## Language Configuration
 **Primary Working Language: English Only**
 

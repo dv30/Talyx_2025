@@ -1,0 +1,17 @@
+{
+  "name": "talyx-dashboard-generator",
+  "version": "1.0.0",
+  "description": "Development dashboard generator for Talyx chunk logging system",
+  "main": "scripts/generate_dashboard.js",
+  "scripts": {
+    "dashboard": "node scripts/generate_dashboard.js",
+    "watch": "nodemon scripts/generate_dashboard.js",
+    "serve": "python -m http.server 8080"
+  },
+  "keywords": ["development", "dashboard", "logging", "talyx"],
+  "author": "Marian",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

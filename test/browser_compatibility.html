@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browser Compatibility Test - Talyx Audio</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f7fa;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .status-pass { color: #22c55e; font-weight: bold; }
+        .status-fail { color: #ef4444; font-weight: bold; }
+        .status-warning { color: #f59e0b; font-weight: bold; }
+        .test-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .browser-info {
+            background: #e0f2fe;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .audio-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn-primary { background: #3b82f6; color: white; }
+        .btn-secondary { background: #6b7280; color: white; }
+        .test-log {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 15px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔧 Talyx Audio System - Cross-Browser Compatibility Test</h1>
+    
+    <div class="browser-info">
+        <h3>🌐 Browser Information</h3>
+        <div id="browser-details">
+            <p><strong>User Agent:</strong> <span id="user-agent"></span></p>
+            <p><strong>Platform:</strong> <span id="platform"></span></p>
+            <p><strong>Language:</strong> <span id="language"></span></p>
+            <p><strong>Viewport:</strong> <span id="viewport"></span></p>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🎯 Core Feature Compatibility Tests</h2>
+        
+        <div class="test-row">
+            <span>Speech Synthesis API Support</span>
+            <span id="test-speech-api" class="status-warning">Testing...</span>
+        </div>
+        
+        <div class="test-row">
+            <span>French Language Support (fr-FR)</span>
+            <span id="test-french-lang" class="status-warning">Testing...</span>
+        </div>
+        
+        <div class="test-row">
+            <span>English Language Support (en-US)</span>
+            <span id="test-english-lang" class="status-warning">Testing...</span>
+        </div>
+        
+        <div class="test-row">
+            <span>Speech Rate Control</span>
+            <span id="test-rate-control" class="status-warning">Testing...</span>
+        </div>
+        
+        <div class="test-row">
+            <span>Mobile Touch Events</span>
+            <span id="test-touch-events" class="status-warning">Testing...</span>
+        </div>
+        
+        <div class="test-row">
+            <span>Local Storage Support</span>
+            <span id="test-local-storage" class="status-warning">Testing...</span>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🎵 Live Audio Testing</h2>
+        <p>Test the actual audio functionality across different languages and speeds:</p>
+        
+        <div class="audio-controls">
+            <strong>French Test:</strong>
+            <button class="btn btn-primary" onclick="testFrenchAudio('Bonjour, comment allez-vous?', 1.0)">🔊 Normal</button>
+            <button class="btn btn-secondary" onclick="testFrenchAudio('Bonjour, comment allez-vous?', 0.7)">🐌 Slow</button>
+        </div>
+        
+        <div class="audio-controls">
+            <strong>English Test:</strong>
+            <button class="btn btn-primary" onclick="testEnglishAudio('Hello, how are you?', 1.0)">🔊 Normal</button>
+            <button class="btn btn-secondary" onclick="testEnglishAudio('Hello, how are you?', 0.7)">🐌 Slow</button>
+        </div>
+        
+        <div class="audio-controls">
+            <strong>Vocabulary Test:</strong>
+            <button class="btn btn-primary" onclick="testVocabulary('téléphone')">📱 téléphone</button>
+            <button class="btn btn-primary" onclick="testVocabulary('restaurant')">🍽️ restaurant</button>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>📊 Compatibility Results</h2>
+        <div id="compatibility-summary"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>📝 Test Log</h2>
+        <div id="test-log" class="test-log">
+            <p>Starting compatibility tests...</p>
+        </div>
+        <button class="btn btn-secondary" onclick="clearLog()" style="margin-top: 10px;">Clear Log</button>
+    </div>
+
+    <script>
+        // Initialize browser info
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('user-agent').textContent = navigator.userAgent;
+            document.getElementById('platform').textContent = navigator.platform;
+            document.getElementById('language').textContent = navigator.language;
+            document.getElementById('viewport').textContent = window.innerWidth + 'x' + window.innerHeight;
+            
+            // Start automatic tests
+            runCompatibilityTests();
+        });
+        
+        let testResults = {};
+        
+        function log(message) {
+            const logDiv = document.getElementById('test-log');
+            const timestamp = new Date().toLocaleTimeString();
+            logDiv.innerHTML += `<br>[${timestamp}] ${message}`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+        
+        function updateTestStatus(testId, status, message) {
+            const element = document.getElementById(testId);
+            element.className = `status-${status}`;
+            element.textContent = status === 'pass' ? '✅ PASS' : status === 'fail' ? '❌ FAIL' : '⚠️ WARNING';
+            testResults[testId] = { status, message };
+            log(`${testId}: ${status.toUpperCase()} - ${message}`);
+        }
+        
+        function runCompatibilityTests() {
+            log('Starting automated compatibility tests...');
+            
+            // Test 1: Speech Synthesis API
+            if ('speechSynthesis' in window) {
+                updateTestStatus('test-speech-api', 'pass', 'Speech Synthesis API is supported');
+                testVoiceLanguages();
+            } else {
+                updateTestStatus('test-speech-api', 'fail', 'Speech Synthesis API not supported');
+            }
+            
+            // Test 2: Touch Events (Mobile)
+            if ('ontouchstart' in window) {
+                updateTestStatus('test-touch-events', 'pass', 'Touch events supported (mobile device)');
+            } else {
+                updateTestStatus('test-touch-events', 'warning', 'Touch events not detected (desktop)');
+            }
+            
+            // Test 3: Local Storage
+            try {
+                localStorage.setItem('talyx-test', 'test');
+                localStorage.removeItem('talyx-test');
+                updateTestStatus('test-local-storage', 'pass', 'Local Storage is available');
+            } catch (e) {
+                updateTestStatus('test-local-storage', 'fail', 'Local Storage blocked or unavailable');
+            }
+            
+            // Generate summary after a short delay
+            setTimeout(generateSummary, 2000);
+        }
+        
+        function testVoiceLanguages() {
+            if (!('speechSynthesis' in window)) return;
+            
+            const voices = speechSynthesis.getVoices();
+            if (voices.length === 0) {
+                // Voices might not be loaded yet
+                speechSynthesis.onvoiceschanged = function() {
+                    testVoiceLanguages();
+                };
+                return;
+            }
+            
+            const frenchVoices = voices.filter(voice => voice.lang.startsWith('fr'));
+            const englishVoices = voices.filter(voice => voice.lang.startsWith('en'));
+            
+            if (frenchVoices.length > 0) {
+                updateTestStatus('test-french-lang', 'pass', `${frenchVoices.length} French voice(s) available`);
+            } else {
+                updateTestStatus('test-french-lang', 'warning', 'No French voices detected');
+            }
+            
+            if (englishVoices.length > 0) {
+                updateTestStatus('test-english-lang', 'pass', `${englishVoices.length} English voice(s) available`);
+            } else {
+                updateTestStatus('test-english-lang', 'fail', 'No English voices detected');
+            }
+            
+            // Test rate control
+            try {
+                const utterance = new SpeechSynthesisUtterance('test');
+                utterance.rate = 0.5;
+                updateTestStatus('test-rate-control', 'pass', 'Speech rate control supported');
+            } catch (e) {
+                updateTestStatus('test-rate-control', 'fail', 'Speech rate control error');
+            }
+        }
+        
+        function testFrenchAudio(text, rate) {
+            if (!('speechSynthesis' in window)) {
+                log('❌ Speech synthesis not supported');
+                return;
+            }
+            
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'fr-FR';
+            utterance.rate = rate;
+            
+            utterance.onstart = () => log(`🎵 Playing French audio: "${text}" at ${rate}x speed`);
+            utterance.onend = () => log('✅ French audio completed');
+            utterance.onerror = (e) => log(`❌ French audio error: ${e.error}`);
+            
+            speechSynthesis.speak(utterance);
+        }
+        
+        function testEnglishAudio(text, rate) {
+            if (!('speechSynthesis' in window)) {
+                log('❌ Speech synthesis not supported');
+                return;
+            }
+            
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = rate;
+            
+            utterance.onstart = () => log(`🎵 Playing English audio: "${text}" at ${rate}x speed`);
+            utterance.onend = () => log('✅ English audio completed');
+            utterance.onerror = (e) => log(`❌ English audio error: ${e.error}`);
+            
+            speechSynthesis.speak(utterance);
+        }
+        
+        function testVocabulary(word) {
+            if (!('speechSynthesis' in window)) {
+                log('❌ Speech synthesis not supported');
+                return;
+            }
+            
+            const utterance = new SpeechSynthesisUtterance(word);
+            utterance.lang = 'fr-FR';
+            utterance.rate = 0.9;
+            
+            utterance.onstart = () => log(`📱 Playing vocabulary: "${word}"`);
+            utterance.onend = () => log('✅ Vocabulary audio completed');
+            utterance.onerror = (e) => log(`❌ Vocabulary audio error: ${e.error}`);
+            
+            speechSynthesis.speak(utterance);
+        }
+        
+        function generateSummary() {
+            const summaryDiv = document.getElementById('compatibility-summary');
+            const total = Object.keys(testResults).length;
+            const passed = Object.values(testResults).filter(r => r.status === 'pass').length;
+            const failed = Object.values(testResults).filter(r => r.status === 'fail').length;
+            const warnings = Object.values(testResults).filter(r => r.status === 'warning').length;
+            
+            let overallStatus = 'good';
+            if (failed > 0) overallStatus = 'poor';
+            else if (warnings > 1) overallStatus = 'fair';
+            
+            summaryDiv.innerHTML = `
+                <h3>🎯 Overall Compatibility: ${overallStatus.toUpperCase()}</h3>
+                <p><strong>✅ Passed:</strong> ${passed}/${total} tests</p>
+                <p><strong>❌ Failed:</strong> ${failed}/${total} tests</p>
+                <p><strong>⚠️ Warnings:</strong> ${warnings}/${total} tests</p>
+                <hr>
+                <h4>📋 Recommendations:</h4>
+                <ul>
+                    ${generateRecommendations()}
+                </ul>
+            `;
+            
+            log(`📊 Compatibility test complete: ${passed}/${total} passed, ${failed} failed, ${warnings} warnings`);
+        }
+        
+        function generateRecommendations() {
+            let recommendations = [];
+            
+            if (testResults['test-speech-api']?.status === 'fail') {
+                recommendations.push('<li>❌ <strong>Critical:</strong> Speech Synthesis API not supported. Audio features will not work.</li>');
+            }
+            
+            if (testResults['test-french-lang']?.status !== 'pass') {
+                recommendations.push('<li>⚠️ Limited French language support. Consider fallback options.</li>');
+            }
+            
+            if (testResults['test-local-storage']?.status === 'fail') {
+                recommendations.push('<li>⚠️ Local Storage blocked. User progress cannot be saved.</li>');
+            }
+            
+            if (testResults['test-touch-events']?.status === 'warning') {
+                recommendations.push('<li>ℹ️ Desktop environment detected. Mobile testing recommended.</li>');
+            }
+            
+            if (recommendations.length === 0) {
+                recommendations.push('<li>✅ All core features are working well on this browser!</li>');
+            }
+            
+            return recommendations.join('');
+        }
+        
+        function clearLog() {
+            document.getElementById('test-log').innerHTML = '<p>Log cleared...</p>';
+        }
+    </script>
+</body>
+</html>

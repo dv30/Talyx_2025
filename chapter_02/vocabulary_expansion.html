@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talyx Chapter 2 - Vocabulary Expansion</title>
+    <link rel="stylesheet" href="../styles/vocabulary_cards.css">
+</head>
+<body>
+    <div class="talyx-container">
+        <header class="chapter-header">
+            <h1>Chapter 2: Detective Marie - Stolen Wallet</h1>
+            <p class="chapter-subtitle">Extended Vocabulary with Audio</p>
+        </header>
+
+        <section class="vocabulary-section">
+            <h2>New Vocabulary</h2>
+            
+            <div class="vocabulary-card" data-word="portefeuille">
+                <div class="vocabulary-word">
+                    💳 portefeuille 
+                    <button class="audio-btn" onclick="playWord('portefeuille')">🔊</button>
+                </div>
+                <div class="vocabulary-translation">= peňaženka</div>
+                <div class="vocabulary-example">
+                    "Le portefeuille a disparu"
+                    <div class="audio-controls">
+                        <button class="audio-btn" onclick="playSentence('Le portefeuille a disparu')">🔊 Play</button>
+                        <button class="audio-btn slow" onclick="playSentenceSlow('Le portefeuille a disparu')">🐌 Slow</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="vocabulary-card" data-word="voleur">
+                <div class="vocabulary-word">
+                    🥷 voleur 
+                    <button class="audio-btn" onclick="playWord('voleur')">🔊</button>
+                </div>
+                <div class="vocabulary-translation">= zlodej</div>
+                <div class="vocabulary-example">
+                    "Le voleur court dans la rue"
+                    <div class="audio-controls">
+                        <button class="audio-btn" onclick="playSentence('Le voleur court dans la rue')">🔊 Play</button>
+                        <button class="audio-btn slow" onclick="playSentenceSlow('Le voleur court dans la rue')">🐌 Slow</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="vocabulary-card" data-word="enquête">
+                <div class="vocabulary-word">
+                    📋 enquête 
+                    <button class="audio-btn" onclick="playWord('enquête')">🔊</button>
+                </div>
+                <div class="vocabulary-translation">= vyšetrovanie</div>
+                <div class="vocabulary-example">
+                    "L'enquête commence maintenant"
+                    <div class="audio-controls">
+                        <button class="audio-btn" onclick="playSentence('L\\'enquête commence maintenant')">🔊 Play</button>
+                        <button class="audio-btn slow" onclick="playSentenceSlow('L\\'enquête commence maintenant')">🐌 Slow</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="vocabulary-card" data-word="témoin">
+                <div class="vocabulary-word">
+                    👁️ témoin 
+                    <button class="audio-btn" onclick="playWord('témoin')">🔊</button>
+                </div>
+                <div class="vocabulary-translation">= svedok</div>
+                <div class="vocabulary-example">
+                    "Le témoin a tout vu"
+                    <div class="audio-controls">
+                        <button class="audio-btn" onclick="playSentence('Le témoin a tout vu')">🔊 Play</button>
+                        <button class="audio-btn slow" onclick="playSentenceSlow('Le témoin a tout vu')">🐌 Slow</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="review-section">
+            <h2>Review Previous Vocabulary</h2>
+            
+            <div class="vocabulary-card review" data-word="téléphone">
+                <div class="vocabulary-word">
+                    📱 téléphone (Review)
+                    <button class="audio-btn" onclick="playWord('téléphone')">🔊</button>
+                </div>
+                <div class="vocabulary-example">
+                    "Marie cherche son téléphone"
+                    <div class="audio-controls">
+                        <button class="audio-btn" onclick="playSentence('Marie cherche son téléphone')">🔊 Play</button>
+                        <button class="audio-btn slow" onclick="playSentenceSlow('Marie cherche son téléphone')">🐌 Slow</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="../js/audio_controller.js"></script>
+    <script>
+        // Enhanced audio integration with progress tracking
+        function playWord(word) {
+            const button = event.target;
+            button.classList.add('playing');
+            
+            talyxAudio.speak(word, 'fr-FR', 1.0, () => {
+                button.classList.remove('playing');
+                // Track vocabulary practice
+                console.log(`Vocabulary practiced: ${word}`);
+            });
+        }
+
+        function playSentence(sentence) {
+            const button = event.target;
+            button.classList.add('playing');
+            
+            talyxAudio.speak(sentence, 'fr-FR', 1.0, () => {
+                button.classList.remove('playing');
+            });
+        }
+
+        function playSentenceSlow(sentence) {
+            const button = event.target;
+            button.classList.add('playing');
+            
+            talyxAudio.speak(sentence, 'fr-FR', 0.7, () => {
+                button.classList.remove('playing');
+            });
+        }
+    </script>
+</body>
+</html>
