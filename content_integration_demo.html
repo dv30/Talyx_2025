@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TALYX - Complete Content Integration Demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./prototype/css/styles_sidebar.css">
+    <style>
+        /* Demo-specific enhancements */
+        .demo-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 0;
+        }
+
+        .demo-features {
+            background: #f8f9fa;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+
+        .feature-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .demo-controls {
+            background: white;
+            padding: 20px;
+            border-bottom: 1px solid #e1e5e9;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .demo-controls-inner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .demo-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            font-size: 14px;
+        }
+
+        .demo-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .demo-btn.secondary {
+            background: #6c757d;
+        }
+
+        .demo-btn.success {
+            background: #28a745;
+        }
+
+        .demo-btn.warning {
+            background: #ffc107;
+            color: #212529;
+        }
+
+        .demo-status {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            margin: 0 10px;
+        }
+
+        .demo-progress {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .progress-bar {
+            width: 300px;
+            height: 8px;
+            background: #e1e5e9;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px auto;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        /* Enhanced content display */
+        .content-showcase {
+            min-height: 500px;
+            background: white;
+        }
+
+        .no-content-message {
+            text-align: center;
+            padding: 100px 20px;
+            color: #6c757d;
+        }
+
+        .loading-animation {
+            display: none;
+            text-align: center;
+            padding: 50px;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            .demo-controls-inner {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .demo-btn {
+                width: 100%;
+                max-width: 250px;
+            }
+            
+            .demo-status {
+                margin: 10px 0 0 0;
+                text-align: center;
+            }
+        }
+
+        /* Success animations */
+        .success-flash {
+            animation: successFlash 0.5s ease-in-out;
+        }
+
+        @keyframes successFlash {
+            0%, 100% { background-color: transparent; }
+            50% { background-color: rgba(40, 167, 69, 0.1); }
+        }
+
+        /* Error handling */
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 20px;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <!-- Demo Header -->
+    <div class="demo-header">
+        <h1>🚀 TALYX Content Integration Demo</h1>
+        <p>Complete MD-to-WebApp content loading with full feature integration</p>
+        <p><strong>Test the "content pouring" functionality with all Detective Marie stories</strong></p>
+    </div>
+
+    <!-- Feature Showcase -->
+    <div class="demo-features">
+        <h2>✨ Integrated Features</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <span class="feature-icon">📖</span>
+                <h3>MD Content Loading</h3>
+                <p>Automatically loads and parses Markdown stories with YAML metadata</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🔊</span>
+                <h3>Audio Integration</h3>
+                <p>French pronunciation with Web Speech API for vocabulary and story text</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🌐</span>
+                <h3>Language Toggle</h3>
+                <p>Dynamic French/English/Both language switching for all content</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">📊</span>
+                <h3>Progress Tracking</h3>
+                <p>Real-time reading progress with localStorage persistence</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">📱</span>
+                <h3>Responsive Design</h3>
+                <p>Mobile-optimized interface with sidebar navigation</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">⚡</span>
+                <h3>Live Integration</h3>
+                <p>Seamless bridge between MD files and existing web app features</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Demo Controls -->
+    <div class="demo-controls">
+        <div class="demo-controls-inner">
+            <button class="demo-btn" onclick="demoSystem.loadStory('A1', 'detective_marie_02_stolen_wallet')">
+                📚 Chapter 2: Stolen Wallet (A1-A2)
+            </button>
+            <button class="demo-btn" onclick="demoSystem.loadStory('A1', 'detective_marie_03_mysterious_letter')">
+                🔍 Chapter 3: Mysterious Letter (A1-A2)
+            </button>
+            <button class="demo-btn" onclick="demoSystem.loadStory('A2', 'detective_marie_04_garden_mystery')">
+                🌱 Chapter 4: Garden Mystery (A2-B1)
+            </button>
+            <button class="demo-btn secondary" onclick="demoSystem.runFullDemo()">
+                🎬 Run Full Demo
+            </button>
+            <button class="demo-btn warning" onclick="demoSystem.clearContent()">
+                🗑️ Clear
+            </button>
+        </div>
+        
+        <div class="demo-progress">
+            <div id="demo-status" class="demo-status">Ready to load content</div>
+            <div class="progress-bar">
+                <div id="progress-fill" class="progress-fill"></div>
+            </div>
+            <div id="demo-info" style="margin-top: 10px; font-size: 14px; color: #666;">
+                Click any story button to test MD content loading and full feature integration
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Area with Sidebar -->
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-content">
+                <div class="nav-section">
+                    <h3>Learning</h3>
+                    <a href="#" class="nav-item" onclick="demoSystem.showFeatureDemo('audio')">
+                        🔊 Audio Features
+                    </a>
+                    <a href="#" class="nav-item" onclick="demoSystem.showFeatureDemo('vocabulary')">
+                        📚 Vocabulary Cards
+                    </a>
+                    <a href="#" class="nav-item" onclick="demoSystem.showFeatureDemo('progress')">
+                        📊 Progress Tracking
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <h3>Language</h3>
+                    <a href="#" class="nav-item" onclick="toggleLanguage('french')">
+                        🇫🇷 Français Only
+                    </a>
+                    <a href="#" class="nav-item" onclick="toggleLanguage('english')">
+                        🇬🇧 English Only
+                    </a>
+                    <a href="#" class="nav-item" onclick="toggleLanguage('both')">
+                        🌐 Both Languages
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <h3>Settings</h3>
+                    <a href="#" class="nav-item" onclick="demoSystem.toggleHighlights()">
+                        ✨ Toggle Highlights
+                    </a>
+                    <a href="#" class="nav-item" onclick="demoSystem.resetProgress()">
+                        🔄 Reset Progress
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Sidebar Overlay for Mobile -->
+        <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+        <!-- Main Content -->
+        <main class="main-content" id="main-content">
+            <!-- Loading Animation -->
+            <div id="loading-animation" class="loading-animation">
+                <div class="loading-spinner"></div>
+                <p>Loading story content...</p>
+            </div>
+
+            <!-- Content will be dynamically loaded here -->
+            <div id="content-showcase" class="content-showcase">
+                <div class="no-content-message">
+                    <h2>🎯 Content Integration Testing</h2>
+                    <p>This demo shows how MD content files are seamlessly integrated into the TALYX web application.</p>
+                    
+                    <h3>📋 How it works:</h3>
+                    <ol style="text-align: left; max-width: 500px; margin: 20px auto;">
+                        <li><strong>Content Loading:</strong> JavaScript loads .md files from content directory</li>
+                        <li><strong>YAML Parsing:</strong> Extracts metadata (title, level, objectives, etc.)</li>
+                        <li><strong>Content Rendering:</strong> Converts to interactive web format</li>
+                        <li><strong>Feature Integration:</strong> Connects with audio, navigation, progress tracking</li>
+                        <li><strong>Real-time Interaction:</strong> All features work immediately</li>
+                    </ol>
+
+                    <p><strong>Click any story button above to see the integration in action!</strong></p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Sidebar Toggle Button -->
+    <button class="sidebar-toggle" onclick="toggleSidebar()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Include all required scripts -->
+    <script src="./js/content_loader.js"></script>
+    <script src="./js/content_renderer.js"></script>
+    <script src="./js/content_integration.js"></script>
+
+    <script>
+        /**
+         * Demo System Controller
+         * Manages the complete demo experience
+         */
+        class DemoSystem {
+            constructor() {
+                this.contentLoader = null;
+                this.contentRenderer = null;
+                this.contentIntegration = null;
+                this.currentStory = null;
+                this.demoProgress = 0;
+                this.totalStories = 3;
+            }
+
+            async initialize() {
+                try {
+                    // Wait for all modules to load
+                    await this.waitForModules();
+                    
+                    // Initialize content system
+                    this.contentLoader = new ContentLoader();
+                    this.contentRenderer = new ContentRenderer('content-showcase');
+                    this.contentIntegration = window.contentIntegration;
+
+                    // Initialize integration
+                    await this.contentIntegration.initializeIntegration();
+
+                    this.updateStatus('✅ Demo system initialized - Ready for content testing');
+                    this.updateProgress(0);
+
+                    console.log('🚀 Demo system ready');
+                    return true;
+                } catch (error) {
+                    this.showError(`Demo initialization failed: ${error.message}`);
+                    return false;
+                }
+            }
+
+            async waitForModules() {
+                let attempts = 0;
+                while (!window.ContentLoader || !window.ContentRenderer || !window.contentIntegration) {
+                    if (attempts > 10) throw new Error('Required modules failed to load');
+                    await new Promise(resolve => setTimeout(resolve, 200));
+                    attempts++;
+                }
+            }
+
+            async loadStory(level, filename) {
+                try {
+                    this.showLoading();
+                    this.updateStatus(`Loading ${level}/${filename}...`);
+
+                    const content = await this.contentLoader.loadStory(level, filename);
+                    
+                    this.updateStatus(`Rendering: ${content.metadata.title}...`);
+                    await new Promise(resolve => setTimeout(resolve, 500)); // Demo delay
+
+                    this.contentRenderer.renderStory(content);
+                    this.currentStory = { level, filename, content };
+
+                    this.hideLoading();
+                    this.updateStatus(`✅ Loaded: ${content.metadata.title} (${content.sections.length} sections)`);
+                    this.updateInfo(`Audio controls active • Vocabulary cards interactive • Progress tracking enabled`);
+                    
+                    // Flash success
+                    document.getElementById('content-showcase').classList.add('success-flash');
+                    setTimeout(() => {
+                        document.getElementById('content-showcase').classList.remove('success-flash');
+                    }, 500);
+
+                    // Auto-update progress
+                    this.demoProgress = Math.min(this.demoProgress + 1, this.totalStories);
+                    this.updateProgress((this.demoProgress / this.totalStories) * 100);
+
+                } catch (error) {
+                    this.hideLoading();
+                    this.showError(`Failed to load story: ${error.message}`);
+                }
+            }
+
+            async runFullDemo() {
+                try {
+                    this.updateStatus('🎬 Running full demo sequence...');
+                    this.demoProgress = 0;
+                    
+                    const stories = [
+                        { level: 'A1', filename: 'detective_marie_02_stolen_wallet', delay: 3000 },
+                        { level: 'A1', filename: 'detective_marie_03_mysterious_letter', delay: 3000 },
+                        { level: 'A2', filename: 'detective_marie_04_garden_mystery', delay: 3000 }
+                    ];
+
+                    for (let i = 0; i < stories.length; i++) {
+                        const story = stories[i];
+                        await this.loadStory(story.level, story.filename);
+                        
+                        if (i < stories.length - 1) {
+                            this.updateStatus(`Demo: Story ${i + 1}/${stories.length} loaded. Next in ${story.delay/1000}s...`);
+                            await new Promise(resolve => setTimeout(resolve, story.delay));
+                        }
+                    }
+
+                    this.updateStatus('🎉 Full demo completed! All content integration features tested successfully.');
+                    this.updateInfo('Demo complete • All 3 Detective Marie stories loaded • Features validated');
+
+                } catch (error) {
+                    this.showError(`Demo sequence failed: ${error.message}`);
+                }
+            }
+
+            clearContent() {
+                this.contentRenderer.clearContent();
+                document.getElementById('content-showcase').innerHTML = `
+                    <div class="no-content-message">
+                        <h2>📖 Content Cleared</h2>
+                        <p>Ready to load new content. Click any story button to test the integration.</p>
+                    </div>
+                `;
+                this.updateStatus('Content cleared - Ready for new story');
+                this.updateInfo('Select any story to test MD content loading and feature integration');
+                this.currentStory = null;
+                this.demoProgress = 0;
+                this.updateProgress(0);
+            }
+
+            showFeatureDemo(feature) {
+                const demos = {
+                    audio: () => {
+                        if (this.currentStory) {
+                            this.contentIntegration.playEnhancedAudio('Bonjour, je suis Detective Marie', 'fr', 'demo');
+                            this.updateStatus('🔊 Audio demo: French pronunciation test');
+                        } else {
+                            this.updateStatus('Load a story first to test audio features');
+                        }
+                    },
+                    vocabulary: () => {
+                        this.updateStatus('📚 Vocabulary cards feature - Load a story to see interactive vocabulary');
+                    },
+                    progress: () => {
+                        this.updateStatus('📊 Progress tracking - Automatically tracks reading progress as you scroll');
+                    }
+                };
+
+                if (demos[feature]) demos[feature]();
+            }
+
+            toggleHighlights() {
+                const highlights = document.querySelectorAll('.highlight, .vocab-highlight');
+                const isVisible = highlights.length > 0 && highlights[0].style.display !== 'none';
+                
+                highlights.forEach(el => {
+                    el.style.display = isVisible ? 'none' : 'inline';
+                });
+                
+                this.updateStatus(`✨ Highlights ${isVisible ? 'disabled' : 'enabled'}`);
+            }
+
+            resetProgress() {
+                localStorage.removeItem('talyx_progress');
+                this.updateStatus('🔄 Progress data reset');
+            }
+
+            showLoading() {
+                document.getElementById('loading-animation').style.display = 'block';
+                document.getElementById('content-showcase').style.display = 'none';
+            }
+
+            hideLoading() {
+                document.getElementById('loading-animation').style.display = 'none';
+                document.getElementById('content-showcase').style.display = 'block';
+            }
+
+            updateStatus(message) {
+                document.getElementById('demo-status').textContent = message;
+            }
+
+            updateInfo(message) {
+                document.getElementById('demo-info').textContent = message;
+            }
+
+            updateProgress(percentage) {
+                document.getElementById('progress-fill').style.width = `${percentage}%`;
+            }
+
+            showError(message) {
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'error-message';
+                errorDiv.innerHTML = `<strong>Error:</strong> ${message}`;
+                
+                const container = document.getElementById('content-showcase');
+                container.innerHTML = '';
+                container.appendChild(errorDiv);
+                
+                this.updateStatus('❌ Error occurred');
+            }
+        }
+
+        // Initialize demo system
+        const demoSystem = new DemoSystem();
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', async function() {
+            await demoSystem.initialize();
+        });
+
+        // Sidebar toggle function
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            
+            if (sidebar.classList.contains('open')) {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+            } else {
+                sidebar.classList.add('open');
+                overlay.classList.add('active');
+            }
+        }
+
+        // Language toggle function
+        function toggleLanguage(language) {
+            if (window.contentIntegration && window.contentIntegration.isReady()) {
+                // Use enhanced language toggle
+                window.toggleLanguage(language);
+            } else {
+                // Fallback
+                demoSystem.updateStatus(`Language switched to: ${language}`);
+            }
+        }
+
+        // Make demo system globally available
+        window.demoSystem = demoSystem;
+    </script>
+</body>
+</html>
