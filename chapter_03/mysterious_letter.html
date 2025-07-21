@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TALYX - The Mysterious Letter</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../prototype/css/styles_sidebar.css">
+    <link rel="stylesheet" href="../styles/vocabulary_cards.css">
+</head>
+<body>
+    <!-- Compact Header with Sidebar Toggle -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-left">
+                    <button class="sidebar-toggle" onclick="toggleSidebar()">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <div class="logo">TALYX</div>
+                </div>
+                <div class="header-controls">
+                    <div class="language-toggle">
+                        <button class="toggle-btn active" onclick="toggleLanguage('both')">Both</button>
+                        <button class="toggle-btn" onclick="toggleLanguage('french')">FR</button>
+                        <button class="toggle-btn" onclick="toggleLanguage('english')">EN</button>
+                    </div>
+                    <div class="feature-controls">
+                        <button class="feature-btn active" onclick="toggleHighlights()" title="Toggle Highlights">
+                            <span class="highlight-indicator">▲</span> Highlights
+                        </button>
+                        <button class="progress-btn" onclick="showProgress()" title="Show Progress">
+                            📊 Progress
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-content">
+                <div class="nav-section">
+                    <h3>Learning</h3>
+                    <a href="../prototype/index_sidebar.html" class="nav-item">
+                        📖 Chapter 1: Missing Phone
+                    </a>
+                    <a href="#" class="nav-item">
+                        📖 Chapter 2: Stolen Wallet  
+                    </a>
+                    <a href="#" class="nav-item active">
+                        📖 Chapter 3: Mysterious Letter
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="content-wrapper">
+                <!-- Vocabulary Panel -->
+                <aside class="learning-panel">
+                    <div class="vocabulary-section">
+                        <h3>📚 New Vocabulary</h3>
+                        
+                        <div class="vocabulary-card" data-word="lettre">
+                            <div class="vocabulary-word">
+                                📄 lettre 
+                                <button class="audio-btn" onclick="playWord('lettre')">🔊</button>
+                            </div>
+                            <div class="vocabulary-translation">= list</div>
+                            <div class="vocabulary-example">
+                                "Marie lit la lettre mystérieuse"
+                                <div class="audio-controls">
+                                    <button class="audio-btn" onclick="playSentence('Marie lit la lettre mystérieuse')">🔊 Play</button>
+                                    <button class="audio-btn slow" onclick="playSentenceSlow('Marie lit la lettre mystérieuse')">🐌 Slow</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="vocabulary-card" data-word="chatte">
+                            <div class="vocabulary-word">
+                                🐱 chatte 
+                                <button class="audio-btn" onclick="playWord('chatte')">🔊</button>
+                            </div>
+                            <div class="vocabulary-translation">= mačka (samička)</div>
+                            <div class="vocabulary-example">
+                                "La chatte Mimi va avoir des bébés"
+                                <div class="audio-controls">
+                                    <button class="audio-btn" onclick="playSentence('La chatte Mimi va avoir des bébés')">🔊 Play</button>
+                                    <button class="audio-btn slow" onclick="playSentenceSlow('La chatte Mimi va avoir des bébés')">🐌 Slow</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="vocabulary-card" data-word="fontaine">
+                            <div class="vocabulary-word">
+                                ⛲ fontaine 
+                                <button class="audio-btn" onclick="playWord('fontaine')">🔊</button>
+                            </div>
+                            <div class="vocabulary-translation">= fontána</div>
+                        </div>
+
+                        <div class="vocabulary-card" data-word="boulangerie">
+                            <div class="vocabulary-word">
+                                🥖 boulangerie 
+                                <button class="audio-btn" onclick="playWord('boulangerie')">🔊</button>
+                            </div>
+                            <div class="vocabulary-translation">= pekáreň</div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-section">
+                        <div class="progress-title">Chapter Progress</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill" style="width: 15%"></div>
+                        </div>
+                        <div class="progress-text" id="progress-text">15% Complete</div>
+                    </div>
+                </aside>
+                <!-- Main Story Content -->
+                <main class="story-content">
+                    <div class="story-header">
+                        <h1 class="story-title">The Mysterious Letter</h1>
+                        <div class="story-meta">Detective Marie Series • Chapter 3 • 18 minutes</div>
+                    </div>
+
+                    <section class="story-section" id="section-1">
+                        <h2 class="section-title">1. The Police Station</h2>
+                        
+                        <div class="bilingual-text">
+                            <div class="paragraph-section">
+                                <p class="french-text">
+                                    Detective Marie est au <span class="vocab-highlight">commissariat de police<span class="tooltip">police station</span></span>. 
+                                    Elle regarde son <span class="vocab-highlight">courrier<span class="tooltip">mail</span></span> du matin. 
+                                    Il y a une <span class="vocab-highlight">lettre mystérieuse<span class="tooltip">mysterious letter</span></span> 
+                                    sans nom d'<span class="vocab-highlight">expéditeur<span class="tooltip">sender</span></span>.
+                                </p>
+                                <div class="paragraph-audio-controls">
+                                    <button class="story-audio-btn french" onclick="playStoryAudio('Detective Marie est au commissariat de police. Elle regarde son courrier du matin. Il y a une lettre mystérieuse sans nom d expéditeur.', this, 'fr-FR', 1.0)" title="French - Normal speed">🇫🇷 🔊</button>
+                                    <button class="story-audio-btn french slow" onclick="playStoryAudio('Detective Marie est au commissariat de police. Elle regarde son courrier du matin. Il y a une lettre mystérieuse sans nom d expéditeur.', this, 'fr-FR', 0.7)" title="French - Slow speed">🇫🇷 🐌</button>
+                                </div>
+                            </div>
+                            
+                            <div class="paragraph-section">
+                                <p class="english-text">
+                                    Detective Marie is at the police station. She's looking at her morning mail. 
+                                    There's a mysterious letter with no sender's name.
+                                </p>
+                                <div class="paragraph-audio-controls">
+                                    <button class="story-audio-btn english" onclick="playStoryAudio('Detective Marie is at the police station. She is looking at her morning mail. There is a mysterious letter with no sender name.', this, 'en-US', 1.0)" title="English - Normal speed">🇬🇧 🔊</button>
+                                    <button class="story-audio-btn english slow" onclick="playStoryAudio('Detective Marie is at the police station. She is looking at her morning mail. There is a mysterious letter with no sender name.', this, 'en-US', 0.7)" title="English - Slow speed">🇬🇧 🐌</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="story-section" id="section-2">
+                        <h2 class="section-title">2. Reading the Letter</h2>
+                        
+                        <div class="bilingual-text">
+                            <div class="paragraph-section">
+                                <p class="french-text">
+                                    Marie <span class="grammar-highlight">ouvre<span class="tooltip">3rd person singular present</span></span> 
+                                    la lettre avec curiosité. Elle lit: "Chère Detective Marie, ma petite 
+                                    <span class="vocab-highlight">chatte<span class="tooltip">female cat</span></span> Mimi 
+                                    <span class="grammar-highlight">a disparu<span class="tooltip">has disappeared - past tense</span></span> hier soir. 
+                                    Elle <span class="grammar-highlight">va avoir<span class="tooltip">is going to have - near future</span></span> 
+                                    des bébés bientôt!"
+                                </p>
+                                <div class="paragraph-audio-controls">
+                                    <button class="story-audio-btn french" onclick="playStoryAudio('Marie ouvre la lettre avec curiosité. Elle lit: Chère Detective Marie, ma petite chatte Mimi a disparu hier soir. Elle va avoir des bébés bientôt!', this, 'fr-FR', 1.0)" title="French - Normal speed">🇫🇷 🔊</button>
+                                    <button class="story-audio-btn french slow" onclick="playStoryAudio('Marie ouvre la lettre avec curiosité. Elle lit: Chère Detective Marie, ma petite chatte Mimi a disparu hier soir. Elle va avoir des bébés bientôt!', this, 'fr-FR', 0.7)" title="French - Slow speed">🇫🇷 🐌</button>
+                                </div>
+                            </div>
+                            
+                            <div class="paragraph-section">
+                                <p class="english-text">
+                                    Marie opens the letter with curiosity. She reads: "Dear Detective Marie, 
+                                    my little cat Mimi disappeared last night. She's going to have babies soon!"
+                                </p>
+                                <div class="paragraph-audio-controls">
+                                    <button class="story-audio-btn english" onclick="playStoryAudio('Marie opens the letter with curiosity. She reads: Dear Detective Marie, my little cat Mimi disappeared last night. She is going to have babies soon!', this, 'en-US', 1.0)" title="English - Normal speed">🇬🇧 🔊</button>
+                                    <button class="story-audio-btn english slow" onclick="playStoryAudio('Marie opens the letter with curiosity. She reads: Dear Detective Marie, my little cat Mimi disappeared last night. She is going to have babies soon!', this, 'en-US', 0.7)" title="English - Slow speed">🇬🇧 🐌</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="story-section" id="section-3">
+                        <h2 class="section-title">3. The First Clue</h2>
+                        
+                        <div class="bilingual-text">
+                            <div class="paragraph-section">
+                                <p class="french-text">
+                                    En bas de la lettre, il y a une petite carte avec des 
+                                    <span class="vocab-highlight">directions<span class="tooltip">directions</span></span>. 
+                                    Marie lit: "<span class="grammar-highlight">Allez<span class="tooltip">imperative: go!</span></span> 
+                                    au parc central. <span class="grammar-highlight">Cherchez<span class="tooltip">imperative: look for!</span></span> 
+                                    l'arbre le plus grand près de la <span class="vocab-highlight">fontaine<span class="tooltip">fountain</span></span>."
+                                </p>
+                                <div class="paragraph-audio-controls">
+                                    <button class="story-audio-btn french" onclick="playStoryAudio('En bas de la lettre, il y a une petite carte avec des directions. Marie lit: Allez au parc central. Cherchez l arbre le plus grand près de la fontaine.', this, 'fr-FR', 1.0)" title="French - Normal speed">🇫🇷 🔊</button>
+                                    <button class="story-audio-btn french slow" onclick="playStoryAudio('En bas de la lettre, il y a une petite carte avec des directions. Marie lit: Allez au parc central. Cherchez l arbre le plus grand près de la fontaine.', this, 'fr-FR', 0.7)" title="French - Slow speed">🇫🇷 🐌</button>
+                                </div>
+                            </div>
+                            
+                            <div class="paragraph-section">
+                                <p class="english-text">
+                                    At the bottom of the letter, there's a small map with directions. 
+                                    Marie reads: "Go to the central park. Look for the tallest tree near the fountain."
+                                </p>
+                                <div class="paragraph-audio-controls">
+                                    <button class="story-audio-btn english" onclick="playStoryAudio('At the bottom of the letter, there is a small map with directions. Marie reads: Go to the central park. Look for the tallest tree near the fountain.', this, 'en-US', 1.0)" title="English - Normal speed">🇬🇧 🔊</button>
+                                    <button class="story-audio-btn english slow" onclick="playStoryAudio('At the bottom of the letter, there is a small map with directions. Marie reads: Go to the central park. Look for the tallest tree near the fountain.', this, 'en-US', 0.7)" title="English - Slow speed">🇬🇧 🐌</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio Controller and Scripts -->
+    <script src="../js/audio_controller.js"></script>
+    <script src="../prototype/js/app_sidebar.js"></script>
+    <script>
+        // Initialize Chapter 3 specific settings
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set initial progress for Chapter 3
+            updateProgress(15);
+            
+            // Initialize audio system
+            if (typeof AudioController !== 'undefined') {
+                console.log('Audio system initialized for Chapter 3');
+            }
+        });
+        
+        // Update progress function
+        function updateProgress(percentage) {
+            const progressFill = document.getElementById('progress-fill');
+            const progressText = document.getElementById('progress-text');
+            if (progressFill && progressText) {
+                progressFill.style.width = percentage + '%';
+                progressText.textContent = percentage + '% Complete';
+            }
+        }
+    </script>
+</body>
+</html>

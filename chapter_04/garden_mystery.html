@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TALYX - The Garden Mystery</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../prototype/css/styles_sidebar.css">
+    <link rel="stylesheet" href="../styles/vocabulary_cards.css">
+</head>
+<body>
+    <!-- Compact Header with Sidebar Toggle -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-left">
+                    <button class="sidebar-toggle" onclick="toggleSidebar()">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <div class="logo">TALYX</div>
+                </div>
+                <div class="header-controls">
+                    <div class="language-toggle">
+                        <button class="toggle-btn active" onclick="toggleLanguage('both')">Both</button>
+                        <button class="toggle-btn" onclick="toggleLanguage('french')">FR</button>
+                        <button class="toggle-btn" onclick="toggleLanguage('english')">EN</button>
+                    </div>
+                    <div class="feature-controls">
+                        <button class="feature-btn active" onclick="toggleHighlights()" title="Toggle Highlights">
+                            <span class="highlight-indicator">▲</span> Highlights
+                        </button>
+                        <button class="progress-btn" onclick="showProgress()" title="Show Progress">
+                            📊 Progress
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-content">
+                <div class="nav-section">
+                    <h3>A1 Level</h3>
+                    <a href="../prototype/index_sidebar.html" class="nav-item">
+                        📖 Chapter 1: Missing Phone
+                    </a>
+                    <a href="#" class="nav-item">
+                        📖 Chapter 2: Stolen Wallet  
+                    </a>
+                    <a href="../chapter_03/mysterious_letter.html" class="nav-item">
+                        📖 Chapter 3: Mysterious Letter
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <h3>A2 Level</h3>
+                    <a href="#" class="nav-item active">
+                        📖 Chapter 4: Garden Mystery
+                    </a>
+                    <a href="#" class="nav-item disabled">
+                        📖 Chapter 5: Museum Case (Coming Soon)
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="content-wrapper">
+                <!-- Advanced Vocabulary Panel -->
+                <aside class="learning-panel">
+                    <div class="vocabulary-section">
+                        <h3>🌱 A2-B1 Vocabulary</h3>
+                        
+                        <div class="vocabulary-card advanced" data-word="jardin-communautaire">
+                            <div class="vocabulary-word">
+                                🌿 jardin communautaire 
+                                <button class="audio-btn" onclick="playWord('jardin communautaire')">🔊</button>
+                            </div>
+                            <div class="vocabulary-translation">= komunitná záhrada</div>
+                            <div class="vocabulary-example">
+                                "Elle cultive dans le jardin communautaire depuis trois ans"
+                                <div class="audio-controls">
+                                    <button class="audio-btn" onclick="playSentence('Elle cultive dans le jardin communautaire depuis trois ans')">🔊 Play</button>
+                                    <button class="audio-btn slow" onclick="playSentenceSlow('Elle cultive dans le jardin communautaire depuis trois ans')">🐌 Slow</button>
+                                </div>
+                            </div>
+                            <div class="vocabulary-note">💡 <strong>Advanced:</strong> Community concept + duration expression</div>
+                        </div>
+
+                        <div class="vocabulary-card advanced" data-word="saccager">
+                            <div class="vocabulary-word">
+                                💥 avait saccagé 
+                                <button class="audio-btn" onclick="playWord('avait saccagé')">🔊</button>
+                            </div>
+                            <div class="vocabulary-translation">= mal zničené (past perfect)</div>
+                            <div class="vocabulary-example">
+                                "Quelqu'un avait saccagé ses plants de tomates"
+                                <div class="audio-controls">
+                                    <button class="audio-btn" onclick="playSentence('Quelqu\\'un avait saccagé ses plants de tomates')">🔊 Play</button>
+                                    <button class="audio-btn slow" onclick="playSentenceSlow('Quelqu\\'un avait saccagé ses plants de tomates')">🐌 Slow</button>
+                                </div>
+                            </div>
+                            <div class="vocabulary-note">💡 <strong>Grammar:</strong> Past perfect tense (plus-que-parfait)</div>
+                        </div>
+
+                        <div class="vocabulary-card advanced" data-word="j-aurais-du">
+                            <div class="vocabulary-word">
+                                😔 j'aurais dû 
+                                <button class="audio-btn" onclick="playWord('j\\'aurais dû')">🔊</button>
+                            </div>
+                            <div class="vocabulary-translation">= mal som (expressing regret)</div>
+                            <div class="vocabulary-example">
+                                "J'aurais dû vous le dire plus tôt"
+                                <div class="audio-controls">
+                                    <button class="audio-btn" onclick="playSentence('J\\'aurais dû vous le dire plus tôt')">🔊 Play</button>
+                                    <button class="audio-btn slow" onclick="playSentenceSlow('J\\'aurais dû vous le dire plus tôt')">🐌 Slow</button>
+                                </div>
+                            </div>
+                            <div class="vocabulary-note">💡 <strong>Advanced:</strong> Conditional perfect - regret/obligation</div>
+                        </div>
+
+                        <div class="vocabulary-card advanced" data-word="compassion">
+                            <div class="vocabulary-word">
+                                💝 compassion 
+                                <button class="audio-btn" onclick="playWord('compassion')">🔊</button>
+                            </div>
+                            <div class="vocabulary-translation">= súcit</div>
+                            <div class="vocabulary-example">
+                                "Marie regarde avec compassion"
+                                <div class="audio-controls">
+                                    <button class="audio-btn" onclick="playSentence('Marie regarde avec compassion')">🔊 Play</button>
+                                    <button class="audio-btn slow" onclick="playSentenceSlow('Marie regarde avec compassion')">🐌 Slow</button>
+                                </div>
+                            </div>
+                            <div class="vocabulary-note">💡 <strong>Character:</strong> Emotional sophistication</div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-section">
+                        <div class="progress-title">Chapter Progress</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill" style="width: 20%"></div>
+                        </div>
+                        <div class="progress-text" id="progress-text">20% Complete</div>
+                    </div>
+                    
+                    <div class="objectives">
+                        <h3>A2-B1 Learning Objectives</h3>
+                        <div class="objective-item current">
+                            <span class="objective-icon">◉</span>
+                            Past perfect tense
+                        </div>
+                        <div class="objective-item">
+                            <span class="objective-icon">○</span>
+                            Conditional perfect
+                        </div>
+                        <div class="objective-item">
+                            <span class="objective-icon">○</span>
+                            Character development
+                        </div>
+                        <div class="objective-item">
+                            <span class="objective-icon">○</span>
+                            Complex moral themes
+                        </div>
+                    </div>
+                </aside>
+                <!-- Main Story Content -->
+                <main class="story-content">
+                    <div class="story-header">
+                        <h1 class="story-title">The Garden Mystery</h1>
+                        <div class="story-meta">Detective Marie Series • Chapter 4 • A2-B1 Level • 22 minutes</div>
+                        <div class="story-complexity">
+                            <span class="complexity-badge advanced">Advanced Grammar</span>
+                            <span class="complexity-badge character">Character Development</span>
+                        </div>
+                    </div>
+
+                    <section class="story-section" id="section-1">
+                        <h2 class="section-title">1. Saturday Morning at the Garden</h2>
+                        
+                        <div class="bilingual-text">
+                            <div class="paragraph-section">
+                                <p class="french-text">
+                                    C'est un samedi matin de <span class="vocab-highlight">printemps<span class="tooltip">spring - seasonal vocabulary</span></span>. 
+                                    Detective Marie n'est pas au commissariat aujourd'hui. Elle se trouve dans le 
+                                    <span class="vocab-highlight">jardin communautaire<span class="tooltip">community garden</span></span> 
+                                    où elle <span class="grammar-highlight">cultive<span class="tooltip">present tense with duration</span></span> 
+                                    des tomates et des herbes aromatiques <span class="grammar-highlight">depuis trois ans<span class="tooltip">duration expression - "for three years"</span></span>.
+                                </p>
+                                <div class="paragraph-audio-controls">
+                                    <button class="story-audio-btn french" onclick="playStoryAudio('C\\'est un samedi matin de printemps. Detective Marie n\\'est pas au commissariat aujourd\\'hui. Elle se trouve dans le jardin communautaire où elle cultive des tomates et des herbes aromatiques depuis trois ans.', this, 'fr-FR', 1.0)" title="French - Normal speed">🇫🇷 🔊</button>
+                                    <button class="story-audio-btn french slow" onclick="playStoryAudio('C\\'est un samedi matin de printemps. Detective Marie n\\'est pas au commissariat aujourd\\'hui. Elle se trouve dans le jardin communautaire où elle cultive des tomates et des herbes aromatiques depuis trois ans.', this, 'fr-FR', 0.7)" title="French - Slow speed">🇫🇷 🐌</button>
+                                </div>
+                            </div>
+                            
+                            <div class="paragraph-section">
+                                <p class="english-text">
+                                    It's a Saturday morning in spring. Detective Marie isn't at the police station today. 
+                                    She's at the community garden where she's been growing tomatoes and herbs for three years.
+                                </p>
+                                <div class="paragraph-audio-controls">
+                                    <button class="story-audio-btn english" onclick="playStoryAudio('It is a Saturday morning in spring. Detective Marie is not at the police station today. She is at the community garden where she has been growing tomatoes and herbs for three years.', this, 'en-US', 1.0)" title="English - Normal speed">🇬🇧 🔊</button>
+                                    <button class="story-audio-btn english slow" onclick="playStoryAudio('It is a Saturday morning in spring. Detective Marie is not at the police station today. She is at the community garden where she has been growing tomatoes and herbs for three years.', this, 'en-US', 0.7)" title="English - Slow speed">🇬🇧 🐌</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="story-section" id="section-2">
+                        <h2 class="section-title">2. The Damage Discovery</h2>
+                        
+                        <div class="bilingual-text">
+                            <div class="paragraph-section">
+                                <p class="french-text">
+                                    Marie s'arrête devant son petit carré de jardin. Quelqu'un 
+                                    <span class="grammar-highlight advanced">avait saccagé<span class="tooltip">PAST PERFECT: had vandalized - action completed before another past action</span></span> 
+                                    ses plants de tomates pendant la nuit! Les tiges étaient cassées, et la terre 
+                                    <span class="grammar-highlight advanced">avait été retournée<span class="tooltip">PAST PERFECT PASSIVE: had been turned over</span></span> 
+                                    partout. "Qui <span class="grammar-highlight conditional">aurait pu<span class="tooltip">CONDITIONAL PERFECT: could have (expressing possibility in past)</span></span> 
+                                    faire une chose pareille?" <span class="vocab-highlight emotion">se demande-t-elle avec tristesse<span class="tooltip">emotional expression - "she wonders sadly"</span></span>.
+                                </p>
+                                <div class="paragraph-audio-controls">
+                                    <button class="story-audio-btn french" onclick="playStoryAudio('Marie s\\'arrête devant son petit carré de jardin. Quelqu\\'un avait saccagé ses plants de tomates pendant la nuit! Les tiges étaient cassées, et la terre avait été retournée partout. Qui aurait pu faire une chose pareille? se demande-t-elle avec tristesse.', this, 'fr-FR', 1.0)" title="French - Normal speed">🇫🇷 🔊</button>
+                                    <button class="story-audio-btn french slow" onclick="playStoryAudio('Marie s\\'arrête devant son petit carré de jardin. Quelqu\\'un avait saccagé ses plants de tomates pendant la nuit! Les tiges étaient cassées, et la terre avait été retournée partout. Qui aurait pu faire une chose pareille? se demande-t-elle avec tristesse.', this, 'fr-FR', 0.7)" title="French - Slow speed">🇫🇷 🐌</button>
+                                </div>
+                            </div>
+                            
+                            <div class="paragraph-section">
+                                <p class="english-text">
+                                    Marie stops in front of her little garden plot. Someone had vandalized her tomato plants during the night! 
+                                    The stems were broken, and the soil had been turned over everywhere. "Who could have done such a thing?" 
+                                    she wonders sadly.
+                                </p>
+                                <div class="paragraph-audio-controls">
+                                    <button class="story-audio-btn english" onclick="playStoryAudio('Marie stops in front of her little garden plot. Someone had vandalized her tomato plants during the night! The stems were broken, and the soil had been turned over everywhere. Who could have done such a thing? she wonders sadly.', this, 'en-US', 1.0)" title="English - Normal speed">🇬🇧 🔊</button>
+                                    <button class="story-audio-btn english slow" onclick="playStoryAudio('Marie stops in front of her little garden plot. Someone had vandalized her tomato plants during the night! The stems were broken, and the soil had been turned over everywhere. Who could have done such a thing? she wonders sadly.', this, 'en-US', 0.7)" title="English - Slow speed">🇬🇧 🐌</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="story-section" id="section-3">
+                        <h2 class="section-title">3. Emotional Stakes</h2>
+                        
+                        <div class="bilingual-text">
+                            <div class="paragraph-section">
+                                <p class="french-text">
+                                    Madame Dubois, une <span class="vocab-highlight">retraitée<span class="tooltip">female retiree</span></span> 
+                                    qui cultivait les plus belles roses du quartier, s'approche de Marie 
+                                    <span class="vocab-highlight emotion">en pleurant<span class="tooltip">crying - present participle</span></span>. 
+                                    "Detective Marie! Quelqu'un <span class="grammar-highlight advanced">avait détruit<span class="tooltip">PAST PERFECT: had destroyed</span></span> 
+                                    mes rosiers que <span class="grammar-highlight advanced">j'avais plantés<span class="tooltip">PAST PERFECT: I had planted - sequence of past events</span></span> 
+                                    il y a cinq ans! C'étaient mes préférés - des roses rouges que mon mari 
+                                    <span class="grammar-highlight advanced">m'avait offertes<span class="tooltip">PAST PERFECT: had given me</span></span> 
+                                    <span class="grammar-highlight subjunctive">avant qu'il ne meure<span class="tooltip">SUBJUNCTIVE: before he died</span></span>."
+                                </p>
+                                <div class="paragraph-audio-controls">
+                                    <button class="story-audio-btn french" onclick="playStoryAudio('Madame Dubois, une retraitée qui cultivait les plus belles roses du quartier, s\\'approche de Marie en pleurant. Detective Marie! Quelqu\\'un avait détruit mes rosiers que j\\'avais plantés il y a cinq ans! C\\'étaient mes préférés - des roses rouges que mon mari m\\'avait offertes avant qu\\'il ne meure.', this, 'fr-FR', 1.0)" title="French - Normal speed">🇫🇷 🔊</button>
+                                    <button class="story-audio-btn french slow" onclick="playStoryAudio('Madame Dubois, une retraitée qui cultivait les plus belles roses du quartier, s\\'approche de Marie en pleurant. Detective Marie! Quelqu\\'un avait détruit mes rosiers que j\\'avais plantés il y a cinq ans! C\\'étaient mes préférés - des roses rouges que mon mari m\\'avait offertes avant qu\\'il ne meure.', this, 'fr-FR', 0.7)" title="French - Slow speed">🇫🇷 🐌</button>
+                                </div>
+                            </div>
+                            
+                            <div class="paragraph-section">
+                                <p class="english-text">
+                                    Mrs. Dubois, a retiree who grew the most beautiful roses in the neighborhood, approaches Marie crying. 
+                                    "Detective Marie! Someone had destroyed my rose bushes that I had planted five years ago! They were my favorites - 
+                                    red roses that my husband had given me before he died."
+                                </p>
+                                <div class="paragraph-audio-controls">
+                                    <button class="story-audio-btn english" onclick="playStoryAudio('Mrs. Dubois, a retiree who grew the most beautiful roses in the neighborhood, approaches Marie crying. Detective Marie! Someone had destroyed my rose bushes that I had planted five years ago! They were my favorites - red roses that my husband had given me before he died.', this, 'en-US', 1.0)" title="English - Normal speed">🇬🇧 🔊</button>
+                                    <button class="story-audio-btn english slow" onclick="playStoryAudio('Mrs. Dubois, a retiree who grew the most beautiful roses in the neighborhood, approaches Marie crying. Detective Marie! Someone had destroyed my rose bushes that I had planted five years ago! They were my favorites - red roses that my husband had given me before he died.', this, 'en-US', 0.7)" title="English - Slow speed">🇬🇧 🐌</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="story-section" id="section-4">
+                        <h2 class="section-title">4. The Confession</h2>
+                        
+                        <div class="bilingual-text">
+                            <div class="paragraph-section">
+                                <p class="french-text">
+                                    "Pourquoi ne l'avez-vous pas arrêté?" demande Marie avec autorité. Monsieur Petit baisse la tête. 
+                                    "Parce que... c'était mon propre fils, Thomas. Il <span class="grammar-highlight advanced">avait eu<span class="tooltip">PAST PERFECT: had had</span></span> 
+                                    des problèmes avec la drogue, et il cherchait quelque chose à vendre. Je pensais qu'il 
+                                    <span class="grammar-highlight advanced">avait changé<span class="tooltip">PAST PERFECT: had changed</span></span>, 
+                                    mais apparemment, il était revenu à ses anciennes habitudes. 
+                                    <span class="grammar-highlight conditional">J'aurais dû<span class="tooltip">CONDITIONAL PERFECT: I should have - expressing regret</span></span> 
+                                    vous le dire plus tôt, mais <span class="vocab-highlight emotion">j'avais honte<span class="tooltip">I was ashamed - emotional expression</span></span>."
+                                </p>
+                                <div class="paragraph-audio-controls">
+                                    <button class="story-audio-btn french" onclick="playStoryAudio('Pourquoi ne l\\'avez-vous pas arrêté? demande Marie avec autorité. Monsieur Petit baisse la tête. Parce que... c\\'était mon propre fils, Thomas. Il avait eu des problèmes avec la drogue, et il cherchait quelque chose à vendre. Je pensais qu\\'il avait changé, mais apparemment, il était revenu à ses anciennes habitudes. J\\'aurais dû vous le dire plus tôt, mais j\\'avais honte.', this, 'fr-FR', 1.0)" title="French - Normal speed">🇫🇷 🔊</button>
+                                    <button class="story-audio-btn french slow" onclick="playStoryAudio('Pourquoi ne l\\'avez-vous pas arrêté? demande Marie avec autorité. Monsieur Petit baisse la tête. Parce que... c\\'était mon propre fils, Thomas. Il avait eu des problèmes avec la drogue, et il cherchait quelque chose à vendre. Je pensais qu\\'il avait changé, mais apparemment, il était revenu à ses anciennes habitudes. J\\'aurais dû vous le dire plus tôt, mais j\\'avais honte.', this, 'fr-FR', 0.7)" title="French - Slow speed">🇫🇷 🐌</button>
+                                </div>
+                            </div>
+                            
+                            <div class="paragraph-section">
+                                <p class="english-text">
+                                    "Why didn't you stop him?" Marie asks with authority. Mr. Petit lowers his head. 
+                                    "Because... it was my own son, Thomas. He had had problems with drugs, and he was looking for something to sell. 
+                                    I thought he had changed, but apparently, he had returned to his old habits. I should have told you earlier, 
+                                    but I was ashamed."
+                                </p>
+                                <div class="paragraph-audio-controls">
+                                    <button class="story-audio-btn english" onclick="playStoryAudio('Why did not you stop him? Marie asks with authority. Mr. Petit lowers his head. Because... it was my own son, Thomas. He had had problems with drugs, and he was looking for something to sell. I thought he had changed, but apparently, he had returned to his old habits. I should have told you earlier, but I was ashamed.', this, 'en-US', 1.0)" title="English - Normal speed">🇬🇧 🔊</button>
+                                    <button class="story-audio-btn english slow" onclick="playStoryAudio('Why did not you stop him? Marie asks with authority. Mr. Petit lowers his head. Because... it was my own son, Thomas. He had had problems with drugs, and he was looking for something to sell. I thought he had changed, but apparently, he had returned to his old habits. I should have told you earlier, but I was ashamed.', this, 'en-US', 0.7)" title="English - Slow speed">🇬🇧 🐌</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio Controller and Scripts -->
+    <script src="../js/audio_controller.js"></script>
+    <script src="../prototype/js/app_sidebar.js"></script>
+    <script>
+        // Initialize Chapter 4 specific settings
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set initial progress for Chapter 4
+            updateProgress(20);
+            
+            // Initialize audio system
+            if (typeof AudioController !== 'undefined') {
+                console.log('Audio system initialized for Chapter 4 - A2-B1 level');
+            }
+            
+            // Add advanced grammar highlighting styles
+            const advancedStyles = document.createElement('style');
+            advancedStyles.textContent = `
+                .grammar-highlight.advanced {
+                    border-bottom: 2px dotted #ff6b35;
+                    background: linear-gradient(rgba(255, 107, 53, 0.1), rgba(255, 107, 53, 0.1));
+                }
+                .grammar-highlight.conditional {
+                    border-bottom: 2px dotted #9b59b6;
+                    background: linear-gradient(rgba(155, 89, 182, 0.1), rgba(155, 89, 182, 0.1));
+                }
+                .grammar-highlight.subjunctive {
+                    border-bottom: 2px dotted #e74c3c;
+                    background: linear-gradient(rgba(231, 76, 60, 0.1), rgba(231, 76, 60, 0.1));
+                }
+                .vocab-highlight.emotion {
+                    border-bottom: 2px dotted #f39c12;
+                    background: linear-gradient(rgba(243, 156, 18, 0.1), rgba(243, 156, 18, 0.1));
+                }
+                .vocabulary-card.advanced {
+                    border-left: 4px solid #ff6b35;
+                }
+                .complexity-badge {
+                    display: inline-block;
+                    padding: 4px 8px;
+                    border-radius: 12px;
+                    font-size: 0.8rem;
+                    margin-right: 8px;
+                    font-weight: 500;
+                }
+                .complexity-badge.advanced {
+                    background: linear-gradient(135deg, #ff6b35, #f7931e);
+                    color: white;
+                }
+                .complexity-badge.character {
+                    background: linear-gradient(135deg, #9b59b6, #8e44ad);
+                    color: white;
+                }
+                .vocabulary-note {
+                    margin-top: 8px;
+                    padding: 6px 10px;
+                    background: rgba(52, 152, 219, 0.1);
+                    border-radius: 6px;
+                    font-size: 0.85rem;
+                    color: #2c3e50;
+                }
+            `;
+            document.head.appendChild(advancedStyles);
+        });
+        
+        // Update progress function
+        function updateProgress(percentage) {
+            const progressFill = document.getElementById('progress-fill');
+            const progressText = document.getElementById('progress-text');
+            if (progressFill && progressText) {
+                progressFill.style.width = percentage + '%';
+                progressText.textContent = percentage + '% Complete';
+            }
+        }
+    </script>
+</body>
+</html>
