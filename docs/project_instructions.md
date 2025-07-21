@@ -182,12 +182,38 @@ This configuration is implemented to optimize token usage by maintaining consist
 
 ---
 
-**Last Updated:** 2025-07-20 13:15 (UTC+2)
-**Version:** 1.0 - Initial comprehensive project guidelines
+**Last Updated:** 2025-07-21 13:10 (UTC+2)
+**Version:** 1.1 - Added Git Automation System and enhanced workflows
 **Next Review:** Upon completion of next major development phase
 ## Git Version Control Protocol
 
 **Purpose:** Prevent work loss during chat interruptions and enable safe recovery
+
+### Git Automation System (NEW - 2025-07-21)
+
+**Automated Chunk Commits:** PowerShell script automatically commits after successful chunk completion
+
+#### **Usage:**
+```powershell
+# After successful chunk completion:
+scripts\git_auto_commit.ps1 -ChunkId "A" -ChunkDescription "Create component structure"
+
+# Test mode (dry run):
+scripts\git_auto_commit.ps1 -ChunkId "TEST" -ChunkDescription "Testing automation" -DryRun
+```
+
+#### **Integration with Chunk Logging:**
+- **Enhanced Template:** Use `templates/chunk_logging_automated.md` for Git automation workflow
+- **Real Commit Hashes:** Replace "Git: (pending)" with actual commit hash returned by script
+- **Automatic Workflow:** Script handles staging, committing, and hash capture
+- **Commit Message Format:** "CHUNK_[ID]: [Description]" for clear development tracking
+
+#### **Benefits:**
+- ✅ **Zero work loss** - Every chunk automatically committed
+- ✅ **Accurate tracking** - Real Git hashes in logs instead of "(pending)"
+- ✅ **Easy recovery** - Exact Git state known for all chunks
+- ✅ **Clear history** - Chunk-based commit messages
+- ✅ **Manual override** - Can still do manual commits when needed
 
 ### Essential Git Commands (Desktop Commander)
 ```bash
@@ -201,9 +227,15 @@ cd "PROJECT_PATH"; git add .; git commit -m "Completed: [achievement description
 cd "PROJECT_PATH"; git push origin main
 ```
 
+### Enhanced Git Zero Risk Workflow
+1. **Before major operation** → Manual checkpoint commit (unchanged)
+2. **After each successful chunk** → **Automated commit via PowerShell script** (NEW)
+3. **Session end** → Manual push to remote (unchanged)
+4. **Chunk logging** → **Real commit hashes replace "(pending)" placeholders** (NEW)
+
 ### Workflow Integration
 1. **Before file operations** → Create checkpoint commit
-2. **After completing tasks** → Commit changes with descriptive message
+2. **After completing tasks** → Use Git automation script OR manual commit
 3. **Session end** → Push to GitHub for backup
 4. **Chat interruption recovery** → Check `git log` for latest safe state
 
